@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Drying Equipment Calculator — ANSI/IICRC S500</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0E1D24;
+    --slab:#15303A;
+    --concrete:#E7EBEA;
+    --panel:#FFFFFF;
+    --water:#2C7C8C;
+    --water-dim:#DDE9EB;
+    --hazard:#F2C10A;
+    --rule:#C3CDCD;
+    --muted:#5C6E75;
+    --alarm:#B33A26;
+    --display:"Barlow Condensed","Oswald","Arial Narrow",sans-serif;
+    --body:"IBM Plex Sans","Segoe UI",system-ui,sans-serif;
+    --mono:"IBM Plex Mono","SFMono-Regular",Consolas,monospace;
+  }
+
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0}
+  body{
+    background:var(--concrete);
+    color:var(--ink);
+    font-family:var(--body);
+    font-size:15px;
+    line-height:1.5;
+    -webkit-text-size-adjust:100%;
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px 80px}
+
+  /* ---------- masthead ---------- */
+  .masthead{
+    background:var(--slab);
+    color:#EAF1F1;
+    margin:0 -20px 28px;
+    padding:26px 20px 22px;
+    border-bottom:6px solid var(--hazard);
+  }
+  .masthead-inner{max-width:1140px;margin:0 auto}
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--hazard);
+    margin:0 0 6px;
+  }
+  .masthead h1{
+    font-family:var(--display);
+    font-weight:700;
+    font-size:clamp(34px,6vw,52px);
+    line-height:.95;
+    letter-spacing:-.01em;
+    text-transform:uppercase;
+    margin:0 0 8px;
+  }
+  .masthead p{margin:0;max-width:60ch;color:#B7C7CB;font-size:14px}
+
+  /* ---------- layout ---------- */
+  .grid{display:grid;grid-template-columns:1fr 380px;gap:24px;align-items:start}
+  @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
+  .panel{
+    background:var(--panel);
+    border:1px solid var(--rule);
+    padding:20px;
+    margin-bottom:20px;
+  }
+  .panel > h2{
+    font-family:var(--display);
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    font-size:20px;
+    font-weight:600;
+    margin:0 0 4px;
+  }
+  .panel > .sub{margin:0 0 18px;color:var(--muted);font-size:13px}
+
+  /* ---------- fields ---------- */
+  .fields{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+  .field{display:flex;flex-direction:column;gap:5px;min-width:0}
+  .field label{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.09em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  input[type=text],input[type=number],select{
+    font-family:var(--mono);
+    font-size:15px;
+    color:var(--ink);
+    background:#F7FAFA;
+    border:1px solid var(--rule);
+    border-bottom:2px solid var(--water);
+    padding:8px 9px;
+    width:100%;
+    border-radius:0;
+    appearance:none;
+  }
+  select{background-image:none}
+  input:focus,select:focus,button:focus{outline:3px solid var(--hazard);outline-offset:1px}
+  input[type=number]{ -moz-appearance:textfield }
+  input[type=number]::-webkit-outer-spin-button,
+  input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+
+  .hint{font-size:11.5px;color:var(--muted);line-height:1.35}
+
+  /* ---------- room cards ---------- */
+  .room{
+    border:1px solid var(--rule);
+    border-left:5px solid var(--water);
+    padding:16px;
+    margin-bottom:14px;
+    background:#FCFDFD;
+  }
+  .room-head{display:flex;gap:10px;align-items:flex-end;margin-bottom:14px}
+  .room-head .field{flex:1}
+  .room-tag{
+    font-family:var(--mono);
+    font-size:10.5px;
+    letter-spacing:.09em;
+    color:var(--water);
+    text-transform:uppercase;
+    padding-bottom:9px;
+    white-space:nowrap;
+  }
+  .room-vol{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--muted);
+    margin-top:12px;
+    padding-top:10px;
+    border-top:1px dashed var(--rule);
+  }
+  .quick{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+
+  button{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    background:transparent;
+    border:1px solid var(--water);
+    color:var(--water);
+    padding:5px 9px;
+    cursor:pointer;
+    border-radius:0;
+  }
+  button:hover{background:var(--water-dim)}
+  .btn-solid{background:var(--slab);border-color:var(--slab);color:#fff;padding:9px 16px;font-size:12px}
+  .btn-solid:hover{background:var(--water);border-color:var(--water)}
+  .btn-drop{border-color:var(--rule);color:var(--muted)}
+  .btn-drop:hover{background:#F6E7E3;border-color:var(--alarm);color:var(--alarm)}
+
+  /* ---------- ticket (signature) ---------- */
+  .ticket{position:sticky;top:16px}
+  @media (max-width:900px){.ticket{position:static}}
+  .ticket-body{
+    background:var(--panel);
+    border:1px solid var(--rule);
+    border-top:none;
+  }
+  .hazard-strip{
+    height:12px;
+    background:repeating-linear-gradient(135deg,var(--hazard) 0 12px,var(--slab) 12px 24px);
+  }
+  .ticket-head{
+    padding:14px 18px 12px;
+    border-bottom:1px dashed var(--rule);
+  }
+  .ticket-head h2{
+    font-family:var(--display);
+    text-transform:uppercase;
+    font-size:22px;
+    font-weight:700;
+    margin:0;
+    letter-spacing:.02em;
+  }
+  .ticket-head .meta{font-family:var(--mono);font-size:10.5px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-top:3px}
+
+  .readout{padding:16px 18px;border-bottom:1px dashed var(--rule)}
+  .readout-top{display:flex;align-items:baseline;justify-content:space-between;gap:12px}
+  .readout-label{
+    font-family:var(--mono);
+    font-size:11px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    color:var(--muted);
+  }
+  .readout-value{
+    font-family:var(--display);
+    font-size:46px;
+    font-weight:700;
+    line-height:.9;
+    letter-spacing:-.01em;
+  }
+  .readout-value .unit{font-size:14px;font-weight:500;color:var(--muted);letter-spacing:.06em;margin-left:5px}
+  .trace{
+    font-family:var(--mono);
+    font-size:11.5px;
+    line-height:1.75;
+    color:var(--muted);
+    margin-top:10px;
+    padding-left:11px;
+    border-left:2px solid var(--hazard);
+  }
+  .trace b{color:var(--ink);font-weight:600}
+  .trace .warn{color:var(--alarm)}
+
+  .power{padding:16px 18px;background:#F3F6F6}
+  .power-row{display:flex;justify-content:space-between;font-family:var(--mono);font-size:12px;padding:3px 0}
+  .power-row.total{border-top:1px solid var(--rule);margin-top:6px;padding-top:7px;font-weight:600;color:var(--ink)}
+  .ticket-actions{padding:14px 18px;display:flex;gap:8px;flex-wrap:wrap}
+
+  .notice{
+    background:#FDF6DC;
+    border-left:4px solid var(--hazard);
+    padding:10px 12px;
+    font-size:12.5px;
+    margin:0 18px 16px;
+  }
+  .notice.hidden{display:none}
+
+  /* ---------- reference ---------- */
+  table{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:12.5px;margin-top:6px}
+  th,td{border:1px solid var(--rule);padding:6px 9px;text-align:center}
+  th{background:var(--slab);color:#EAF1F1;font-weight:500;letter-spacing:.05em;text-transform:uppercase;font-size:10.5px}
+  td:first-child,th:first-child{text-align:left}
+  tr.on td{background:var(--water-dim);font-weight:600;color:var(--ink)}
+
+  details{margin-top:8px;border-top:1px solid var(--rule);padding-top:12px}
+  summary{
+    font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;
+    color:var(--water);cursor:pointer;
+  }
+  details p{font-size:13px;color:var(--muted);max-width:75ch}
+  footer{margin-top:26px;font-size:12px;color:var(--muted);max-width:80ch}
+  footer a{color:var(--water)}
+
+  @media print{
+    body{background:#fff}
+    .masthead{background:#fff;color:#000;border-bottom:2px solid #000}
+    .masthead p,.eyebrow{color:#333}
+    .ticket-actions,.quick,.btn-drop,#addRoom{display:none}
+    .grid{grid-template-columns:1fr}
+    .panel,.room{break-inside:avoid}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <p class="eyebrow">ANSI/IICRC S500 · §10.4.3 · §12.1.20 · Appendix B</p>
+    <h1>Drying Equipment Calculator</h1>
+    <p>Initial placement counts for air movers, dehumidifiers, and air filtration devices. Every number shows the arithmetic behind it, so the count in your file is the count you can defend.</p>
+  </div>
+</header>
+
+<div class="wrap">
+<div class="grid">
+
+  <!-- ============ LEFT: INPUTS ============ -->
+  <main>
+
+    <section class="panel">
+      <h2>Loss classification</h2>
+      <p class="sub">Class sets the evaporation load. Category sets the contamination controls.</p>
+      <div class="fields">
+        <div class="field">
+          <label for="cls">Class of water intrusion</label>
+          <select id="cls">
+            <option value="1">Class 1 — least evaporation load</option>
+            <option value="2" selected>Class 2 — significant load</option>
+            <option value="3">Class 3 — greatest load (from above)</option>
+            <option value="4">Class 4 — specialty / low permeance</option>
+          </select>
+          <span class="hint" id="clsHint"></span>
+        </div>
+        <div class="field">
+          <label for="cat">Category of water</label>
+          <select id="cat">
+            <option value="1" selected>Category 1 — sanitary</option>
+            <option value="2">Category 2 — significantly contaminated</option>
+            <option value="3">Category 3 — grossly contaminated</option>
+          </select>
+          <span class="hint" id="catHint"></span>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Affected rooms</h2>
+      <p class="sub">Air movers are counted room by room. Add every room you'll set equipment in.</p>
+      <div id="rooms"></div>
+      <button id="addRoom" class="btn-solid" type="button">+ Add room</button>
+    </section>
+
+    <section class="panel">
+      <h2>Equipment on the truck</h2>
+      <p class="sub">Ratings come off the machine's data plate. AHAM is tested at 80&nbsp;°F / 60% RH — never use the saturation number here.</p>
+      <div class="fields">
+        <div class="field">
+          <label for="dehuType">Dehumidifier type</label>
+          <select id="dehuType">
+            <option value="conv">Conventional refrigerant</option>
+            <option value="lgr" selected>Low grain refrigerant (LGR)</option>
+            <option value="des">Desiccant</option>
+          </select>
+        </div>
+        <div class="field" id="ahamField">
+          <label for="aham">Dehumidifier AHAM rating (PPD)</label>
+          <input type="number" id="aham" value="70" min="1" step="1">
+        </div>
+        <div class="field" id="desField" style="display:none">
+          <label for="desCfm">Desiccant process air (CFM)</label>
+          <input type="number" id="desCfm" value="1000" min="1" step="10">
+        </div>
+        <div class="field">
+          <label for="afdCfm">AFD / scrubber rating (CFM)</label>
+          <input type="number" id="afdCfm" value="500" min="1" step="10">
+          <span class="hint">Use the filter-loaded CFM, not free-air.</span>
+        </div>
+        <div class="field">
+          <label for="afdAch">AFD target air changes / hour</label>
+          <input type="number" id="afdAch" value="4" min="1" max="20" step="1">
+          <span class="hint" id="achHint">4 ACH is the common minimum.</span>
+        </div>
+      </div>
+
+      <details>
+        <summary>Circuit load assumptions</summary>
+        <div class="fields" style="margin-top:12px">
+          <div class="field">
+            <label for="ampAir">Amps · air mover</label>
+            <input type="number" id="ampAir" value="2.4" min="0" step="0.1">
+          </div>
+          <div class="field">
+            <label for="ampDehu">Amps · dehumidifier</label>
+            <input type="number" id="ampDehu" value="8.5" min="0" step="0.1">
+          </div>
+          <div class="field">
+            <label for="ampAfd">Amps · air scrubber</label>
+            <input type="number" id="ampAfd" value="2.0" min="0" step="0.1">
+          </div>
+          <div class="field">
+            <label for="circuit">Usable amps per circuit</label>
+            <input type="number" id="circuit" value="12" min="1" step="1">
+            <span class="hint">15&nbsp;A circuit at 80% continuous load = 12&nbsp;A.</span>
+          </div>
+        </div>
+      </details>
+    </section>
+
+    <section class="panel">
+      <h2>Appendix B factor chart</h2>
+      <p class="sub">Divide chamber cubic feet by the factor to get the minimum AHAM pints per day.</p>
+      <table>
+        <thead>
+          <tr><th>Dehumidifier type</th><th>Class 1</th><th>Class 2</th><th>Class 3</th><th>Class 4</th></tr>
+        </thead>
+        <tbody>
+          <tr data-type="conv"><td>Conventional refrigerant</td><td>100</td><td>40</td><td>30</td><td>N/A</td></tr>
+          <tr data-type="lgr"><td>Low grain refrigerant</td><td>100</td><td>50</td><td>40</td><td>40</td></tr>
+          <tr data-type="des"><td>Desiccant (air changes/hr)</td><td>1 ACH</td><td>2 ACH</td><td>3 ACH</td><td>3 ACH</td></tr>
+        </tbody>
+      </table>
+
+      <details>
+        <summary>The formulas</summary>
+        <p><b>Air movers (S500-2021):</b> one air mover in each affected room, plus one for every 50–70&nbsp;ft² of wet floor, plus one for every 100–150&nbsp;ft² of wet ceiling and upper wall above the bottom two feet, plus one for each wall inset or offset greater than 18&nbsp;inches.</p>
+        <p><b>Refrigerant dehumidifiers:</b> cubic feet ÷ chart factor = required PPD; required PPD ÷ AHAM rating = number of units.</p>
+        <p><b>Desiccant and AFDs:</b> cubic feet × ACH ÷ 60 = required CFM; required CFM ÷ unit CFM = number of units.</p>
+      </details>
+    </section>
+
+  </main>
+
+  <!-- ============ RIGHT: TICKET ============ -->
+  <aside class="ticket">
+    <div class="hazard-strip"></div>
+    <div class="ticket-body">
+      <div class="ticket-head">
+        <h2>Initial equipment</h2>
+        <div class="meta" id="ticketMeta">—</div>
+      </div>
+
+      <div class="notice hidden" id="notice"></div>
+
+      <div class="readout">
+        <div class="readout-top">
+          <span class="readout-label">Air movers</span>
+          <span class="readout-value" id="amValue">0</span>
+        </div>
+        <div class="trace" id="amTrace"></div>
+      </div>
+
+      <div class="readout">
+        <div class="readout-top">
+          <span class="readout-label" id="dehuLabel">Dehumidifiers</span>
+          <span class="readout-value" id="dehuValue">0</span>
+        </div>
+        <div class="trace" id="dehuTrace"></div>
+      </div>
+
+      <div class="readout">
+        <div class="readout-top">
+          <span class="readout-label">Air scrubbers</span>
+          <span class="readout-value" id="afdValue">0</span>
+        </div>
+        <div class="trace" id="afdTrace"></div>
+      </div>
+
+      <div class="power">
+        <div class="power-row"><span>Air movers</span><span id="pwAir">—</span></div>
+        <div class="power-row"><span>Dehumidifiers</span><span id="pwDehu">—</span></div>
+        <div class="power-row"><span>Air scrubbers</span><span id="pwAfd">—</span></div>
+        <div class="power-row total"><span id="pwCircuits">—</span><span id="pwTotal">—</span></div>
+      </div>
+
+      <div class="ticket-actions">
+        <button type="button" id="copyBtn">Copy for the file</button>
+        <button type="button" onclick="window.print()">Print</button>
+      </div>
+    </div>
+  </aside>
+
+</div>
+
+<footer>
+  <p>Counts are an <b>initial</b> set, not a drying plan. S500 §12.3.5 and §12.5.2 put the burden on daily psychrometric and moisture-content readings: add, move, or pull equipment based on what the meters say, and document the change. Chamber volume assumes the affected rooms dry as one connected space — if you're building separate containments, run each one on its own.</p>
+  <p>Reference: ANSI/IICRC S500 Standard for Professional Water Damage Restoration, 5th edition (2021), and the IICRC <i>Initial Dehumidification Recommendation Factors and Formulas</i> chart. Verify against the current published standard.</p>
+</footer>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var DEHU = {
+    conv:{name:"conventional refrigerant", f:{1:100,2:40,3:30,4:null}},
+    lgr :{name:"LGR",                      f:{1:100,2:50,3:40,4:40}},
+    des :{name:"desiccant",                ach:{1:1,2:2,3:3,4:3}}
+  };
+  var CLASS_HINT = {
+    1:"Under ~5% of the combined floor, wall and ceiling area is wet; minimal absorption into porous materials.",
+    2:"Roughly 5–40% of the area is wet; water has wicked up walls less than two feet.",
+    3:"Over ~40% wet, generally from overhead — ceilings, walls, insulation and everything below.",
+    4:"Deeply held moisture in low-permeance assemblies: hardwood, plaster, concrete, masonry."
+  };
+  var CAT_HINT = {
+    1:"No substantial harm to occupants. Scrubbers still recommended — drying aerosolizes settled soils.",
+    2:"Significant contamination. Run AFDs and consider containment; 4–6 ACH.",
+    3:"Grossly contaminated. Containment, negative pressure and PPE apply; 6+ ACH is typical."
+  };
+
+  var rooms = [], seq = 0;
+  var $ = function(id){ return document.getElementById(id); };
+  var num = function(v){ var n = parseFloat(v); return (isNaN(n) || n < 0) ? 0 : n; };
+  var esc = function(s){ return String(s).replace(/[&<>"]/g, function(c){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
+
+  function addRoom(preset){
+    seq++;
+    rooms.push({
+      id: seq,
+      name: (preset && preset.name) || ("Room " + seq),
+      l: (preset && preset.l) || 12,
+      w: (preset && preset.w) || 12,
+      h: (preset && preset.h) || 8,
+      floor: (preset && preset.floor) || 144,
+      upper: (preset && preset.upper) || 0,
+      insets: 0
+    });
+    renderRooms();
+    calc();
+  }
+
+  function renderRooms(){
+    var host = $("rooms");
+    host.innerHTML = rooms.map(function(r, i){
+      return '<div class="room" data-id="' + r.id + '">' +
+        '<div class="room-head">' +
+          '<span class="room-tag">' + String(i+1).padStart(2,"0") + '</span>' +
+          '<div class="field"><label for="nm' + r.id + '">Room name</label>' +
+            '<input type="text" id="nm' + r.id + '" data-k="name" value="' + esc(r.name) + '"></div>' +
+          (rooms.length > 1 ? '<button type="button" class="btn-drop" data-act="remove">Remove</button>' : '') +
+        '</div>' +
+        '<div class="fields">' +
+          fld(r,"l","Length (ft)") + fld(r,"w","Width (ft)") + fld(r,"h","Ceiling height (ft)") +
+        '</div>' +
+        '<div class="fields" style="margin-top:14px">' +
+          '<div class="field"><label for="fl' + r.id + '">Wet floor area (ft²)</label>' +
+            '<input type="number" id="fl' + r.id + '" data-k="floor" value="' + r.floor + '" min="0" step="1">' +
+            '<div class="quick"><button type="button" data-act="allFloor">Entire floor</button>' +
+            '<button type="button" data-act="halfFloor">Half</button></div></div>' +
+          '<div class="field"><label for="up' + r.id + '">Wet ceiling + wall above 2 ft (ft²)</label>' +
+            '<input type="number" id="up' + r.id + '" data-k="upper" value="' + r.upper + '" min="0" step="1">' +
+            '<div class="quick"><button type="button" data-act="allUpper">Walls + ceiling</button>' +
+            '<button type="button" data-act="wallsOnly">Walls only</button>' +
+            '<button type="button" data-act="clearUpper">None</button></div></div>' +
+          '<div class="field"><label for="in' + r.id + '">Insets / offsets over 18 in</label>' +
+            '<input type="number" id="in' + r.id + '" data-k="insets" value="' + r.insets + '" min="0" step="1">' +
+            '<span class="hint">Closets, small baths, alcoves, chases.</span></div>' +
+        '</div>' +
+        '<div class="room-vol" id="vol' + r.id + '"></div>' +
+      '</div>';
+    }).join("");
+    updateVolumes();
+  }
+
+  function fld(r,k,label){
+    return '<div class="field"><label for="' + k + r.id + '">' + label + '</label>' +
+      '<input type="number" id="' + k + r.id + '" data-k="' + k + '" value="' + r[k] + '" min="0" step="0.5"></div>';
+  }
+
+  function updateVolumes(){
+    rooms.forEach(function(r){
+      var el = $("vol" + r.id);
+      if (!el) return;
+      var perim = 2 * (r.l + r.w);
+      el.textContent = Math.round(r.l * r.w) + " ft² floor · " + perim.toFixed(0) +
+        " lf perimeter · " + Math.round(r.l * r.w * r.h).toLocaleString() + " ft³";
+    });
+  }
+
+  function byId(id){ for (var i=0;i<rooms.length;i++){ if (rooms[i].id === id) return rooms[i]; } return null; }
+
+  $("rooms").addEventListener("input", function(e){
+    var k = e.target.getAttribute("data-k");
+    if (!k) return;
+    var card = e.target.closest(".room");
+    var r = byId(parseInt(card.getAttribute("data-id"), 10));
+    if (!r) return;
+    r[k] = (k === "name") ? e.target.value : num(e.target.value);
+    updateVolumes();
+    calc();
+  });
+
+  $("rooms").addEventListener("click", function(e){
+    var act = e.target.getAttribute("data-act");
+    if (!act) return;
+    var card = e.target.closest(".room");
+    var id = parseInt(card.getAttribute("data-id"), 10);
+    var r = byId(id);
+    if (!r) return;
+
+    if (act === "remove"){
+      rooms = rooms.filter(function(x){ return x.id !== id; });
+      renderRooms(); calc(); return;
+    }
+    if (act === "allFloor")   r.floor = Math.round(r.l * r.w);
+    if (act === "halfFloor")  r.floor = Math.round(r.l * r.w / 2);
+    if (act === "allUpper")   r.upper = Math.round(2 * (r.l + r.w) * Math.max(r.h - 2, 0) + r.l * r.w);
+    if (act === "wallsOnly")  r.upper = Math.round(2 * (r.l + r.w) * Math.max(r.h - 2, 0));
+    if (act === "clearUpper") r.upper = 0;
+
+    var input = card.querySelector('[data-k="' + (act.toLowerCase().indexOf("floor") > -1 ? "floor" : "upper") + '"]');
+    if (input) input.value = (act.toLowerCase().indexOf("floor") > -1) ? r.floor : r.upper;
+    updateVolumes(); calc();
+  });
+
+  ["cls","cat","dehuType","aham","desCfm","afdCfm","afdAch",
+   "ampAir","ampDehu","ampAfd","circuit"].forEach(function(id){
+    $(id).addEventListener("input", calc);
+    $(id).addEventListener("change", calc);
+  });
+
+  $("addRoom").addEventListener("click", function(){ addRoom(); });
+
+  var summaryText = "";
+
+  function calc(){
+    var cls  = parseInt($("cls").value, 10);
+    var cat  = parseInt($("cat").value, 10);
+    var type = $("dehuType").value;
+
+    $("clsHint").textContent = CLASS_HINT[cls];
+    $("catHint").textContent = CAT_HINT[cat];
+    $("ahamField").style.display = (type === "des") ? "none" : "flex";
+    $("desField").style.display  = (type === "des") ? "flex" : "none";
+    $("dehuLabel").textContent   = (type === "des") ? "Desiccant units" : "Dehumidifiers";
+
+    Array.prototype.forEach.call(document.querySelectorAll("tbody tr"), function(tr){
+      tr.classList.toggle("on", tr.getAttribute("data-type") === type);
+    });
+
+    // ---- volumes and areas ----
+    var cuft = 0, floorSf = 0, upperSf = 0, insets = 0, activeRooms = 0;
+    rooms.forEach(function(r){
+      cuft += r.l * r.w * r.h;
+      floorSf += r.floor;
+      upperSf += r.upper;
+      insets += r.insets;
+      if (r.floor > 0 || r.upper > 0) activeRooms++;
+    });
+    cuft = Math.round(cuft);
+
+    $("ticketMeta").textContent = rooms.length + " room" + (rooms.length === 1 ? "" : "s") +
+      " · " + cuft.toLocaleString() + " ft³ chamber · Class " + cls + " / Cat " + cat;
+
+    // ---- air movers ----
+    var flLow = Math.ceil(floorSf / 70), flHigh = Math.ceil(floorSf / 50);
+    var upLow = Math.ceil(upperSf / 150), upHigh = Math.ceil(upperSf / 100);
+    var amLow = activeRooms + flLow + upLow + insets;
+    var amHigh = activeRooms + flHigh + upHigh + insets;
+
+    $("amValue").innerHTML = (amLow === amHigh)
+      ? amLow + '<span class="unit">units</span>'
+      : amLow + "–" + amHigh + '<span class="unit">units</span>';
+
+    var amT = "<b>" + activeRooms + "</b> affected room" + (activeRooms === 1 ? "" : "s") + " × 1 = " + activeRooms + "<br>";
+    amT += "<b>" + floorSf.toLocaleString() + " ft²</b> wet floor ÷ 70…50 = " + flLow + "–" + flHigh + "<br>";
+    amT += "<b>" + upperSf.toLocaleString() + " ft²</b> ceiling + upper wall ÷ 150…100 = " + upLow + "–" + upHigh + "<br>";
+    amT += "<b>" + insets + "</b> inset" + (insets === 1 ? "" : "s") + " / offset" + (insets === 1 ? "" : "s") + " × 1 = " + insets;
+    $("amTrace").innerHTML = amT;
+
+    // ---- dehumidification ----
+    var dehuCount = 0, dehuT = "", dehuDisplay = "0";
+    if (type === "des"){
+      var ach = DEHU.des.ach[cls];
+      var needCfm = Math.round(cuft * ach / 60);
+      var unitCfm = num($("desCfm").value) || 1;
+      dehuCount = Math.ceil(needCfm / unitCfm);
+      dehuDisplay = dehuCount + '<span class="unit">units</span>';
+      dehuT = "<b>" + cuft.toLocaleString() + " ft³</b> × " + ach + " ACH ÷ 60 = <b>" + needCfm.toLocaleString() + " CFM</b><br>" +
+              needCfm.toLocaleString() + " ÷ " + unitCfm.toLocaleString() + " CFM per unit = " + dehuCount;
+    } else {
+      var factor = DEHU[type].f[cls];
+      if (factor === null){
+        dehuDisplay = 'N/A<span class="unit"></span>';
+        dehuT = '<span class="warn">Appendix B publishes no conventional-refrigerant factor for Class 4. Switch to LGR or desiccant.</span>';
+      } else {
+        var needPpd = Math.round(cuft / factor);
+        var rating = num($("aham").value) || 1;
+        dehuCount = Math.ceil(needPpd / rating);
+        dehuDisplay = dehuCount + '<span class="unit">units</span>';
+        dehuT = "<b>" + cuft.toLocaleString() + " ft³</b> ÷ " + factor + " (" + DEHU[type].name + ", Class " + cls + ") = <b>" + needPpd + " PPD</b><br>" +
+                needPpd + " ÷ " + rating + " PPD AHAM = " + dehuCount;
+      }
+    }
+    $("dehuValue").innerHTML = dehuDisplay;
+    $("dehuTrace").innerHTML = dehuT;
+
+    // ---- air scrubbers ----
+    var afdAch = num($("afdAch").value) || 4;
+    var afdUnit = num($("afdCfm").value) || 1;
+    var afdNeed = Math.round(cuft * afdAch / 60);
+    var afdCount = Math.ceil(afdNeed / afdUnit);
+    $("afdValue").innerHTML = afdCount + '<span class="unit">units</span>';
+    $("afdTrace").innerHTML =
+      "<b>" + cuft.toLocaleString() + " ft³</b> × " + afdAch + " ACH ÷ 60 = <b>" + afdNeed.toLocaleString() + " CFM</b><br>" +
+      afdNeed.toLocaleString() + " ÷ " + afdUnit.toLocaleString() + " CFM per unit = " + afdCount +
+      (cat === 3 ? '<br><span class="warn">Cat 3: exhaust outside containment and verify negative pressure.</span>' : "");
+    $("achHint").textContent = (cat === 1) ? "4 ACH is the common minimum."
+      : (cat === 2 ? "Cat 2 — 4 to 6 ACH." : "Cat 3 — 6 ACH or higher, under containment.");
+
+    // ---- electrical ----
+    var a1 = amHigh * num($("ampAir").value);
+    var a2 = dehuCount * num($("ampDehu").value);
+    var a3 = afdCount * num($("ampAfd").value);
+    var tot = a1 + a2 + a3;
+    var per = num($("circuit").value) || 12;
+    $("pwAir").textContent  = a1.toFixed(1) + " A";
+    $("pwDehu").textContent = a2.toFixed(1) + " A";
+    $("pwAfd").textContent  = a3.toFixed(1) + " A";
+    $("pwTotal").textContent = tot.toFixed(1) + " A";
+    $("pwCircuits").textContent = Math.ceil(tot / per) + " circuits @ " + per + " A";
+
+    // ---- notice ----
+    var msgs = [];
+    if (cls === 4) msgs.push("Class 4 is specialty drying — expect desiccant or heat-drying systems and longer dry times.");
+    if (cat >= 2) msgs.push("Category " + cat + ": AFDs are part of the contamination control, not just airflow. Containment and PPE apply.");
+    if (activeRooms === 0 && rooms.length > 0) msgs.push("No wet area entered yet — set the wet floor or upper-wall square footage.");
+    var n = $("notice");
+    if (msgs.length){ n.innerHTML = msgs.join("<br>"); n.classList.remove("hidden"); }
+    else n.classList.add("hidden");
+
+    // ---- copy text ----
+    summaryText =
+      "INITIAL DRYING EQUIPMENT — ANSI/IICRC S500\n" +
+      "Class " + cls + " / Category " + cat + "\n" +
+      "Chamber: " + cuft.toLocaleString() + " cu ft across " + rooms.length + " room(s)\n" +
+      "Wet floor: " + floorSf.toLocaleString() + " sf | Wet ceiling/upper wall: " + upperSf.toLocaleString() + " sf | Insets/offsets: " + insets + "\n\n" +
+      "AIR MOVERS: " + (amLow === amHigh ? amLow : amLow + "-" + amHigh) + "\n" +
+      "  " + activeRooms + " room(s) x1 + floor " + floorSf + "sf/70-50 + upper " + upperSf + "sf/150-100 + " + insets + " inset(s)\n\n" +
+      "DEHUMIDIFICATION: " + $("dehuValue").textContent + "\n" +
+      "  " + $("dehuTrace").textContent + "\n\n" +
+      "AIR SCRUBBERS: " + afdCount + " at " + afdAch + " ACH\n" +
+      "  " + cuft.toLocaleString() + " cu ft x " + afdAch + " / 60 = " + afdNeed + " CFM / " + afdUnit + " CFM per unit\n\n" +
+      "Estimated load: " + tot.toFixed(1) + " A (" + Math.ceil(tot / per) + " circuits at " + per + " A)\n" +
+      "Initial placement only. Adjust from daily psychrometric and moisture readings per S500 12.3.5.";
+  }
+
+  $("copyBtn").addEventListener("click", function(){
+    var btn = this;
+    var done = function(ok){
+      btn.textContent = ok ? "Copied" : "Press Ctrl+C";
+      setTimeout(function(){ btn.textContent = "Copy for the file"; }, 1800);
+    };
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(summaryText).then(function(){ done(true); }, function(){ fallback(); });
+    } else fallback();
+
+    function fallback(){
+      var ta = document.createElement("textarea");
+      ta.value = summaryText;
+      ta.style.position = "fixed"; ta.style.opacity = "0";
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand("copy"); done(true); } catch(e){ done(false); }
+      document.body.removeChild(ta);
+    }
+  });
+
+  // seed
+  addRoom({name:"Living room", l:16, w:14, h:8, floor:224, upper:0});
+})();
+</script>
+</body>
+</html>

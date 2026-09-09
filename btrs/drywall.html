@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bailey the Restorian — Estimate &amp; Quote Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFEDE6;
+    --card:#FBFAF6;
+    --ink:#1C2430;
+    --soft:#5A6472;
+    --rule:#CBC5B8;
+    --rule-strong:#A9A294;
+    --mark:#F2B01E;
+    --chalk:#2E5E86;
+    --brick:#9C3B2A;
+    --sans:'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --cond:'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:var(--sans);
+    font-size:16px;
+    line-height:1.5;
+    color:var(--ink);
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(to right, rgba(28,36,48,.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(28,36,48,.055) 1px, transparent 1px);
+    background-size:26px 26px;
+    -webkit-text-size-adjust:100%;
+  }
+  h1,h2,h3{font-family:var(--cond);font-weight:700;line-height:1.05;margin:0;letter-spacing:.01em}
+
+  /* masthead */
+  .masthead{
+    background:var(--ink);color:var(--card);
+    border-bottom:5px solid var(--mark);
+    padding:18px 20px 14px;
+  }
+  .masthead-in{max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-end;gap:6px 18px}
+  .wordmark{font-family:var(--cond);font-size:40px;font-weight:700;letter-spacing:-.012em;line-height:.95}
+  .wordmark span{color:var(--mark)}
+  .tagline{font-size:14.5px;color:#B9C0CB;padding-bottom:5px}
+  .tagline b{color:var(--card);font-weight:500}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:22px 20px 120px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:22px;align-items:start}
+
+  .block{background:var(--card);border:1px solid var(--rule);border-radius:2px;margin-bottom:18px}
+  .block > h2{
+    font-size:21px;padding:9px 14px 8px;border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:10px;
+  }
+  .block > h2 small{font-family:var(--sans);font-size:13px;font-weight:400;color:var(--soft)}
+  .body{padding:14px}
+
+  label{display:block;font-size:13.5px;color:var(--soft);margin-bottom:3px}
+  input[type=text],input[type=number],select,textarea{
+    width:100%;font-family:var(--sans);font-size:16px;color:var(--ink);
+    background:#fff;border:1px solid var(--rule-strong);border-radius:2px;
+    padding:7px 8px;font-variant-numeric:tabular-nums;
+  }
+  input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--chalk);outline-offset:1px}
+  .grid{display:grid;gap:10px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr 1fr}
+  .g4{grid-template-columns:repeat(4,1fr)}
+
+  /* rooms */
+  .room{border:1px solid var(--rule);border-left:4px solid var(--ink);border-radius:2px;padding:12px;margin-bottom:12px;background:#fff}
+  .room-top{display:flex;gap:10px;align-items:flex-end;margin-bottom:10px}
+  .room-top > div:first-child{flex:1}
+  .room-name{font-family:var(--cond);font-size:22px;font-weight:600;padding:4px 6px}
+  .dims{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+  .scope{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;padding-top:11px;border-top:1px dashed var(--rule)}
+  .chip{position:relative}
+  .chip input{position:absolute;opacity:0;width:1px;height:1px}
+  .chip span{
+    display:block;font-size:14px;padding:5px 11px;border:1px solid var(--rule-strong);
+    border-radius:2px;cursor:pointer;background:#fff;color:var(--soft);user-select:none;
+  }
+  .chip input:checked + span{background:var(--ink);border-color:var(--ink);color:#fff}
+  .chip input:focus-visible + span{outline:3px solid var(--chalk);outline-offset:1px}
+  .room-math{margin-top:11px;font-size:13.5px;color:var(--soft);font-variant-numeric:tabular-nums}
+
+  button{font-family:var(--sans);font-size:15px;cursor:pointer;border-radius:2px}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:9px 15px;font-weight:500}
+  .btn:hover{background:#2A3644}
+  .btn-mark{background:var(--mark);border-color:#C88F0E;color:var(--ink);font-weight:600}
+  .btn-mark:hover{background:#FFC135}
+  .btn-quiet{background:#fff;color:var(--ink);border:1px solid var(--rule-strong);padding:8px 13px}
+  .btn-quiet:hover{border-color:var(--ink)}
+  .btn-x{background:none;border:none;color:var(--brick);font-size:14px;padding:4px 6px}
+  .btn-x:hover{text-decoration:underline}
+  .actions{display:flex;flex-wrap:wrap;gap:9px}
+
+  table{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numeric:tabular-nums}
+  th{text-align:left;font-family:var(--cond);font-size:16px;font-weight:600;color:var(--soft);padding:5px 6px;border-bottom:1px solid var(--rule)}
+  td{padding:5px 6px;border-bottom:1px solid #E7E3D9;vertical-align:top}
+  td.n,th.n{text-align:right;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  .qty-in{width:64px;padding:4px 5px;font-size:14.5px;text-align:right}
+  .price-in{width:82px;padding:4px 5px;font-size:14.5px;text-align:right}
+
+  details{border-top:1px solid var(--rule)}
+  details summary{font-family:var(--cond);font-size:19px;font-weight:600;padding:9px 14px;cursor:pointer;list-style:none}
+  details summary::-webkit-details-marker{display:none}
+  details summary::before{content:'+ ';color:var(--soft)}
+  details[open] summary::before{content:'– '}
+  details .body{border-top:1px solid var(--rule)}
+
+  /* quote sheet */
+  .quote{position:sticky;top:16px}
+  .sheet{background:var(--card);border:1px solid var(--rule-strong);border-radius:2px}
+  .sheet-head{background:var(--ink);color:#fff;padding:11px 14px}
+  .sheet-head h2{font-size:22px}
+  .sheet-head p{margin:2px 0 0;font-size:13.5px;color:#B9C0CB}
+  .sheet section{padding:12px 14px;border-bottom:1px solid var(--rule)}
+  .sheet h3{font-size:17px;margin-bottom:6px;color:var(--soft)}
+  .sumline{display:flex;justify-content:space-between;gap:12px;padding:3px 0;font-size:15px;font-variant-numeric:tabular-nums}
+  .sumline.strong{font-weight:600;border-top:1px solid var(--rule);margin-top:5px;padding-top:7px}
+  .sumline span:last-child{white-space:nowrap}
+  .total{background:var(--mark);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .total .lab{font-family:var(--cond);font-size:20px;font-weight:600}
+  .total .val{font-family:var(--cond);font-size:42px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+  .terms{padding:12px 14px;font-size:13.5px;color:var(--soft)}
+  .empty{padding:26px 14px;color:var(--soft);font-size:15px}
+
+  .note{font-size:13px;color:var(--soft);margin:9px 0 0}
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;background:var(--ink);color:#fff;padding:9px 16px;border-radius:2px;font-size:14.5px;z-index:60}
+  .mobile-total{display:none}
+
+  @media (max-width:900px){
+    .wrap{grid-template-columns:1fr;padding-bottom:84px}
+    .quote{position:static}
+    .dims{grid-template-columns:1fr 1fr 1fr}
+    .g4{grid-template-columns:1fr 1fr}
+    .wordmark{font-size:32px}
+    .mobile-total{
+      display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;
+      background:var(--mark);border-top:2px solid var(--ink);
+      padding:9px 16px;justify-content:space-between;align-items:center;
+    }
+    .mobile-total .lab{font-family:var(--cond);font-size:17px;font-weight:600}
+    .mobile-total .val{font-family:var(--cond);font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+  @media print{
+    body{background:#fff}
+    .noprint,.masthead,.mobile-total{display:none!important}
+    .wrap{display:block;max-width:none;padding:0}
+    .sheet{border:none}
+    .sheet-head{background:#fff;color:#000;border-bottom:3px solid #000}
+    .sheet-head p{color:#333}
+    .total{background:#fff;border-top:3px solid #000;border-bottom:3px solid #000}
+    .quote{position:static}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <div class="wordmark">Bailey the <span>Restorian</span></div>
+    <div class="tagline"><b>Estimate &amp; quote sheet.</b> Drywall, paint, trim, and molding. Materials priced off a Lowe's run.</div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="setup noprint">
+
+    <div class="block">
+      <h2>Job <small>Shows up on the printed quote</small></h2>
+      <div class="body">
+        <div class="grid g2">
+          <div><label for="cust">Customer</label><input type="text" id="cust" placeholder="Name"></div>
+          <div><label for="phone">Phone</label><input type="text" id="phone" placeholder="(321) 555-0134"></div>
+        </div>
+        <div class="grid g2" style="margin-top:10px">
+          <div><label for="addr">Job address</label><input type="text" id="addr" placeholder="Street, city"></div>
+          <div><label for="qnum">Quote number</label><input type="text" id="qnum"></div>
+        </div>
+        <div class="grid g2" style="margin-top:10px">
+          <div><label for="qdate">Date</label><input type="text" id="qdate"></div>
+          <div><label for="valid">Good for</label>
+            <select id="valid">
+              <option>7 days</option><option selected>14 days</option><option>30 days</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Rooms <small>Measure wall to wall</small></h2>
+      <div class="body">
+        <div id="rooms"></div>
+        <div class="actions">
+          <button class="btn" id="addRoom">Add a room</button>
+          <button class="btn-quiet" id="clearRooms">Clear all rooms</button>
+        </div>
+        <p class="note">Wall area comes off length, width, and height, minus 21 sq ft a door and 15 sq ft a window. Baseboard skips door openings; casing figures 17 ft a door and 14 ft a window.</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Add-ons <small>Repair and setup work that isn't square footage</small></h2>
+      <div class="body">
+        <table>
+          <thead><tr><th>Item</th><th class="n">Qty</th><th class="n">Rate</th><th class="n">Amount</th></tr></thead>
+          <tbody id="extrasBody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Prices &amp; rates <small>Set these once, then quote off them</small></h2>
+      <div class="body">
+        <p class="note" style="margin:0 0 12px">The numbers below are starting placeholders, not live Lowe's pricing. Check your store's shelf prices and your own labor rates and type them in — everything recalculates as you edit.</p>
+        <div class="grid g4">
+          <div><label for="f_waste">Material waste %</label><input type="number" id="f_waste" value="10" min="0" step="1"></div>
+          <div><label for="f_tax">Sales tax %</label><input type="number" id="f_tax" value="7" min="0" step="0.5"></div>
+          <div><label for="f_markup">Material markup %</label><input type="number" id="f_markup" value="15" min="0" step="1"></div>
+          <div><label for="f_cont">Contingency %</label><input type="number" id="f_cont" value="5" min="0" step="1"></div>
+          <div><label for="f_coats">Paint coats</label>
+            <select id="f_coats"><option value="1">1</option><option value="2" selected>2</option><option value="3">3</option></select>
+          </div>
+          <div><label for="f_min">Minimum job $</label><input type="number" id="f_min" value="350" min="0" step="25"></div>
+          <div><label for="f_dep">Deposit %</label><input type="number" id="f_dep" value="40" min="0" max="100" step="5"></div>
+          <div><label for="f_corners">Outside corners</label><input type="number" id="f_corners" value="0" min="0" step="1"></div>
+        </div>
+      </div>
+      <details>
+        <summary>Material prices at Lowe's</summary>
+        <div class="body">
+          <table>
+            <thead><tr><th>Item</th><th class="n">Unit</th><th class="n">Price</th></tr></thead>
+            <tbody id="priceBody"></tbody>
+          </table>
+        </div>
+      </details>
+      <details>
+        <summary>Labor rates</summary>
+        <div class="body">
+          <table>
+            <thead><tr><th>Work</th><th class="n">Per</th><th class="n">Rate</th></tr></thead>
+            <tbody id="rateBody"></tbody>
+          </table>
+        </div>
+      </details>
+    </div>
+
+  </div>
+
+  <aside class="quote">
+    <div class="sheet" id="sheet">
+      <div class="sheet-head">
+        <h2>Quote</h2>
+        <p id="sheetSub">Add a room to start the takeoff.</p>
+      </div>
+      <div id="sheetBody"><p class="empty">Nothing measured yet.</p></div>
+    </div>
+    <div class="actions noprint" style="margin-top:12px">
+      <button class="btn-mark" id="printBtn">Print or save as PDF</button>
+      <button class="btn-quiet" id="copyBtn">Copy quote as text</button>
+    </div>
+    <p class="note noprint">Cash job: material prices and tax are estimates until the register receipt says otherwise.</p>
+  </aside>
+
+</main>
+
+<div class="mobile-total noprint" id="mobileTotal">
+  <span class="lab">Quote total</span><span class="val" id="mobileTotalVal">$0</span>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var $ = function(s, el){ return (el||document).querySelector(s); };
+  var num = function(v){ var n = parseFloat(v); return isFinite(n) ? n : 0; };
+  var money = function(n){
+    return '$' + (Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:2, maximumFractionDigits:2});
+  };
+  var money0 = function(n){
+    return '$' + Math.round(n).toLocaleString('en-US');
+  };
+  var ceil = function(n){ return Math.ceil(n - 1e-9); };
+
+  /* ---------- price book ---------- */
+  var PRICES = [
+    {k:'sheet',   label:'Drywall, 1/2 in. 4 x 8 sheet',        unit:'sheet',  price:16.98},
+    {k:'mud',     label:'All-purpose joint compound, 4.5 gal', unit:'bucket', price:19.98},
+    {k:'tape',    label:'Paper joint tape, 500 ft roll',       unit:'roll',   price:8.48},
+    {k:'screws',  label:'Drywall screws, 5 lb box',            unit:'box',    price:24.98},
+    {k:'bead',    label:'Metal corner bead, 8 ft',             unit:'stick',  price:4.28},
+    {k:'primer',  label:'Drywall primer / sealer, 1 gal',      unit:'gal',    price:24.98},
+    {k:'wpaint',  label:'Interior wall paint, 1 gal',          unit:'gal',    price:38.98},
+    {k:'cpaint',  label:'Ceiling paint, 1 gal',                unit:'gal',    price:29.98},
+    {k:'base',    label:'Baseboard, per ft',                   unit:'ft',     price:1.85},
+    {k:'crown',   label:'Crown molding, per ft',               unit:'ft',     price:2.65},
+    {k:'casing',  label:'Door / window casing, per ft',        unit:'ft',     price:1.45},
+    {k:'caulk',   label:'Paintable caulk',                     unit:'tube',   price:4.68},
+    {k:'nails',   label:'Finish nails / wood filler',          unit:'box',    price:9.98},
+    {k:'supply',  label:'Masking, plastic, sandpaper, rollers',unit:'job',    price:45.00}
+  ];
+
+  var RATES = [
+    {k:'hang',   label:'Hang drywall',              per:'sq ft', rate:0.55},
+    {k:'finish', label:'Tape and finish, level 4',  per:'sq ft', rate:0.95},
+    {k:'pwall',  label:'Paint walls, prep included',per:'sq ft', rate:0.85},
+    {k:'pceil',  label:'Paint ceilings',            per:'sq ft', rate:0.95},
+    {k:'rbase',  label:'Run baseboard',             per:'ft',    rate:3.00},
+    {k:'rcrown', label:'Run crown molding',         per:'ft',    rate:5.50},
+    {k:'rcase',  label:'Case doors and windows',    per:'ft',    rate:3.25}
+  ];
+
+  var EXTRAS = [
+    {k:'patch',  label:'Drywall patch, up to 2 ft',      rate:85,  qty:0},
+    {k:'texture',label:'Texture match and blend',        rate:65,  qty:0},
+    {k:'water',  label:'Water damage cut-out and remove',rate:120, qty:0},
+    {k:'trip',   label:'Trip and setup',                 rate:75,  qty:1},
+    {k:'haul',   label:'Debris haul-away',               rate:100, qty:0}
+  ];
+
+  var SCOPE = [
+    {k:'hangWalls', label:'Hang walls'},
+    {k:'hangCeil',  label:'Hang ceiling'},
+    {k:'finish',    label:'Tape &amp; finish'},
+    {k:'paintWalls',label:'Paint walls'},
+    {k:'paintCeil', label:'Paint ceiling'},
+    {k:'base',      label:'Baseboard'},
+    {k:'crown',     label:'Crown'},
+    {k:'casing',    label:'Casing'}
+  ];
+
+  var rooms = [];
+  var seq = 0;
+
+  /* ---------- room math ---------- */
+  function roomMath(r){
+    var per = 2 * (r.L + r.W);
+    var wall = Math.max(0, per * r.H - r.doors*21 - r.windows*15);
+    var ceilA = r.L * r.W;
+    return {
+      perimeter: per,
+      wall: wall,
+      ceiling: ceilA,
+      baseLF: Math.max(0, per - r.doors*3),
+      crownLF: per,
+      caseLF: r.doors*17 + r.windows*14
+    };
+  }
+
+  function totals(){
+    var t = {board:0, finish:0, pwall:0, pceil:0, base:0, crown:0, casing:0, newBoard:0};
+    for (var i=0;i<rooms.length;i++){
+      var r = rooms[i], m = roomMath(r), s = r.scope;
+      if (s.hangWalls) t.board += m.wall;
+      if (s.hangCeil)  t.board += m.ceiling;
+      if (s.finish){
+        var fs = (s.hangWalls ? m.wall : 0) + (s.hangCeil ? m.ceiling : 0);
+        if (fs === 0) fs = m.wall;
+        t.finish += fs;
+      }
+      if (s.paintWalls) t.pwall += m.wall;
+      if (s.paintCeil)  t.pceil += m.ceiling;
+      if (s.base)   t.base   += m.baseLF;
+      if (s.crown)  t.crown  += m.crownLF;
+      if (s.casing) t.casing += m.caseLF;
+    }
+    t.newBoard = t.board;
+    return t;
+  }
+
+  function priceOf(k){
+    for (var i=0;i<PRICES.length;i++) if (PRICES[i].k===k) return PRICES[i];
+    return {price:0, unit:'', label:k};
+  }
+  function rateOf(k){
+    for (var i=0;i<RATES.length;i++) if (RATES[i].k===k) return RATES[i];
+    return {rate:0, per:'', label:k};
+  }
+
+  function factors(){
+    return {
+      waste: num($('#f_waste').value)/100,
+      tax: num($('#f_tax').value)/100,
+      markup: num($('#f_markup').value)/100,
+      cont: num($('#f_cont').value)/100,
+      coats: num($('#f_coats').value) || 2,
+      min: num($('#f_min').value),
+      dep: num($('#f_dep').value)/100,
+      corners: num($('#f_corners').value)
+    };
+  }
+
+  /* ---------- material list ---------- */
+  function materials(t, f){
+    var out = [], add = function(k, qty){
+      if (qty <= 0) return;
+      var p = priceOf(k);
+      out.push({label:p.label, qty:qty, unit:p.unit, price:p.price, cost:qty*p.price});
+    };
+    var w = 1 + f.waste;
+
+    add('sheet',  ceil(t.board * w / 32));
+    add('mud',    ceil(t.finish / 475));
+    add('tape',   ceil(t.finish * 0.4 / 500));
+    add('screws', t.board > 0 ? ceil(t.board / 1000) : 0);
+    add('bead',   f.corners);
+
+    var primeSF = t.newBoard > 0 ? Math.min(t.newBoard, t.pwall + t.pceil) : 0;
+    add('primer', ceil(primeSF / 250));
+    add('wpaint', ceil(t.pwall * f.coats / 350));
+    add('cpaint', ceil(t.pceil * f.coats / 350));
+
+    add('base',   Math.round(t.base * w));
+    add('crown',  Math.round(t.crown * w));
+    add('casing', Math.round(t.casing * w));
+
+    var trimLF = t.base + t.crown + t.casing;
+    add('caulk',  ceil(trimLF / 60));
+    add('nails',  trimLF > 0 ? ceil(trimLF / 300) : 0);
+    add('supply', (t.pwall + t.pceil + t.board) > 0 ? 1 : 0);
+
+    return out;
+  }
+
+  /* ---------- labor list ---------- */
+  function labor(t){
+    var out = [], add = function(k, qty){
+      if (qty <= 0) return;
+      var r = rateOf(k);
+      out.push({label:r.label, qty:Math.round(qty), per:r.per, rate:r.rate, cost:qty*r.rate});
+    };
+    add('hang',   t.board);
+    add('finish', t.finish);
+    add('pwall',  t.pwall);
+    add('pceil',  t.pceil);
+    add('rbase',  t.base);
+    add('rcrown', t.crown);
+    add('rcase',  t.casing);
+    return out;
+  }
+
+  function extrasList(){
+    var out = [];
+    for (var i=0;i<EXTRAS.length;i++){
+      var e = EXTRAS[i];
+      if (e.qty > 0) out.push({label:e.label, qty:e.qty, rate:e.rate, cost:e.qty*e.rate});
+    }
+    return out;
+  }
+
+  function sum(list, key){
+    var s = 0;
+    for (var i=0;i<list.length;i++) s += list[i][key];
+    return s;
+  }
+
+  /* ---------- render: rooms ---------- */
+  function newRoom(){
+    seq++;
+    return {
+      id: seq,
+      name: 'Room ' + seq,
+      L: 12, W: 12, H: 8, doors: 1, windows: 1,
+      scope: {hangWalls:false, hangCeil:false, finish:false, paintWalls:true, paintCeil:true, base:true, crown:false, casing:false}
+    };
+  }
+
+  function roomCard(r){
+    var el = document.createElement('div');
+    el.className = 'room';
+    var chips = '';
+    for (var i=0;i<SCOPE.length;i++){
+      var s = SCOPE[i];
+      chips += '<label class="chip"><input type="checkbox" data-scope="'+s.k+'"'+(r.scope[s.k]?' checked':'')+'><span>'+s.label+'</span></label>';
+    }
+    el.innerHTML =
+      '<div class="room-top">' +
+        '<div><label>Room</label><input type="text" class="room-name" data-f="name" value="'+r.name.replace(/"/g,'&quot;')+'"></div>' +
+        '<button class="btn-x" data-del="1">Remove</button>' +
+      '</div>' +
+      '<div class="dims">' +
+        '<div><label>Length ft</label><input type="number" inputmode="decimal" data-f="L" value="'+r.L+'" min="0" step="0.5"></div>' +
+        '<div><label>Width ft</label><input type="number" inputmode="decimal" data-f="W" value="'+r.W+'" min="0" step="0.5"></div>' +
+        '<div><label>Height ft</label><input type="number" inputmode="decimal" data-f="H" value="'+r.H+'" min="0" step="0.5"></div>' +
+        '<div><label>Doors</label><input type="number" inputmode="numeric" data-f="doors" value="'+r.doors+'" min="0" step="1"></div>' +
+        '<div><label>Windows</label><input type="number" inputmode="numeric" data-f="windows" value="'+r.windows+'" min="0" step="1"></div>' +
+      '</div>' +
+      '<div class="scope">' + chips + '</div>' +
+      '<p class="room-math"></p>';
+
+    el.addEventListener('input', function(ev){
+      var el2 = ev.target, f = el2.getAttribute('data-f');
+      if (f === 'name') r.name = el2.value;
+      else if (f) r[f] = Math.max(0, num(el2.value));
+      stamp(el, r); calc();
+    });
+    el.addEventListener('change', function(ev){
+      var k = ev.target.getAttribute('data-scope');
+      if (k) { r.scope[k] = ev.target.checked; calc(); }
+    });
+    el.querySelector('[data-del]').addEventListener('click', function(){
+      for (var i=0;i<rooms.length;i++) if (rooms[i].id === r.id) { rooms.splice(i,1); break; }
+      el.remove(); calc();
+    });
+
+    stamp(el, r);
+    return el;
+  }
+
+  function stamp(el, r){
+    var m = roomMath(r);
+    el.querySelector('.room-math').textContent =
+      Math.round(m.wall) + ' sq ft of wall, ' + Math.round(m.ceiling) + ' sq ft of ceiling, ' +
+      Math.round(m.baseLF) + ' ft of base, ' + Math.round(m.perimeter) + ' ft around';
+  }
+
+  function addRoom(){
+    var r = newRoom();
+    rooms.push(r);
+    $('#rooms').appendChild(roomCard(r));
+    calc();
+  }
+
+  /* ---------- render: editable tables ---------- */
+  function buildPriceTable(){
+    var b = $('#priceBody'); b.innerHTML = '';
+    PRICES.forEach(function(p){
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>'+p.label+'</td><td class="n">'+p.unit+'</td>' +
+        '<td class="n"><input class="price-in" type="number" min="0" step="0.01" value="'+p.price.toFixed(2)+'"></td>';
+      tr.querySelector('input').addEventListener('input', function(e){ p.price = num(e.target.value); calc(); });
+      b.appendChild(tr);
+    });
+  }
+
+  function buildRateTable(){
+    var b = $('#rateBody'); b.innerHTML = '';
+    RATES.forEach(function(r){
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>'+r.label+'</td><td class="n">'+r.per+'</td>' +
+        '<td class="n"><input class="price-in" type="number" min="0" step="0.05" value="'+r.rate.toFixed(2)+'"></td>';
+      tr.querySelector('input').addEventListener('input', function(e){ r.rate = num(e.target.value); calc(); });
+      b.appendChild(tr);
+    });
+  }
+
+  function buildExtras(){
+    var b = $('#extrasBody'); b.innerHTML = '';
+    EXTRAS.forEach(function(x){
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>'+x.label+'</td>' +
+        '<td class="n"><input class="qty-in" type="number" min="0" step="1" value="'+x.qty+'"></td>' +
+        '<td class="n"><input class="price-in" type="number" min="0" step="5" value="'+x.rate.toFixed(2)+'"></td>' +
+        '<td class="n amt">'+money(x.qty*x.rate)+'</td>';
+      var ins = tr.querySelectorAll('input');
+      ins[0].addEventListener('input', function(e){ x.qty = Math.max(0, num(e.target.value)); tr.querySelector('.amt').textContent = money(x.qty*x.rate); calc(); });
+      ins[1].addEventListener('input', function(e){ x.rate = num(e.target.value); tr.querySelector('.amt').textContent = money(x.qty*x.rate); calc(); });
+      b.appendChild(tr);
+    });
+  }
+
+  /* ---------- render: quote ---------- */
+  var last = null;
+
+  function calc(){
+    var f = factors(), t = totals();
+    var mats = materials(t, f), labs = labor(t), exs = extrasList();
+
+    var matSub = sum(mats,'cost');
+    var tax = matSub * f.tax;
+    var markup = matSub * f.markup;
+    var labSub = sum(labs,'cost');
+    var exSub = sum(exs,'cost');
+    var sub = matSub + tax + markup + labSub + exSub;
+    var cont = sub * f.cont;
+    var total = sub + cont;
+    var bumped = false;
+    if (total > 0 && total < f.min) { total = f.min; bumped = true; }
+    if (rooms.length === 0 && exSub === 0) total = 0;
+
+    last = {f:f, t:t, mats:mats, labs:labs, exs:exs, matSub:matSub, tax:tax, markup:markup,
+            labSub:labSub, exSub:exSub, cont:cont, total:total, bumped:bumped};
+
+    drawSheet();
+  }
+
+  function row(cells){
+    return '<tr>' + cells.map(function(c,i){ return '<td'+(i?' class="n"':'')+'>'+c+'</td>'; }).join('') + '</tr>';
+  }
+
+  function drawSheet(){
+    var d = last, body = $('#sheetBody'), sub = $('#sheetSub');
+    var cust = $('#cust').value.trim();
+    var addr = $('#addr').value.trim();
+    var parts = [];
+    if (cust) parts.push(cust);
+    if (addr) parts.push(addr);
+    parts.push($('#qdate').value);
+    parts.push('No. ' + $('#qnum').value);
+    sub.textContent = parts.join(', ');
+
+    if (d.total === 0){
+      body.innerHTML = '<p class="empty">Nothing measured yet. Add a room and check what you are doing to it.</p>';
+      $('#mobileTotalVal').textContent = '$0';
+      return;
+    }
+
+    var html = '';
+
+    if (d.mats.length){
+      html += '<section><h3>Lowe\'s run</h3><table><thead><tr><th>Material</th><th class="n">Qty</th><th class="n">Cost</th></tr></thead><tbody>';
+      d.mats.forEach(function(m){
+        html += row([m.label, m.qty + ' ' + plural(m.unit, m.qty), money(m.cost)]);
+      });
+      html += '</tbody></table></section>';
+    }
+
+    if (d.labs.length){
+      html += '<section><h3>Labor</h3><table><thead><tr><th>Work</th><th class="n">Qty</th><th class="n">Cost</th></tr></thead><tbody>';
+      d.labs.forEach(function(l){
+        html += row([l.label, l.qty + ' ' + l.per, money(l.cost)]);
+      });
+      html += '</tbody></table></section>';
+    }
+
+    if (d.exs.length){
+      html += '<section><h3>Add-ons</h3><table><tbody>';
+      d.exs.forEach(function(x){
+        html += row([x.label + (x.qty>1 ? ' × ' + x.qty : ''), '', money(x.cost)]);
+      });
+      html += '</tbody></table></section>';
+    }
+
+    html += '<section>' +
+      line('Materials', d.matSub) +
+      line('Sales tax', d.tax) +
+      (d.markup ? line('Handling and pickup', d.markup) : '') +
+      line('Labor', d.labSub) +
+      (d.exSub ? line('Add-ons', d.exSub) : '') +
+      (d.cont ? line('Contingency', d.cont) : '') +
+      '</section>';
+
+    html += '<div class="total"><span class="lab">Cash price</span><span class="val">' + money0(d.total) + '</span></div>';
+
+    var dep = d.total * d.f.dep;
+    html += '<div class="terms">' +
+      '<div class="sumline"><span>Deposit to start</span><span>' + money0(dep) + '</span></div>' +
+      '<div class="sumline"><span>Balance when finished</span><span>' + money0(d.total - dep) + '</span></div>' +
+      '<p style="margin:9px 0 0">Cash, ' + $('#valid').value + ' to accept. Materials are estimated at current Lowe\'s shelf prices; receipts available on request. ' +
+      (d.bumped ? 'Minimum job charge applied. ' : '') +
+      'Anything found behind the wall gets priced before the work goes on.</p>' +
+      '</div>';
+
+    body.innerHTML = html;
+    $('#mobileTotalVal').textContent = money0(d.total);
+  }
+
+  var PLURALS = {sheet:'sheets', bucket:'buckets', roll:'rolls', box:'boxes', stick:'sticks', tube:'tubes', gal:'gal', ft:'ft', job:'job'};
+  function plural(unit, qty){
+    return qty > 1 ? (PLURALS[unit] || unit) : unit;
+  }
+
+  function line(label, val){
+    return '<div class="sumline"><span>' + label + '</span><span>' + money(val) + '</span></div>';
+  }
+
+  /* ---------- plain text quote ---------- */
+  function quoteText(){
+    var d = last;
+    if (!d || d.total === 0) return 'Nothing measured yet.';
+    var L = [];
+    L.push('BAILEY THE RESTORIAN — QUOTE ' + $('#qnum').value);
+    L.push($('#qdate').value);
+    if ($('#cust').value.trim()) L.push('For: ' + $('#cust').value.trim());
+    if ($('#addr').value.trim()) L.push('At: ' + $('#addr').value.trim());
+    L.push('');
+    L.push('SCOPE');
+    rooms.forEach(function(r){
+      var on = [];
+      SCOPE.forEach(function(s){ if (r.scope[s.k]) on.push(s.label.replace('&amp;','&')); });
+      if (on.length) L.push('  ' + r.name + ' (' + r.L + 'x' + r.W + 'x' + r.H + '): ' + on.join(', '));
+    });
+    d.exs.forEach(function(x){ L.push('  ' + x.label + (x.qty>1 ? ' x' + x.qty : '')); });
+    L.push('');
+    L.push('MATERIALS (Lowe\'s)');
+    d.mats.forEach(function(m){ L.push('  ' + m.qty + ' ' + m.unit + ' — ' + m.label + '  ' + money(m.cost)); });
+    L.push('');
+    L.push('Materials ' + money(d.matSub) + ' | Tax ' + money(d.tax) + ' | Labor ' + money(d.labSub));
+    L.push('');
+    L.push('CASH PRICE: ' + money0(d.total));
+    L.push('Deposit to start: ' + money0(d.total * d.f.dep));
+    L.push('Balance when finished: ' + money0(d.total - d.total * d.f.dep));
+    L.push('Good for ' + $('#valid').value + '.');
+    return L.join('\n');
+  }
+
+  function toast(msg){
+    var el = document.createElement('div');
+    el.className = 'toast'; el.textContent = msg;
+    document.body.appendChild(el);
+    setTimeout(function(){ el.remove(); }, 2200);
+  }
+
+  function copyQuote(){
+    var text = quoteText();
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ toast('Quote copied'); }, fallback);
+    } else fallback();
+
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed'; ta.style.top = '-1000px';
+      document.body.appendChild(ta); ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch(e){ ok = false; }
+      ta.remove();
+      toast(ok ? 'Quote copied' : 'Copy blocked here — print instead');
+    }
+  }
+
+  /* ---------- boot ---------- */
+  var now = new Date();
+  $('#qdate').value = now.toLocaleDateString('en-US', {year:'numeric', month:'short', day:'numeric'});
+  $('#qnum').value = String(now.getFullYear()).slice(2) +
+    String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') + '-1';
+
+  buildPriceTable();
+  buildRateTable();
+  buildExtras();
+
+  $('#addRoom').addEventListener('click', addRoom);
+  $('#clearRooms').addEventListener('click', function(){
+    rooms = []; seq = 0; $('#rooms').innerHTML = ''; calc();
+  });
+  $('#printBtn').addEventListener('click', function(){ window.print(); });
+  $('#copyBtn').addEventListener('click', copyQuote);
+
+  ['f_waste','f_tax','f_markup','f_cont','f_coats','f_min','f_dep','f_corners','cust','addr','qnum','qdate','valid','phone']
+    .forEach(function(id){
+      var el = document.getElementById(id);
+      if (el) el.addEventListener('input', calc);
+      if (el && el.tagName === 'SELECT') el.addEventListener('change', calc);
+    });
+
+  addRoom();
+})();
+</script>
+</body>
+</html>

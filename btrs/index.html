@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bailey The Restorian — 24/7 Water Damage Restoration | Brevard County, FL</title>
+<meta name="description" content="Emergency water damage restoration in Melbourne, Palm Bay and across Brevard County. Water extraction, structural drying and dehumidification, and full documentation for your insurance claim. Call (321) 300-4076 — 24/7.">
+<meta name="theme-color" content="#DC4402">
+<link rel="icon" href="icon.png" type="image/png">
+<link rel="apple-touch-icon" href="icon.png">
+
+<meta property="og:title" content="Bailey The Restorian — 24/7 Water Damage Restoration">
+<meta property="og:description" content="Fast response. Quality restoration. We dry it, you get back to life. Serving Brevard County, Florida.">
+<meta property="og:image" content="https://baileytherestorian.org/logo.jpg">
+<meta property="og:url" content="https://baileytherestorian.org/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Bailey The Restorian">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="canonical" href="https://baileytherestorian.org/">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;1,700;1,800&family=Barlow+Semi+Condensed:wght@500;600&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================================
+   BAILEY THE RESTORIAN
+   Palette sampled directly from the logo artwork.
+   ============================================================ */
+:root{
+  --orange:#DC4402;
+  --orange-dk:#A33200;
+  --blue:#0040A2;
+  --blue-lt:#2F6BD4;
+  --navy:#04173A;
+  --navy-2:#082450;
+  --bone:#EDE6DA;
+  --bone-dim:#D6CCBC;
+  --ink:#0A0A0C;
+  --display:"Barlow Condensed",Impact,"Arial Narrow",sans-serif;
+  --label:"Barlow Semi Condensed","Arial Narrow",sans-serif;
+  --body:"Barlow","Segoe UI",system-ui,sans-serif;
+  --gut:clamp(18px,4vw,40px);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--bone);color:var(--ink);
+  font-family:var(--body);font-size:17px;line-height:1.62;
+  -webkit-text-size-adjust:100%;overflow-x:hidden;
+}
+img{max-width:100%;display:block}
+a{color:inherit}
+
+.shell{max-width:1180px;margin:0 auto;padding:0 var(--gut)}
+
+h1,h2,h3,.dsp{
+  font-family:var(--display);font-style:italic;font-weight:800;
+  text-transform:uppercase;line-height:.92;letter-spacing:-.005em;margin:0;
+}
+h2{font-size:clamp(34px,6vw,60px)}
+h3{font-size:clamp(21px,2.4vw,26px);font-style:normal;font-weight:700}
+
+.eyebrow{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;
+  letter-spacing:.2em;font-size:12.5px;margin:0 0 14px;
+}
+
+/* ---------- buttons ---------- */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;
+  font-size:clamp(22px,3.4vw,30px);letter-spacing:.01em;line-height:1;
+  padding:16px 26px;border:3px solid var(--ink);text-decoration:none;
+  background:var(--bone);color:var(--ink);
+  box-shadow:6px 6px 0 var(--ink);
+  transition:transform .12s ease, box-shadow .12s ease;
+}
+.btn:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
+.btn:active{transform:translate(6px,6px);box-shadow:0 0 0 var(--ink)}
+.btn-blue{background:var(--blue);color:#fff;border-color:var(--ink)}
+.btn-ghost{
+  background:transparent;color:var(--ink);box-shadow:none;border-width:2px;
+  font-size:clamp(15px,2vw,17px);padding:13px 20px;
+}
+.btn-ghost:hover{background:var(--ink);color:var(--bone);transform:none}
+a:focus-visible,button:focus-visible,summary:focus-visible{
+  outline:4px solid var(--blue);outline-offset:3px
+}
+
+/* ---------- top bar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:60;background:var(--ink);color:var(--bone);
+  border-bottom:3px solid var(--orange);
+}
+.topbar .shell{display:flex;align-items:center;justify-content:space-between;gap:14px;padding-top:9px;padding-bottom:9px}
+.brandmark{font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;font-size:20px;letter-spacing:.01em;text-decoration:none;white-space:nowrap}
+.brandmark span{color:var(--orange)}
+.topnav{display:flex;gap:22px;font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.09em;font-size:13px}
+.topnav a{text-decoration:none;padding:4px 0;border-bottom:2px solid transparent}
+.topnav a:hover{border-bottom-color:var(--orange)}
+.topcall{
+  font-family:var(--display);font-style:italic;font-weight:800;font-size:22px;
+  background:var(--orange);color:#fff;padding:6px 14px;text-decoration:none;white-space:nowrap;
+}
+.topcall:hover{background:#fff;color:var(--orange)}
+@media (max-width:880px){.topnav{display:none}}
+@media (max-width:520px){.topcall{display:none}}
+
+/* ---------- hero ---------- */
+.hero{background:var(--orange);color:var(--ink);padding:0 0 clamp(30px,6vw,54px);position:relative}
+.hero-logo{width:100%;max-width:1000px;margin:0 auto;padding:0}
+.hero-logo img{width:100%;height:auto}
+.hero-copy{max-width:900px;margin:clamp(6px,2vw,18px) auto 0;text-align:center}
+.hero h1{
+  font-size:clamp(38px,8.2vw,86px);color:var(--bone);
+  text-shadow:4px 4px 0 var(--ink);
+}
+.hero h1 .knock{color:var(--ink);text-shadow:3px 3px 0 rgba(237,230,218,.55)}
+.hero-sub{
+  max-width:640px;margin:20px auto 26px;font-size:clamp(16px,2.1vw,19px);
+  font-weight:500;color:#2A1004;
+}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;align-items:center}
+.dial{font-size:clamp(26px,5vw,40px);padding:18px 30px}
+.dial small{
+  display:block;font-family:var(--label);font-style:normal;font-weight:600;
+  font-size:12px;letter-spacing:.18em;color:var(--blue);margin-bottom:3px;line-height:1;
+}
+
+/* trust strip */
+.trust{background:var(--ink);color:var(--bone)}
+.trust ul{
+  list-style:none;margin:0;padding:16px 0;display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px 26px;
+}
+.trust li{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.08em;
+  font-size:13.5px;display:flex;align-items:flex-start;gap:9px;line-height:1.35;
+}
+.trust li::before{content:"";flex:0 0 9px;height:9px;margin-top:6px;background:var(--orange);transform:rotate(45deg)}
+
+/* ---------- torn edge divider ---------- */
+.edge{display:block;width:100%;height:26px}
+
+/* ---------- the clock (signature) ---------- */
+.clock{background:var(--navy);color:var(--bone);padding:clamp(46px,7vw,76px) 0 0}
+.clock .eyebrow{color:var(--orange)}
+.clock h2{color:var(--bone);max-width:16ch}
+.clock .lede{max-width:60ch;color:#A9BBD8;margin:16px 0 0}
+.stages{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:2px;
+  margin-top:clamp(30px,5vw,48px);background:rgba(255,255,255,.12);
+}
+@media (max-width:840px){.stages{grid-template-columns:repeat(2,1fr)}}
+@media (max-width:460px){.stages{grid-template-columns:1fr}}
+.stage{
+  position:relative;background:var(--navy);padding:22px 20px 30px;min-height:230px;
+  display:flex;flex-direction:column;overflow:hidden;
+}
+.stage .fill{
+  position:absolute;left:0;right:0;bottom:0;height:0;
+  background:linear-gradient(180deg,rgba(0,64,162,.85),rgba(0,64,162,.35));
+  border-top:3px solid var(--blue-lt);
+  transition:height 1.1s cubic-bezier(.3,.7,.3,1);
+}
+.stages.in .stage:nth-child(1) .fill{height:18%}
+.stages.in .stage:nth-child(2) .fill{height:44%;transition-delay:.18s}
+.stages.in .stage:nth-child(3) .fill{height:72%;transition-delay:.36s}
+.stages.in .stage:nth-child(4) .fill{height:100%;transition-delay:.54s}
+.stage > *{position:relative;z-index:1}
+.stage .mark{
+  font-family:var(--display);font-style:italic;font-weight:800;
+  font-size:clamp(30px,3.6vw,40px);color:var(--orange);line-height:1;
+}
+.stage .when{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.14em;
+  font-size:11.5px;color:#8FA8CE;margin:6px 0 12px;
+}
+.stage p{margin:0;font-size:15.5px;line-height:1.55;color:#E4EAF4}
+.clock-note{
+  font-size:14px;color:#8FA8CE;padding:22px 0 clamp(46px,7vw,72px);max-width:70ch;margin:0;
+}
+
+/* ---------- services ---------- */
+.svc{padding:clamp(52px,8vw,92px) 0;background:var(--bone)}
+.sec-head{max-width:760px;margin-bottom:clamp(30px,4vw,46px)}
+.sec-head .eyebrow{color:var(--orange-dk)}
+.sec-head p{margin:16px 0 0;font-size:clamp(16px,2vw,18.5px);color:#3A3A3E}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(255px,1fr));gap:20px}
+.card{
+  background:#fff;border:2px solid var(--ink);padding:24px 22px 26px;
+  box-shadow:7px 7px 0 rgba(10,10,12,.14);
+}
+.card .hex{
+  width:52px;height:52px;background:var(--blue);
+  clip-path:polygon(50% 0,100% 25%,100% 75%,50% 100%,0 75%,0 25%);
+  display:flex;align-items:center;justify-content:center;margin-bottom:16px;
+}
+.card .hex svg{width:26px;height:26px;fill:none;stroke:#fff;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.card h3{margin-bottom:10px}
+.card p{margin:0;font-size:15.5px;color:#3A3A3E}
+.card ul{margin:12px 0 0;padding-left:17px;font-size:14.5px;color:#4A4A4E}
+.card li{margin-bottom:4px}
+
+/* ---------- process ---------- */
+.process{background:var(--ink);color:var(--bone);padding:clamp(52px,8vw,92px) 0}
+.process .eyebrow{color:var(--orange)}
+.process .sec-head p{color:#B9B4AC}
+.steps{counter-reset:s;display:grid;gap:2px;background:rgba(237,230,218,.18);margin-top:8px}
+.step{
+  background:var(--ink);padding:22px 24px 24px;display:grid;
+  grid-template-columns:70px 1fr;gap:20px;align-items:start;
+}
+.step::before{
+  counter-increment:s;content:counter(s,decimal-leading-zero);
+  font-family:var(--display);font-style:italic;font-weight:800;font-size:44px;
+  color:var(--orange);line-height:.85;
+}
+.step h3{color:var(--bone);margin-bottom:6px}
+.step p{margin:0;font-size:15.5px;color:#B9B4AC}
+@media (max-width:520px){.step{grid-template-columns:52px 1fr;gap:14px;padding:18px 16px}.step::before{font-size:32px}}
+
+/* ---------- insurance ---------- */
+.claims{background:var(--blue);color:#fff;padding:clamp(52px,8vw,92px) 0}
+.claims .eyebrow{color:#B7D0FF}
+.claims h2{color:#fff}
+.claims-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:clamp(28px,5vw,56px);align-items:start}
+@media (max-width:840px){.claims-grid{grid-template-columns:1fr}}
+.claims p{color:#DCE7FB;font-size:16.5px}
+.claim-list{list-style:none;margin:0;padding:0}
+.claim-list li{
+  border-top:1px solid rgba(255,255,255,.28);padding:15px 0 15px 0;
+  display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:baseline;
+}
+.claim-list li:last-child{border-bottom:1px solid rgba(255,255,255,.28)}
+.claim-list b{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.1em;
+  font-size:11.5px;color:#9EC0FF;white-space:nowrap;
+}
+.claim-list span{font-size:15.5px;color:#EAF1FF}
+
+/* ---------- causes ---------- */
+.causes{padding:clamp(52px,8vw,92px) 0;background:var(--bone)}
+.cause-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(215px,1fr));gap:2px;background:var(--ink);border:2px solid var(--ink)}
+.cause{background:#fff;padding:18px 18px 20px}
+.cause b{
+  display:block;font-family:var(--display);font-style:normal;font-weight:700;
+  text-transform:uppercase;font-size:17px;letter-spacing:.01em;margin-bottom:5px;
+}
+.cause span{font-size:14.5px;color:#4A4A4E;line-height:1.5}
+
+/* ---------- area ---------- */
+.area{background:var(--navy);color:var(--bone);padding:clamp(52px,8vw,88px) 0}
+.area .eyebrow{color:var(--orange)}
+.area h2{color:var(--bone)}
+.area p{color:#A9BBD8;max-width:62ch}
+.towns{display:flex;flex-wrap:wrap;gap:9px;margin-top:26px;padding:0;list-style:none}
+.towns li{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.07em;
+  font-size:13.5px;border:1.5px solid rgba(237,230,218,.42);padding:7px 13px;color:#DCE4F0;
+}
+
+/* ---------- faq ---------- */
+.faq{padding:clamp(52px,8vw,92px) 0;background:var(--bone)}
+.faq details{border-top:2px solid var(--ink);padding:0}
+.faq details:last-of-type{border-bottom:2px solid var(--ink)}
+.faq summary{
+  cursor:pointer;list-style:none;padding:20px 44px 20px 0;position:relative;
+  font-family:var(--display);font-style:normal;font-weight:700;text-transform:uppercase;
+  font-size:clamp(18px,2.2vw,22px);line-height:1.2;
+}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{
+  content:"+";position:absolute;right:6px;top:50%;transform:translateY(-50%);
+  font-size:30px;color:var(--orange);font-family:var(--body);font-weight:400;line-height:1;
+}
+.faq details[open] summary::after{content:"\2013"}
+.faq details p{margin:0 0 22px;max-width:76ch;font-size:16px;color:#3A3A3E}
+
+/* ---------- request form ---------- */
+.request{background:var(--bone);padding:clamp(52px,8vw,92px) 0;border-top:3px solid var(--ink)}
+.req-grid{display:grid;grid-template-columns:1fr 1.15fr;gap:clamp(28px,5vw,58px);align-items:start}
+@media (max-width:860px){.req-grid{grid-template-columns:1fr}}
+.req-aside .eyebrow{color:var(--orange-dk)}
+.req-aside p{font-size:16.5px;color:#3A3A3E}
+.req-urgent{
+  background:var(--ink);color:var(--bone);padding:18px 20px;margin-top:24px;
+  border-left:6px solid var(--orange);
+}
+.req-urgent b{
+  display:block;font-family:var(--display);font-style:italic;font-weight:800;
+  text-transform:uppercase;font-size:20px;margin-bottom:4px;
+}
+.req-urgent a{color:var(--orange);text-decoration:none;font-weight:600}
+.req-urgent a:hover{text-decoration:underline}
+form.req{background:#fff;border:2px solid var(--ink);padding:26px 24px 28px;box-shadow:8px 8px 0 rgba(10,10,12,.14)}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media (max-width:520px){.f-row{grid-template-columns:1fr}}
+.f{display:flex;flex-direction:column;gap:6px;margin-bottom:16px}
+.f label{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;
+  letter-spacing:.1em;font-size:11.5px;color:#4A4A4E;
+}
+.f label .req-star{color:var(--orange-dk)}
+.f input,.f select,.f textarea{
+  font-family:var(--body);font-size:16px;color:var(--ink);background:#F7F5F0;
+  border:1.5px solid #B9B2A6;border-bottom:3px solid var(--blue);
+  padding:11px 12px;width:100%;border-radius:0;appearance:none;
+}
+.f textarea{min-height:110px;resize:vertical;line-height:1.5}
+.f input:focus,.f select:focus,.f textarea:focus{outline:3px solid var(--orange);outline-offset:1px;background:#fff}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+form.req button[type=submit]{
+  width:100%;margin-top:6px;justify-content:center;cursor:pointer;
+  font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;
+  font-size:26px;padding:16px 20px;background:var(--orange);color:#fff;
+  border:3px solid var(--ink);box-shadow:6px 6px 0 var(--ink);
+  transition:transform .12s ease,box-shadow .12s ease;
+}
+form.req button[type=submit]:hover{transform:translate(3px,3px);box-shadow:3px 3px 0 var(--ink)}
+.f-note{font-size:13px;color:#5A5A5E;margin:14px 0 0;line-height:1.5}
+
+/* ---------- simple page (thanks / 404) ---------- */
+.slim{min-height:70vh;display:flex;align-items:center;justify-content:center;text-align:center;padding:60px 0}
+
+
+.final{background:var(--orange);padding:clamp(52px,8vw,92px) 0;text-align:center}
+.final h2{color:var(--bone);text-shadow:4px 4px 0 var(--ink);font-size:clamp(36px,7vw,72px)}
+.final p{max-width:48ch;margin:20px auto 30px;color:#2A1004;font-weight:500;font-size:17.5px}
+
+/* ---------- footer ---------- */
+footer{background:var(--ink);color:#9C968E;padding:44px 0 110px;font-size:14.5px}
+.foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px;margin-bottom:30px}
+@media (max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:480px){.foot-grid{grid-template-columns:1fr}}
+footer h4{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.14em;
+  font-size:12px;color:var(--orange);margin:0 0 12px;
+}
+footer a{color:var(--bone);text-decoration:none}
+footer a:hover{color:var(--orange)}
+footer ul{list-style:none;margin:0;padding:0}
+footer li{margin-bottom:7px}
+.foot-brand{font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;font-size:26px;color:var(--bone);line-height:1;margin-bottom:10px}
+.foot-brand span{color:var(--orange)}
+.tagline{font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.1em;font-size:12.5px;color:var(--blue-lt)}
+.legal{border-top:1px solid rgba(237,230,218,.16);padding-top:20px;font-size:13px;line-height:1.6}
+
+/* ---------- mobile call bar ---------- */
+.callbar{
+  position:fixed;left:0;right:0;bottom:0;z-index:70;display:none;
+  background:var(--orange);border-top:3px solid var(--ink);
+}
+.callbar a{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:15px 10px;text-decoration:none;color:#fff;
+  font-family:var(--display);font-style:italic;font-weight:800;font-size:26px;letter-spacing:.01em;
+}
+.callbar svg{width:22px;height:22px;fill:#fff}
+@media (max-width:880px){.callbar{display:block}footer{padding-bottom:110px}}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+  .stage .fill{height:60%!important}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= TOP BAR ================= -->
+<div class="topbar">
+  <div class="shell">
+    <a class="brandmark" href="#top">Bailey <span>The Restorian</span></a>
+    <nav class="topnav" aria-label="Main">
+      <a href="#services">Services</a>
+      <a href="#process">What Happens</a>
+      <a href="#claims">Insurance</a>
+      <a href="#area">Service Area</a>
+      <a href="#faq">FAQ</a>
+      <a href="#request">Request Inspection</a>
+    </nav>
+    <a class="topcall" href="tel:+13213004076">(321) 300-4076</a>
+  </div>
+</div>
+
+<!-- ================= HERO ================= -->
+<header class="hero" id="top">
+  <div class="hero-logo">
+    <img src="logo.jpg" alt="Bailey The Restorian — water damage restoration. Water extraction, drying and dehumidification, moisture removal, prevent future damage." width="1200" height="800" fetchpriority="high">
+  </div>
+  <div class="shell">
+    <div class="hero-copy">
+      <h1>Water doesn't wait<br><span class="knock">for business hours</span></h1>
+      <p class="hero-sub">Burst pipe at midnight. AC line backed up while you were at work. Storm water under the baseboards. Call and a truck gets rolling — extraction, structural drying, and the paperwork your adjuster is going to ask for.</p>
+      <div class="hero-cta">
+        <a class="btn dial" href="tel:+13213004076"><span><small>Call 24 hours</small>(321) 300-4076</span></a>
+        <a class="btn btn-ghost" href="#request">Request an inspection</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="trust">
+  <div class="shell">
+    <ul>
+      <li>Answered 24/7 — nights, weekends, holidays</li>
+      <li>Drying to ANSI/IICRC S500 standards</li>
+      <li>Daily moisture readings, documented</li>
+      <li>We work directly with your adjuster</li>
+    </ul>
+  </div>
+</div>
+
+<!-- ================= THE CLOCK (signature) ================= -->
+<svg class="edge" viewBox="0 0 1200 26" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+  <path d="M0,26 L0,7 C90,1 150,13 235,9 C320,5 380,16 470,11 C560,6 615,15 700,10 C790,5 850,14 940,9 C1030,4 1110,12 1200,6 L1200,26 Z" fill="#04173A"/>
+</svg>
+
+<section class="clock" aria-labelledby="clock-h">
+  <div class="shell">
+    <p class="eyebrow">Why the first phone call matters</p>
+    <h2 id="clock-h">The damage is on a clock</h2>
+    <p class="lede">Water that sat one hour and water that sat three days are two completely different jobs — different scope, different cost, and different risk to your family. Here's how it escalates.</p>
+
+    <div class="stages" id="stages">
+      <div class="stage">
+        <span class="fill" aria-hidden="true"></span>
+        <span class="mark">Hour 1</span>
+        <span class="when">Still spreading</span>
+        <p>Water travels sideways through carpet pad and under flooring, then wicks up drywall and into wall cavities you can't see. This is the cheapest hour of the entire job.</p>
+      </div>
+      <div class="stage">
+        <span class="fill" aria-hidden="true"></span>
+        <span class="mark">Hour 24</span>
+        <span class="when">Materials start failing</span>
+        <p>Drywall swells and loses strength. Particleboard and MDF cabinet bases begin to break down. Furniture legs stain flooring. A musty smell shows up.</p>
+      </div>
+      <div class="stage">
+        <span class="fill" aria-hidden="true"></span>
+        <span class="mark">48–72 hr</span>
+        <span class="when">Microbial growth window</span>
+        <p>Mold can begin growing on damp organic material within roughly 24 to 48 hours. Clean water can also degrade into contaminated water the longer it sits.</p>
+      </div>
+      <div class="stage">
+        <span class="fill" aria-hidden="true"></span>
+        <span class="mark">Week 1</span>
+        <span class="when">Mitigation becomes rebuild</span>
+        <p>Hardwood cups and buckles, trim and framing hold moisture, and what could have been a dry-out turns into demolition and reconstruction.</p>
+      </div>
+    </div>
+
+    <p class="clock-note">Timelines are general guidance from industry drying standards and EPA moisture guidance — every loss dries differently depending on materials, temperature, and humidity. Your actual conditions get measured on site, not guessed.</p>
+  </div>
+</section>
+
+<!-- ================= SERVICES ================= -->
+<section class="svc" id="services" aria-labelledby="svc-h">
+  <div class="shell">
+    <div class="sec-head">
+      <p class="eyebrow">What we do</p>
+      <h2 id="svc-h">Get it dry. Keep it dry. Prove it's dry.</h2>
+      <p>Mitigation is a measurable process, not a fan in the hallway and a handshake. Every step below produces a reading that goes in your file.</p>
+    </div>
+
+    <div class="cards">
+      <article class="card">
+        <div class="hex" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 2.7s6 6.4 6 10.6a6 6 0 0 1-12 0C6 9.1 12 2.7 12 2.7z"/></svg>
+        </div>
+        <h3>Water Extraction</h3>
+        <p>Standing water comes out first — truck-mount and portable extraction, plus weighted extraction on carpet to pull water out of the pad instead of just the surface.</p>
+        <ul>
+          <li>Standing water and saturated carpet pad</li>
+          <li>Contents moved, blocked, or protected</li>
+          <li>Source stopped or isolated before drying starts</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="hex" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="3.2"/><path d="M16 9.5h2M16 13h2"/></svg>
+        </div>
+        <h3>Drying &amp; Dehumidification</h3>
+        <p>Air movers and LGR dehumidifiers set by the numbers — room volume, wet square footage, and class of water loss — not by whatever was left on the truck.</p>
+        <ul>
+          <li>Equipment counts calculated per IICRC S500</li>
+          <li>Air scrubbers to keep the air clean while it dries</li>
+          <li>Containment when the situation calls for it</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="hex" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 10v10h13V10"/><path d="M9.5 17v-4M12 17v-5.5M14.5 17v-4"/></svg>
+        </div>
+        <h3>Moisture Detection &amp; Removal</h3>
+        <p>Moisture meters and thermal imaging map how far the water actually traveled, so we open up what's wet and leave alone what isn't.</p>
+        <ul>
+          <li>Moisture mapping of walls, floors, and cavities</li>
+          <li>Targeted removal instead of blanket demo</li>
+          <li>Daily readings until dry standard is reached</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="hex" aria-hidden="true">
+          <svg viewBox="0 0 24 24"><path d="M12 3l7.5 3v6c0 4.4-3.1 7.9-7.5 9-4.4-1.1-7.5-4.6-7.5-9V6L12 3z"/><path d="M8.8 12.2l2.3 2.3 4.1-4.4"/></svg>
+        </div>
+        <h3>Prevent Future Damage</h3>
+        <p>Drying the water is half of it. The other half is making sure the same thing doesn't happen again in eight months.</p>
+        <ul>
+          <li>Antimicrobial treatment where appropriate</li>
+          <li>Plain-language cause explanation and photos</li>
+          <li>Repair recommendations and reconstruction referral</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROCESS ================= -->
+<section class="process" id="process" aria-labelledby="proc-h">
+  <div class="shell">
+    <div class="sec-head">
+      <p class="eyebrow">Step by step</p>
+      <h2 id="proc-h">What happens after you call</h2>
+      <p>No mystery, no surprise invoice at the end. This is the sequence on almost every residential water loss.</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div>
+          <h3>You call, a person answers</h3>
+          <p>We'll talk you through shutting off the water and staying safe around outlets and standing water while we're on the way.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h3>Inspection and moisture map</h3>
+          <p>Meters and thermal imaging on every affected room. We find the edges of the wet area and photograph everything before touching a thing.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h3>Scope and walkthrough</h3>
+          <p>You hear what's wet, what has to come out, what can be saved, and roughly how long drying should take — before work starts.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h3>Extraction and controlled removal</h3>
+          <p>Water out, unsalvageable material out, contents protected. We take what's necessary and document why each piece came out.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h3>Drying equipment set</h3>
+          <p>Air movers, dehumidifiers, and air scrubbers placed to a calculated count for the size and class of the loss.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h3>Daily monitoring</h3>
+          <p>We come back and take readings every day, adjust equipment as the structure dries, and log it. You get progress, not silence.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h3>Dry standard reached, equipment pulled</h3>
+          <p>Equipment stays until the materials actually hit target moisture content — not until a set number of days runs out.</p>
+        </div>
+      </div>
+      <div class="step">
+        <div>
+          <h3>Documentation package</h3>
+          <p>Photos, daily moisture logs, equipment records, and scope handed to you and your adjuster. Then we point you toward repairs.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INSURANCE ================= -->
+<section class="claims" id="claims" aria-labelledby="claims-h">
+  <div class="shell">
+    <div class="claims-grid">
+      <div>
+        <p class="eyebrow">Working with your insurance</p>
+        <h2 id="claims-h">Your adjuster wants documentation. That's the whole job.</h2>
+        <p>Most water damage claim friction comes down to one thing: a contractor who dried the house but can't prove what was wet, what was done, or why. Every job here is documented as it happens, in the format carriers expect. You are never the one stuck explaining it.</p>
+        <p style="margin-top:22px"><a class="btn btn-ghost" style="color:#fff;border-color:#fff" href="tel:+13213004076">Talk it through — (321) 300-4076</a></p>
+      </div>
+      <ul class="claim-list">
+        <li><b>Before you call</b><span>Stop the water if you safely can, and photograph everything before anything gets moved.</span></li>
+        <li><b>Claim or no claim</b><span>Not every loss is worth filing. We'll tell you honestly when a job is likely under your deductible.</span></li>
+        <li><b>What we send</b><span>Moisture readings, equipment logs, photos, and a line-item scope your carrier can process.</span></li>
+        <li><b>Who we answer to</b><span>You. The carrier is paying, but you're the customer and you approve the scope.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CAUSES ================= -->
+<section class="causes" aria-labelledby="cause-h">
+  <div class="shell">
+    <div class="sec-head">
+      <p class="eyebrow">Common calls</p>
+      <h2 id="cause-h">Where Florida water comes from</h2>
+      <p>Some of these are pipes. A lot of them are humidity, age, and afternoon storms doing what they do on the Space Coast.</p>
+    </div>
+    <div class="cause-grid">
+      <div class="cause"><b>AC condensate lines</b><span>A clogged drain line quietly floods a hallway or closet — the most common call we get.</span></div>
+      <div class="cause"><b>Water heater failure</b><span>Tanks fail from the bottom, usually in a garage or utility closet, usually at the worst time.</span></div>
+      <div class="cause"><b>Burst &amp; leaking pipes</b><span>Supply lines, angle stops, and pinhole leaks behind walls and under cabinets.</span></div>
+      <div class="cause"><b>Storm &amp; hurricane water</b><span>Wind-driven rain through roofs, soffits, windows, and sliders during the season.</span></div>
+      <div class="cause"><b>Roof leaks</b><span>Water tracks along trusses and shows up in a room nowhere near the actual hole.</span></div>
+      <div class="cause"><b>Appliance supply lines</b><span>Washing machine hoses, ice makers, and dishwashers — small line, big volume.</span></div>
+      <div class="cause"><b>Toilet &amp; drain overflow</b><span>Handled as contaminated water, with the sanitation steps that requires.</span></div>
+      <div class="cause"><b>Slab leaks</b><span>Warm spots, running meters, and moisture wicking up through flooring on slab-built homes.</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SERVICE AREA ================= -->
+<section class="area" id="area" aria-labelledby="area-h">
+  <div class="shell">
+    <p class="eyebrow">Where we work</p>
+    <h2 id="area-h">Brevard County, top to bottom</h2>
+    <p>Locally based, which means response time measured in minutes instead of waiting on a crew driving over from another county after a storm.</p>
+    <ul class="towns">
+      <li>Melbourne</li><li>West Melbourne</li><li>Palm Bay</li><li>Melbourne Beach</li>
+      <li>Indialantic</li><li>Satellite Beach</li><li>Indian Harbour Beach</li><li>Suntree</li>
+      <li>Viera</li><li>Rockledge</li><li>Cocoa</li><li>Cocoa Beach</li>
+      <li>Merritt Island</li><li>Titusville</li><li>Grant-Valkaria</li><li>Malabar</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section class="faq" id="faq" aria-labelledby="faq-h">
+  <div class="shell">
+    <div class="sec-head">
+      <p class="eyebrow">Straight answers</p>
+      <h2 id="faq-h">Questions we get at 2 a.m.</h2>
+    </div>
+
+    <details>
+      <summary>How fast can you get here?</summary>
+      <p>Call and we'll give you a real arrival window on the phone, not a promise we can't keep. We're based in Brevard County, so for most of the area it's a short drive. During a major storm event, response times stretch for everyone — call early rather than waiting to see if it dries on its own.</p>
+    </details>
+
+    <details>
+      <summary>How long does drying take?</summary>
+      <p>Most residential water losses dry in three to five days. It depends on how much water there was, what materials got wet, and how long it sat before we started. Hardwood, plaster, and concrete take considerably longer than drywall and carpet. We'll give you an estimate up front and update it daily based on actual readings.</p>
+    </details>
+
+    <details>
+      <summary>Do I really need equipment running for days?</summary>
+      <p>Yes, and this is where people get frustrated — the floor feels dry after a day, so the fans seem unnecessary. But the moisture that causes long-term problems is inside the drywall, the subfloor, and the framing. Meters tell us when it's actually dry. Pulling equipment early is the single most common reason a house needs to be dried twice.</p>
+    </details>
+
+    <details>
+      <summary>Will my insurance cover this?</summary>
+      <p>Sudden and accidental water damage — a pipe that bursts, a water heater that fails — is typically covered by homeowners policies. Long-term seepage, gradual leaks, and flooding from outside surface water usually are not, and flood damage generally requires separate flood insurance. We're not your carrier and can't approve a claim, but we can document the loss properly and tell you honestly what we're seeing.</p>
+    </details>
+
+    <details>
+      <summary>Should I just rent a fan and do it myself?</summary>
+      <p>For a small spill you caught immediately, sometimes yes. The problem is that box fans move air without removing moisture from it, so you can end up spreading humidity into rooms that were dry. If water got under flooring, into a wall cavity, or sat more than a few hours, get it measured before you decide. We'd rather tell you it's fine than see it again in six weeks as a mold job.</p>
+    </details>
+
+    <details>
+      <summary>What do I do right now, before you arrive?</summary>
+      <p>Shut off the water at the fixture or the main if you can do it safely. Stay out of standing water near outlets or electrical panels. Lift what you can off wet flooring, and put foil or blocks under furniture legs so stain doesn't transfer. Take photos of everything. Then leave the rest — that's what we're for.</p>
+    </details>
+  </div>
+</section>
+
+<!-- ================= REQUEST FORM ================= -->
+<!-- Netlify Forms: data-netlify="true" makes this work automatically once deployed.
+     Submissions appear under Forms in your Netlify dashboard.
+     Turn on email notifications there so they hit your inbox. -->
+<section class="request" id="request" aria-labelledby="req-h">
+  <div class="shell">
+    <div class="req-grid">
+      <div class="req-aside">
+        <p class="eyebrow">Not an emergency?</p>
+        <h2 id="req-h">Request an inspection</h2>
+        <p>Suspicious stain on the ceiling. A smell in the closet you can't place. A slow leak you've been watching for a week. Send the details and we'll get back to you to schedule a look.</p>
+        <div class="req-urgent">
+          <b>Water on the floor right now?</b>
+          Don't fill out a form. Call <a href="tel:+13213004076">(321) 300-4076</a> — every hour counts.
+        </div>
+      </div>
+
+      <form class="req" name="inspection" method="POST" data-netlify="true" netlify-honeypot="bot-field" action="/thanks.html">
+        <input type="hidden" name="form-name" value="inspection">
+        <p class="hp"><label>Leave this empty: <input name="bot-field"></label></p>
+
+        <div class="f-row">
+          <div class="f">
+            <label for="name">Your name <span class="req-star">*</span></label>
+            <input type="text" id="name" name="name" required autocomplete="name">
+          </div>
+          <div class="f">
+            <label for="phone">Phone <span class="req-star">*</span></label>
+            <input type="tel" id="phone" name="phone" required autocomplete="tel" placeholder="(321) 555-0100">
+          </div>
+        </div>
+
+        <div class="f-row">
+          <div class="f">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" autocomplete="email">
+          </div>
+          <div class="f">
+            <label for="city">City <span class="req-star">*</span></label>
+            <input type="text" id="city" name="city" required placeholder="Melbourne, Palm Bay…">
+          </div>
+        </div>
+
+        <div class="f">
+          <label for="timing">How soon do you need someone?</label>
+          <select id="timing" name="timing">
+            <option>Today if possible</option>
+            <option selected>Within the next day or two</option>
+            <option>Just getting an estimate for now</option>
+            <option>Insurance claim already open</option>
+          </select>
+        </div>
+
+        <div class="f">
+          <label for="details">What's going on? <span class="req-star">*</span></label>
+          <textarea id="details" name="details" required placeholder="Where the water is, how long it's been there, and what you've already tried."></textarea>
+        </div>
+
+        <button type="submit">Send request</button>
+        <p class="f-note">We'll respond as quickly as we can. For active flooding or standing water, calling is always faster than a form.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FINAL CTA ================= -->
+<section class="final">
+  <div class="shell">
+    <h2>We dry it.<br>You get back to life.</h2>
+    <p>One call gets an assessment. No pressure, no obligation, and an honest answer about whether you even need us.</p>
+    <a class="btn btn-blue dial" href="tel:+13213004076"><span><small style="color:#B7D0FF">Call 24 hours</small>(321) 300-4076</span></a>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer>
+  <div class="shell">
+    <div class="foot-grid">
+      <div>
+        <div class="foot-brand">Bailey <span>The Restorian</span></div>
+        <p class="tagline">Fast response. Quality restoration.</p>
+        <p style="margin-top:14px">Water damage restoration and structural drying for homeowners and property managers across Brevard County, Florida.</p>
+      </div>
+      <div>
+        <h4>Contact</h4>
+        <ul>
+          <li><a href="tel:+13213004076">(321) 300-4076</a></li>
+          <li><a href="mailto:bailey@baileytherestorian.org">bailey@baileytherestorian.org</a></li>
+          <li>Emergency service, 24/7</li>
+        </ul>
+      </div>
+      <div>
+        <h4>Services</h4>
+        <ul>
+          <li><a href="#services">Water extraction</a></li>
+          <li><a href="#services">Drying &amp; dehumidification</a></li>
+          <li><a href="#services">Moisture detection</a></li>
+          <li><a href="#claims">Insurance documentation</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <p>&copy; <span id="yr">2026</span> Bailey The Restorian. All rights reserved. Serving Melbourne, Palm Bay, Viera, Rockledge, Cocoa, Merritt Island, Titusville and surrounding Brevard County communities.</p>
+    </div>
+  </div>
+</footer>
+
+<div class="callbar">
+  <a href="tel:+13213004076">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.2.4 2.5.6 3.8.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1A17 17 0 0 1 3 4c0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.6.6 3.8.1.4 0 .8-.2 1l-2.3 2z"/></svg>
+    Call (321) 300-4076
+  </a>
+</div>
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"HomeAndConstructionBusiness",
+  "additionalType":"https://schema.org/EmergencyService",
+  "name":"Bailey The Restorian",
+  "description":"24/7 water damage restoration, water extraction, and structural drying serving Brevard County, Florida.",
+  "url":"https://baileytherestorian.org/",
+  "telephone":"+1-321-300-4076",
+  "email":"bailey@baileytherestorian.org",
+  "image":"https://baileytherestorian.org/logo.jpg",
+  "priceRange":"$$",
+  "address":{"@type":"PostalAddress","addressLocality":"Melbourne","addressRegion":"FL","addressCountry":"US"},
+  "areaServed":[
+    {"@type":"City","name":"Melbourne"},{"@type":"City","name":"West Melbourne"},
+    {"@type":"City","name":"Palm Bay"},{"@type":"City","name":"Viera"},
+    {"@type":"City","name":"Rockledge"},{"@type":"City","name":"Cocoa"},
+    {"@type":"City","name":"Merritt Island"},{"@type":"City","name":"Titusville"},
+    {"@type":"City","name":"Satellite Beach"},{"@type":"City","name":"Indialantic"}
+  ],
+  "openingHoursSpecification":{
+    "@type":"OpeningHoursSpecification",
+    "dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+    "opens":"00:00","closes":"23:59"
+  },
+  "slogan":"We dry it. You get back to life."
+}
+</script>
+
+<script>
+(function(){
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  var stages = document.getElementById('stages');
+  if (stages && 'IntersectionObserver' in window){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ stages.classList.add('in'); io.disconnect(); }
+      });
+    }, {threshold:0.3});
+    io.observe(stages);
+  } else if (stages){
+    stages.classList.add('in');
+  }
+})();
+</script>
+
+</body>
+</html>

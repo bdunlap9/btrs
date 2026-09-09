@@ -1,0 +1,1912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bailey the Restorian — Rebuild &amp; Repair Estimator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFEDE6; --card:#FBFAF6; --ink:#1C2430; --soft:#5A6472;
+    --rule:#CBC5B8; --rule-strong:#A9A294; --mark:#F2B01E;
+    --water:#2E6E8E; --brick:#9C3B2A; --good:#2F6B4F;
+    --sans:'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --cond:'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:var(--sans);font-size:16px;line-height:1.5;color:var(--ink);
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(to right, rgba(28,36,48,.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(28,36,48,.055) 1px, transparent 1px);
+    background-size:26px 26px;-webkit-text-size-adjust:100%;
+  }
+  h1,h2,h3{font-family:var(--cond);font-weight:700;line-height:1.05;margin:0;letter-spacing:.01em}
+
+  .masthead{background:var(--ink);color:var(--card);border-bottom:5px solid var(--mark);padding:18px 20px 14px}
+  .masthead-in{max-width:1280px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-end;gap:6px 18px}
+  .wordmark{font-family:var(--cond);font-size:40px;font-weight:700;letter-spacing:-.012em;line-height:.95}
+  .wordmark span{color:var(--mark)}
+  .tagline{font-size:14.5px;color:#B9C0CB;padding-bottom:5px}
+  .tagline b{color:var(--card);font-weight:500}
+
+  .tabs{max-width:1280px;margin:0 auto;padding:14px 20px 0;display:flex;gap:6px;flex-wrap:wrap}
+  .tab{font-family:var(--cond);font-size:19px;font-weight:600;padding:8px 16px;border:1px solid var(--rule-strong);
+       border-bottom:none;background:#E3E0D7;color:var(--soft);border-radius:2px 2px 0 0;cursor:pointer}
+  .tab[aria-selected=true]{background:var(--card);color:var(--ink);box-shadow:inset 0 3px 0 var(--mark)}
+
+  .wrap{max-width:1280px;margin:0 auto;padding:0 20px 120px;display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:22px;align-items:start}
+  .panel{padding-top:18px}
+  .panel[hidden]{display:none}
+
+  .block{background:var(--card);border:1px solid var(--rule);border-radius:2px;margin-bottom:18px}
+  .block > h2{font-size:21px;padding:9px 14px 8px;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .block > h2 small{font-family:var(--sans);font-size:13px;font-weight:400;color:var(--soft)}
+  .body{padding:14px}
+
+  label{display:block;font-size:13.5px;color:var(--soft);margin-bottom:3px}
+  input[type=text],input[type=number],select,textarea{
+    width:100%;font-family:var(--sans);font-size:16px;color:var(--ink);background:#fff;
+    border:1px solid var(--rule-strong);border-radius:2px;padding:7px 8px;font-variant-numeric:tabular-nums;
+  }
+  textarea{min-height:64px;resize:vertical}
+  input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible,textarea:focus-visible{outline:3px solid var(--water);outline-offset:1px}
+  .grid{display:grid;gap:10px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr 1fr}
+  .g4{grid-template-columns:repeat(4,1fr)}
+
+  .room{border:1px solid var(--rule);border-left:4px solid var(--ink);border-radius:2px;padding:12px;margin-bottom:12px;background:#fff}
+  .room-top{display:flex;gap:6px;align-items:flex-end;margin-bottom:10px;flex-wrap:wrap}
+  .room-top > div:first-child{flex:1.4;min-width:150px}
+  .room-top > div:nth-child(2),.room-top > div:nth-child(3){flex:1;min-width:120px}
+  .room-name{font-family:var(--cond);font-size:21px;font-weight:600;padding:4px 6px}
+  .dims{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+  .dims.direct{grid-template-columns:repeat(3,1fr)}
+  .room-math{margin-top:10px;font-size:13.5px;color:var(--soft);font-variant-numeric:tabular-nums}
+
+  button{font-family:var(--sans);font-size:15px;cursor:pointer;border-radius:2px}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:9px 15px;font-weight:500}
+  .btn:hover{background:#2A3644}
+  .btn-mark{background:var(--mark);border-color:#C88F0E;color:var(--ink);font-weight:600;padding:9px 15px}
+  .btn-mark:hover{background:#FFC135}
+  .btn-quiet{background:#fff;color:var(--ink);border:1px solid var(--rule-strong);padding:8px 13px}
+  .btn-quiet:hover{border-color:var(--ink)}
+  .btn-x{background:none;border:none;color:var(--brick);font-size:14px;padding:4px 6px}
+  .btn-x:hover{text-decoration:underline}
+  .btn-sm{background:#fff;border:1px solid var(--rule-strong);font-size:13.5px;padding:4px 9px;color:var(--soft)}
+  .btn-sm:hover{border-color:var(--ink);color:var(--ink)}
+  .actions{display:flex;flex-wrap:wrap;gap:9px}
+
+  table{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numeric:tabular-nums}
+  th{text-align:left;font-family:var(--cond);font-size:16px;font-weight:600;color:var(--soft);padding:5px 6px;border-bottom:1px solid var(--rule)}
+  td{padding:5px 6px;border-bottom:1px solid #E7E3D9;vertical-align:middle}
+  td.n,th.n{text-align:right;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  .price-in{width:80px;padding:4px 5px;font-size:14.5px;text-align:right}
+  .qty-in{width:66px;padding:4px 5px;font-size:14.5px;text-align:right}
+  .var-sel{padding:4px 5px;font-size:13.5px}
+
+  .toolbar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px}
+  .toolbar input[type=text]{flex:1;min-width:170px}
+
+  .trade{border:1px solid var(--rule);border-radius:2px;margin-bottom:10px;background:#fff}
+  .trade > summary{font-family:var(--cond);font-size:20px;font-weight:600;padding:9px 12px;cursor:pointer;list-style:none;
+                   display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .trade > summary::-webkit-details-marker{display:none}
+  .trade > summary::before{content:'+ ';color:var(--soft)}
+  .trade[open] > summary::before{content:'– '}
+  .trade > summary .amt{font-family:var(--sans);font-size:15px;font-weight:600;font-variant-numeric:tabular-nums}
+  .trade > summary .flagsub{font-family:var(--sans);font-size:12px;font-weight:400;color:var(--brick)}
+  .trade .inner{padding:0 12px 12px;border-top:1px solid var(--rule)}
+  .li{display:grid;grid-template-columns:22px 1fr 96px 70px 48px 86px;gap:8px;align-items:center;
+      padding:6px 0;border-bottom:1px solid #EFECE3;font-size:14.5px}
+  .li:last-child{border-bottom:none}
+  .li .nm{line-height:1.22}
+  .li .nm em{font-style:normal;color:var(--brick);font-size:12px}
+  .li .u{color:var(--soft);font-size:12.5px}
+  .li .amt{text-align:right;font-variant-numeric:tabular-nums}
+  .li select{padding:3px 4px;font-size:13px}
+  .li input[type=checkbox]{width:20px;height:20px;accent-color:#1C2430}
+  .li.off{opacity:.45}
+  .li.empty:not(.off){background:#FBF0EE;box-shadow:inset 3px 0 0 var(--brick)}
+  .li.off select{visibility:hidden}
+  .li input.auto{background:#F3F1EA}
+  .li[hidden]{display:none}
+
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule-strong);border:1px solid var(--rule-strong);margin-bottom:14px}
+  .stats div{background:#fff;padding:10px;text-align:center}
+  .stats .v{font-family:var(--cond);font-size:27px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+  .stats .k{font-size:12px;color:var(--soft);margin-top:3px}
+  .stats div.warn .v{color:var(--brick)}
+  .stats div.good .v{color:var(--good)}
+
+  .advisory{border-left:4px solid var(--water);background:#EAF1F5;padding:10px 12px;margin-top:12px;font-size:14px}
+  .advisory h4{font-family:var(--cond);font-size:17px;margin:0 0 4px}
+  .advisory ul{margin:0;padding-left:18px}
+  .advisory li{margin:3px 0}
+  .advisory.warn{border-left-color:var(--mark);background:#FAF2DE}
+  .advisory.ok{border-left-color:var(--good);background:#E9F1EC}
+
+  .quote{position:sticky;top:16px}
+  .sheet{background:var(--card);border:1px solid var(--rule-strong);border-radius:2px}
+  .sheet-head{background:var(--ink);color:#fff;padding:11px 14px}
+  .sheet-head h2{font-size:22px}
+  .sheet-head p{margin:2px 0 0;font-size:13.5px;color:#B9C0CB}
+  .sheet section{padding:12px 14px;border-bottom:1px solid var(--rule)}
+  .sheet h3{font-size:17px;margin-bottom:6px;color:var(--soft)}
+  .sumline{display:flex;justify-content:space-between;gap:12px;padding:3px 0;font-size:15px;font-variant-numeric:tabular-nums}
+  .sumline.b{font-weight:600}
+  .total{background:var(--mark);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .total .lab{font-family:var(--cond);font-size:20px;font-weight:600}
+  .total .val{font-family:var(--cond);font-size:40px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+  .terms{padding:12px 14px;font-size:13.5px;color:var(--soft)}
+  .empty{padding:26px 14px;color:var(--soft);font-size:15px}
+  .sign{padding:12px 14px;border-top:1px solid var(--rule);font-size:13px;color:var(--soft)}
+  .sigrow{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-top:16px}
+  .sigline{border-top:1px solid var(--ink);padding-top:3px;font-size:12px}
+  .sigbox{height:34px}
+
+  .jobrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #E7E3D9;font-size:14.5px}
+  .jobrow:last-child{border-bottom:none}
+  .banner{background:#FAF2DE;border:1px solid var(--mark);border-left:4px solid var(--mark);padding:9px 12px;font-size:14px;margin-bottom:16px;border-radius:2px}
+  .note{font-size:13px;color:var(--soft);margin:9px 0 0}
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;background:var(--ink);color:#fff;padding:9px 16px;border-radius:2px;font-size:14.5px;z-index:60}
+  .mobile-total{display:none}
+  .printonly{display:none}
+
+  @media (max-width:980px){
+    .wrap{grid-template-columns:1fr;padding-bottom:84px}
+    .quote{position:static}
+    .dims,.dims.direct{grid-template-columns:1fr 1fr 1fr}
+    .g4{grid-template-columns:1fr 1fr}
+    .stats{grid-template-columns:1fr 1fr}
+    .li{grid-template-columns:22px 1fr 66px 82px;row-gap:2px}
+    .li .u,.li select{display:none}
+    .wordmark{font-size:32px}
+    .mobile-total{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--mark);border-top:2px solid var(--ink);padding:9px 16px;justify-content:space-between;align-items:center}
+    .mobile-total .lab{font-family:var(--cond);font-size:17px;font-weight:600}
+    .mobile-total .val{font-family:var(--cond);font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+  @media print{
+    body{background:#fff}
+    .noprint,.masthead,.tabs,.mobile-total,.banner{display:none!important}
+    .wrap{display:block;max-width:none;padding:0}
+    .panel[hidden]{display:none!important}
+    .printonly{display:block}
+    .sheet{border:none}
+    .sheet-head{background:#fff;color:#000;border-bottom:3px solid #000}
+    .sheet-head p{color:#333}
+    .total{background:#fff;border-top:3px solid #000;border-bottom:3px solid #000}
+    .quote{position:static}
+    .letterhead{border-bottom:3px solid #000;padding-bottom:8px;margin-bottom:14px}
+    .letterhead .n{font-family:var(--cond);font-size:30px;font-weight:700}
+    .letterhead .c{font-size:13px}
+    body.print-buy .quote{display:none!important}
+    body.print-buy .advisory{display:none}
+    input,select{border:none!important;padding:0!important;background:none!important}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead noprint">
+  <div class="masthead-in">
+    <div class="wordmark" id="brandMark">Bailey the <span>Restorian</span></div>
+    <div class="tagline"><b>Rebuild and repair estimator.</b> Fourteen trades, graded materials, and a check on whether the job pays.</div>
+  </div>
+</header>
+
+<nav class="tabs noprint" role="tablist">
+  <button class="tab" role="tab" id="tabScope" aria-selected="true" aria-controls="panScope">Scope</button>
+  <button class="tab" role="tab" id="tabBuy" aria-selected="false" aria-controls="panBuy">Lowe's run</button>
+  <button class="tab" role="tab" id="tabCheck" aria-selected="false" aria-controls="panCheck">Hours &amp; margin</button>
+  <button class="tab" role="tab" id="tabSetup" aria-selected="false" aria-controls="panSetup">Prices &amp; setup</button>
+</nav>
+
+<main class="wrap">
+  <div>
+
+    <div class="panel" id="panScope" role="tabpanel">
+      <div class="banner noprint" id="storeWarn" hidden>Saving is off in this window, so prices and jobs will not stick. Download the file and open it straight from your phone or computer.</div>
+
+      <div class="block">
+        <h2>Job <small>Prints on the estimate</small></h2>
+        <div class="body">
+          <div class="grid g2">
+            <div><label for="cust">Customer</label><input type="text" id="cust" placeholder="Name"></div>
+            <div><label for="custPhone">Phone</label><input type="text" id="custPhone" placeholder="(321) 555-0134"></div>
+          </div>
+          <div class="grid g2" style="margin-top:10px">
+            <div><label for="addr">Job address</label><input type="text" id="addr" placeholder="Street, city"></div>
+            <div><label for="scopeName">What the job is</label><input type="text" id="scopeName" placeholder="Repipe patch and paint, three bedrooms"></div>
+          </div>
+          <div class="grid g4" style="margin-top:10px">
+            <div><label for="qdate">Date</label><input type="text" id="qdate"></div>
+            <div><label for="qnum">Quote number</label><input type="text" id="qnum"></div>
+            <div><label for="valid">Good for</label>
+              <select id="valid"><option>7 days</option><option selected>14 days</option><option>30 days</option></select>
+            </div>
+            <div><label for="payer">Billing</label>
+              <select id="payer"><option>Homeowner, cash</option><option>Insurance claim</option><option>Property manager</option><option>Sub for another contractor</option></select>
+            </div>
+          </div>
+          <div class="grid g2" style="margin-top:10px">
+            <div><label for="f_grade">Finish level, sets every material grade at once</label>
+              <select id="f_grade">
+                <option value="0">Builder grade, cheapest that works</option>
+                <option value="1" selected>Standard</option>
+                <option value="2">Premium</option>
+              </select>
+            </div>
+            <div><label for="printMode">Sheet version</label>
+              <select id="printMode">
+                <option value="cust" selected>Customer copy, trade totals only</option>
+                <option value="detail">Customer copy, every line itemized</option>
+                <option value="int">Internal copy, with cost and hours</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Quick start <small>Loads a typical scope you can edit</small></h2>
+        <div class="body">
+          <div class="actions" id="presets"></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Rooms <small>Rectangle or measured directly. Area tags scope a trade to one space.</small></h2>
+        <div class="body">
+          <div id="rooms"></div>
+          <div class="actions">
+            <button class="btn" id="addRoom">Add a room</button>
+            <button class="btn-quiet" id="clearRooms">Clear rooms</button>
+          </div>
+          <p class="note" id="roomTotals"></p>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Work <small>Check it, quantities fill in from the rooms</small></h2>
+        <div class="body">
+          <div class="toolbar noprint">
+            <input type="text" id="filter" placeholder="Search every line — try 'tile', 'door', 'patch', 'rental'">
+            <button class="btn-sm" id="expandAll">Open all</button>
+            <button class="btn-sm" id="collapseAll">Close all</button>
+            <button class="btn-sm" id="onlyChecked">Only checked</button>
+          </div>
+          <div id="trades"></div>
+          <div id="checkList"></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Custom lines <small>Anything the catalog misses</small></h2>
+        <div class="body">
+          <table><thead><tr><th>Description</th><th class="n">Qty</th><th class="n">You charge</th><th class="n">It costs you</th><th class="n">Hours</th><th class="n">Amount</th><th></th></tr></thead>
+          <tbody id="customBody"></tbody></table>
+          <div class="actions" style="margin-top:10px"><button class="btn-quiet" id="addCustom">Add a line</button></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="panBuy" role="tabpanel" hidden>
+      <div class="block">
+        <h2>Lowe's run <small>Rounded up to what you actually buy</small></h2>
+        <div class="body">
+          <p class="note" style="margin:0 0 12px" id="buyNote"></p>
+          <div id="buyTables"></div>
+          <div class="actions noprint" style="margin-top:12px">
+            <button class="btn-quiet" id="copyBuy">Copy list as text</button>
+            <button class="btn-quiet" id="printBuy">Print just this list</button>
+            <button class="btn-quiet" id="clearHave">Clear the on-hand column</button>
+          </div>
+          <p class="note noprint">The "have" column is for material already in the truck or the garage. Whatever you enter comes off the buy quantity and off the cost.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="panCheck" role="tabpanel" hidden>
+      <div class="block">
+        <h2>Does this job pay? <small>Nobody but you sees this tab</small></h2>
+        <div class="body">
+          <div class="stats" id="checkStats"></div>
+          <div class="grid g4">
+            <div><label for="f_costhr">Your labor cost per hour</label><input type="number" id="f_costhr" value="32" min="0" step="1"></div>
+            <div><label for="f_crew">Crew size</label><input type="number" id="f_crew" value="1" min="1" step="1"></div>
+            <div><label for="f_hrday">Working hours a day</label><input type="number" id="f_hrday" value="8" min="1" step="0.5"></div>
+            <div><label for="f_targmarg">Target margin %</label><input type="number" id="f_targmarg" value="35" min="0" step="1"></div>
+          </div>
+          <p class="note">Labor cost per hour is what the work actually costs you, loaded: your pay, a helper, taxes, fuel, insurance. Not what you bill. The gap between the two is where the business lives.</p>
+          <div id="checkNotes"></div>
+        </div>
+      </div>
+      <div class="block">
+        <h2>Loss guard <small>Where the price sits against the floor</small></h2>
+        <div class="body"><div id="guard"></div></div>
+      </div>
+      <div class="block">
+        <h2>Hours and cost by trade <small>From production rates you can edit</small></h2>
+        <div class="body"><table><thead><tr><th>Trade</th><th class="n">Hours</th><th class="n">Days</th><th class="n">Labor billed</th><th class="n">Per hour</th><th class="n">Share</th></tr></thead><tbody id="hoursBody"></tbody></table></div>
+      </div>
+    </div>
+
+    <div class="panel" id="panSetup" role="tabpanel" hidden>
+
+      <div class="block">
+        <h2>Your business <small>Prints as the letterhead</small></h2>
+        <div class="body">
+          <div class="grid g2">
+            <div><label for="b_name">Business name</label><input type="text" id="b_name" value="Bailey the Restorian LLC"></div>
+            <div><label for="b_phone">Phone</label><input type="text" id="b_phone" value="(321) 300-4076"></div>
+          </div>
+          <div class="grid g3" style="margin-top:10px">
+            <div><label for="b_email">Email</label><input type="text" id="b_email" value="bailey@baileytherestorian.org"></div>
+            <div><label for="b_site">Website</label><input type="text" id="b_site" value="baileytherestorian.org"></div>
+            <div><label for="b_lic">License / BTR number</label><input type="text" id="b_lic" placeholder="Brevard County"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Money <small>Applied to every job</small></h2>
+        <div class="body">
+          <div class="grid g4">
+            <div><label for="f_waste">Material waste %</label><input type="number" id="f_waste" value="10" min="0" step="1"></div>
+            <div><label for="f_tax">Sales tax %</label><input type="number" id="f_tax" value="7" min="0" step="0.5"></div>
+            <div><label for="f_markup">Material markup %</label><input type="number" id="f_markup" value="15" min="0" step="1"></div>
+            <div><label for="f_submarkup">Sub markup %</label><input type="number" id="f_submarkup" value="15" min="0" step="1"></div>
+            <div><label for="f_op">Overhead &amp; profit %</label><input type="number" id="f_op" value="10" min="0" step="1"></div>
+            <div><label for="f_cont">Contingency %</label><input type="number" id="f_cont" value="5" min="0" step="1"></div>
+            <div><label for="f_min">Minimum job $</label><input type="number" id="f_min" value="450" min="0" step="25"></div>
+            <div><label for="f_round">Round price to</label>
+              <select id="f_round"><option value="0">No rounding</option><option value="25" selected>Nearest $25</option><option value="50">Nearest $50</option><option value="100">Nearest $100</option></select>
+            </div>
+          </div>
+          <h3 style="font-size:18px;margin:16px 0 8px;color:var(--soft)">Payment schedule</h3>
+          <div class="grid g3">
+            <div><label for="f_dep">Deposit % to start</label><input type="number" id="f_dep" value="35" min="0" max="100" step="5"></div>
+            <div><label for="f_mid">Progress draw %</label><input type="number" id="f_mid" value="35" min="0" max="100" step="5"></div>
+            <div><label for="f_midwhen">Draw happens at</label><input type="text" id="f_midwhen" value="drywall finished and primed"></div>
+          </div>
+          <p class="note">On a lump-sum job in Florida you pay tax on materials at the register and quote one price, rather than adding tax on top of the customer's invoice. The customer copy folds it into the material line for that reason. Confirm with your accountant for how you are set up.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Loss guard <small>The two numbers that keep a job from going underwater</small></h2>
+        <div class="body">
+          <div class="grid g2">
+            <div><label for="f_floormargin">Margin you will never go under %</label><input type="number" id="f_floormargin" value="25" min="0" max="90" step="1"></div>
+            <div><label for="f_pad">Padding on prices you have not checked %</label><input type="number" id="f_pad" value="18" min="0" max="100" step="1"></div>
+          </div>
+          <p class="note">The first one is a hard floor. If the scope, rates and markups ever produce a price below your cost plus that margin, the tool raises the price and tells you. The second one pads every material price still marked unchecked, so an unverified price book quotes high instead of low. Tick a price off as checked and its padding drops away.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Takeoff assumptions <small>What the room math deducts</small></h2>
+        <div class="body">
+          <div class="grid g4">
+            <div><label for="a_dooropen">Door opening, sq ft</label><input type="number" id="a_dooropen" value="21" min="0" step="1"></div>
+            <div><label for="a_winopen">Window opening, sq ft</label><input type="number" id="a_winopen" value="15" min="0" step="1"></div>
+            <div><label for="a_doorwidth">Door width for base, ft</label><input type="number" id="a_doorwidth" value="3" min="0" step="0.5"></div>
+            <div><label for="a_casedoor">Casing per door, ft</label><input type="number" id="a_casedoor" value="17" min="0" step="1"></div>
+            <div><label for="a_casewin">Casing per window, ft</label><input type="number" id="a_casewin" value="14" min="0" step="1"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Material prices <small id="priceStamp"></small></h2>
+        <div class="body">
+          <p class="note" style="margin:0 0 12px">Ballpark Melbourne-area numbers, not live Lowe's pricing, which nobody can pull automatically and which moves by store and by week. Where a line has grades, the dropdown picks which one this job uses and the price box edits that grade. Walk the aisles once with this open, fix them, hit save.</p>
+          <input type="text" id="priceFilter" placeholder="Filter materials" style="margin-bottom:10px">
+          <div id="buyPriceTables"></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Rates &amp; production <small>Material, your labor, and how fast you work</small></h2>
+        <div id="rateTrades"></div>
+        <div class="body" style="border-top:1px solid var(--rule)">
+          <div class="actions">
+            <button class="btn-mark" id="printCheck">Print a price check sheet</button>
+            <button class="btn-quiet" id="savePrices">Save all prices as my defaults</button>
+            <button class="btn-quiet" id="resetPrices">Reset to originals</button>
+          </div>
+          <p class="note">Production is units an hour. Hang 55 sq ft an hour, run 25 ft of base an hour. These drive the hours and margin tab, not the price.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Saved jobs &amp; backup <small>Stored on this device only</small></h2>
+        <div class="body">
+          <div class="actions" style="margin-bottom:12px">
+            <button class="btn" id="saveJob">Save current job</button>
+            <button class="btn-quiet" id="newJob">Start a new job</button>
+            <button class="btn-quiet" id="exportAll">Export a backup file</button>
+            <button class="btn-quiet" id="importBtn">Import a backup</button>
+            <input type="file" id="importFile" accept="application/json" hidden>
+          </div>
+          <div id="jobList"></div>
+          <p class="note">This device only. Export a backup before you change phones, and use it to move a job from the truck to the laptop.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Terms wording <small>Prints under the estimate</small></h2>
+        <div class="body">
+          <label for="authText">Text the customer signs</label>
+          <textarea id="authText"></textarea>
+          <p class="note">Starter wording, not legal advice. Have an attorney read it before you use it on real jobs.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <aside class="quote">
+    <div class="printonly letterhead" id="letterhead"></div>
+    <div class="sheet" id="sheet">
+      <div class="sheet-head">
+        <h2>Estimate</h2>
+        <p id="sheetSub">Add a room and check some work to start.</p>
+      </div>
+      <div id="sheetBody"><p class="empty">Nothing scoped yet.</p></div>
+    </div>
+    <div class="actions noprint" style="margin-top:12px">
+      <button class="btn-mark" id="printBtn">Print or save as PDF</button>
+      <button class="btn-quiet" id="copyBtn">Copy quote as text</button>
+    </div>
+  </aside>
+</main>
+
+<div class="mobile-total noprint" id="mobileTotal">
+  <span class="lab">Quote total</span><span class="val" id="mobileTotalVal">$0</span>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var $  = function(s,el){ return (el||document).querySelector(s); };
+  var $$ = function(s,el){ return Array.prototype.slice.call((el||document).querySelectorAll(s)); };
+  var num = function(v){ var n = parseFloat(v); return isFinite(n) ? n : 0; };
+  var money = function(n){ return '$' + (Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); };
+  var money0 = function(n){ return '$' + Math.round(n).toLocaleString('en-US'); };
+  var ceil = function(n){ return Math.ceil(n - 1e-9); };
+  var esc = function(s){ return String(s==null?'':s).replace(/[&<>"]/g,function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+
+  var store = {
+    ok:(function(){ try{ localStorage.setItem('__t','1'); localStorage.removeItem('__t'); return true; }catch(e){ return false; } })(),
+    get:function(k){ try{ var v=localStorage.getItem(k); return v?JSON.parse(v):null; }catch(e){ return null; } },
+    set:function(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); return true; }catch(e){ return false; } },
+    del:function(k){ try{ localStorage.removeItem(k); }catch(e){} }
+  };
+  var K_P = 'btr_rb_prices_v3', K_J = 'btr_rb_jobs_v3';
+
+  var GROUPS = ['All areas','Bedrooms','Bath','Kitchen','Living','Laundry','Garage','Hall','Exterior'];
+
+  var TRADES = [
+    {k:'demo',  name:'Demo & prep'},
+    {k:'frame', name:'Framing & structure'},
+    {k:'insul', name:'Insulation'},
+    {k:'dry',   name:'Drywall'},
+    {k:'paint', name:'Paint'},
+    {k:'trim',  name:'Trim & doors'},
+    {k:'floor', name:'Flooring'},
+    {k:'cab',   name:'Cabinets & tops'},
+    {k:'bath',  name:'Bath fixtures & tile'},
+    {k:'plumb', name:'Plumbing', sub:true},
+    {k:'elec',  name:'Electrical', sub:true},
+    {k:'hvac',  name:'HVAC', sub:true},
+    {k:'ext',   name:'Exterior & misc'},
+    {k:'rent',  name:'Tools & rentals'},
+    {k:'final', name:'Permits & finish out'}
+  ];
+
+  /* item: k, trade, name, unit, auto, material$, labor$, units-per-hour, flags(b=buy list, s=sub, a=allowance) */
+  function mkI(a){
+    var f = a[8] || '';
+    return {k:a[0], t:a[1], n:a[2], u:a[3], auto:a[4], mat:a[5], lab:a[6], hr:a[7],
+            buy:f.indexOf('b')>=0, sub:f.indexOf('s')>=0, allow:f.indexOf('a')>=0};
+  }
+  function defCat(){ return [
+    ['dm_prot','demo','Floor and content protection','sq ft','floor',0,0.22,400,'b'],
+    ['dm_cont','demo','Move and return contents','hour',null,0,68,1,''],
+    ['dm_bar','demo','Dust barrier and negative air','sq ft',null,0,0.95,60,'b'],
+    ['dm_dw','demo','Demo drywall and bag','sq ft','wall',0,0.85,65,'b'],
+    ['dm_ceil','demo','Demo ceiling drywall','sq ft','ceil',0,1.05,50,'b'],
+    ['dm_ins','demo','Remove damaged insulation','sq ft',null,0,0.55,120,''],
+    ['dm_fl','demo','Remove carpet or vinyl flooring','sq ft','floor',0,1.05,90,''],
+    ['dm_tile','demo','Remove tile floor and thinset','sq ft',null,0,2.60,35,''],
+    ['dm_tr','demo','Remove baseboard and trim','ft','base',0,0.65,60,''],
+    ['dm_cab','demo','Remove cabinets','ft',null,0,12.00,4,''],
+    ['dm_tub','demo','Remove tub or shower','each',null,0,285,0.35,''],
+    ['dm_door','demo','Remove door and jamb','each',null,0,42,2,''],
+    ['dm_pop','demo','Scrape popcorn ceiling','sq ft','ceil',0,1.30,45,'b'],
+    ['dm_dump','demo','Dumpster','each','one',0,0,0,'b'],
+    ['dm_haul','demo','Load and haul, pickup load','each',null,0,145,0.6,''],
+
+    ['fr_stud','frame','Replace wall studs','each',null,0,14,3,'b'],
+    ['fr_plate','frame','Pressure treated bottom plate','ft',null,0,4.50,12,'b'],
+    ['fr_top','frame','Top plate, untreated','ft',null,0,4.20,14,'b'],
+    ['fr_wall','frame','Build new framed wall','ft',null,0,14,3,'b'],
+    ['fr_head','frame','Header over an opening','each',null,0,65,1.2,'b'],
+    ['fr_ro','frame','Frame a door or window opening','each',null,0,95,0.8,'b'],
+    ['fr_blk','frame','Blocking and backing','each',null,0,12,4,'b'],
+    ['fr_strap','frame','Hurricane strap or tie','each',null,0,9,6,'b'],
+    ['fr_sub','frame','Subfloor repair or replace','sq ft',null,0,2.85,25,'b'],
+    ['fr_joist','frame','Sister a floor joist','each',null,0,78,1,'b'],
+    ['fr_furr','frame','Furring strips','ft',null,0,2.40,25,'b'],
+
+    ['in_r13','insul','R-13 wall batt','sq ft','wall',0,0.45,120,'b'],
+    ['in_r19','insul','R-19 wall or floor batt','sq ft',null,0,0.50,110,'b'],
+    ['in_r30','insul','R-30 attic batt','sq ft',null,0,0.55,100,'b'],
+    ['in_snd','insul','Sound batt','sq ft',null,0,0.48,110,'b'],
+    ['in_blow','insul','Attic blown-in top up','sq ft',null,0,0.55,90,'b'],
+    ['in_foam','insul','Rigid foam board','sq ft',null,0,0.85,70,'b'],
+    ['in_vb','insul','Vapor barrier','sq ft',null,0,0.30,200,'b'],
+
+    ['dw_wall','dry','Hang 1/2 in. drywall, walls','sq ft','wall',0,0.55,55,'b'],
+    ['dw_ceil','dry','Hang drywall, ceiling','sq ft','ceil',0,0.68,40,'b'],
+    ['dw_58','dry','Hang 5/8 in. type X','sq ft',null,0,0.62,48,'b'],
+    ['dw_mr','dry','Hang moisture-resistant board','sq ft',null,0,0.62,50,'b'],
+    ['dw_flex','dry','1/4 in. flexible board, curves','sq ft',null,0,0.95,35,'b'],
+    ['dw_cb','dry','Cement board for tile','sq ft',null,0,1.45,30,'b'],
+    ['dw_fin','dry','Tape and finish, level 4','sq ft','wall',0,0.95,40,'b'],
+    ['dw_l5','dry','Level 5 skim coat','sq ft',null,0,0.55,55,'b'],
+    ['dw_hot','dry','Setting compound patch work','sq ft',null,0,1.10,35,'b'],
+    ['dw_bead','dry','Corner bead','each',null,0,9,4,'b'],
+    ['dw_bull','dry','Bullnose corner bead','each',null,0,12,3,'b'],
+    ['dw_arch','dry','Archway bead','each',null,0,26,1.5,'b'],
+    ['dw_tex','dry','Texture, knockdown or orange peel','sq ft','wall',0,0.55,90,'b'],
+    ['dw_sm','dry','Smooth wall finish','sq ft',null,0,0.75,60,'b'],
+    ['dw_ps','dry','Patch, under 6 in.','each',null,0,45,1.6,'b'],
+    ['dw_pm','dry','Patch, 6 in. to 2 ft','each',null,0,85,1,'b'],
+    ['dw_pl','dry','Patch, 2 ft to 4 ft','each',null,0,145,0.6,'b'],
+    ['dw_acc','dry','Access panel','each',null,0,55,1.5,'b'],
+    ['dw_soff','dry','Build and finish a soffit','ft',null,0,18,2.5,'b'],
+
+    ['pt_pr','paint','Prime new drywall','sq ft','wall',0,0.35,180,'b'],
+    ['pt_blk','paint','Stain-blocking primer, spot','sq ft',null,0,0.45,140,'b'],
+    ['pt_wall','paint','Paint walls, two coats','sq ft','wall',0,0.85,150,'b'],
+    ['pt_w1','paint','Paint walls, one coat','sq ft',null,0,0.48,260,'b'],
+    ['pt_ceil','paint','Paint ceiling, two coats','sq ft','ceil',0,0.95,130,'b'],
+    ['pt_trim','paint','Paint trim and base','ft','base',0,1.65,40,'b'],
+    ['pt_door','paint','Paint a door and casing, both sides','each',null,0,55,1.1,'b'],
+    ['pt_cab','paint','Paint cabinet doors and boxes','each',null,0,68,0.9,'b'],
+    ['pt_clo','paint','Paint a closet interior','each',null,0,78,1.2,'b'],
+    ['pt_clk','paint','Caulk trim and joints','ft','base',0,0.55,90,'b'],
+    ['pt_wp','paint','Wallpaper removal','sq ft',null,0.08,1.45,40,''],
+    ['pt_sup','paint','Paint sundries and setup','job','one',0,0,0,'b'],
+
+    ['tr_base','trim','Baseboard','ft','base',0,3.00,25,'b'],
+    ['tr_shoe','trim','Shoe or quarter round','ft',null,0,1.85,40,'b'],
+    ['tr_crwn','trim','Crown molding','ft','perim',0,5.50,14,'b'],
+    ['tr_chr','trim','Chair rail','ft',null,0,4.20,20,'b'],
+    ['tr_case','trim','Door and window casing','ft','case',0,3.25,22,'b'],
+    ['tr_stl','trim','Window stool and apron','each',null,0,68,1.2,'b'],
+    ['tr_jmb','trim','Jamb extension','each',null,0,42,1.6,'b'],
+    ['tr_door','trim','Interior prehung door','each','doors',0,145,1.4,'b'],
+    ['tr_slab','trim','Slab door, hung','each',null,0,165,1.2,'b'],
+    ['tr_bif','trim','Bifold closet door','each',null,0,118,1.5,'b'],
+    ['tr_barn','trim','Barn door and track','each',null,0,185,1,'b'],
+    ['tr_hw','trim','Door hardware set','each',null,0,28,3,'b'],
+    ['tr_stop','trim','Door stops and bumpers','each',null,0,6,12,'b'],
+    ['tr_shf','trim','Closet shelf and rod','ft',null,0,14,8,'b'],
+    ['tr_wns','trim','Wainscot or board and batten','sq ft',null,0,6.50,12,'b'],
+
+    ['fl_lvp','floor','LVP plank flooring','sq ft','floor',0,2.25,55,'b'],
+    ['fl_lam','floor','Laminate flooring','sq ft',null,0,2.10,60,'b'],
+    ['fl_eng','floor','Engineered hardwood','sq ft',null,0,3.40,40,'b'],
+    ['fl_ref','floor','Refinish hardwood','sq ft',null,0,3.85,45,'ba'],
+    ['fl_tile','floor','Porcelain tile floor','sq ft',null,0,6.50,18,'b'],
+    ['fl_wt','floor','Wall tile, tub or shower surround','sq ft',null,0,9.50,12,'b'],
+    ['fl_trim','floor','Tile edge trim or Schluter','ft',null,0,4.50,18,'b'],
+    ['fl_carp','floor','Carpet and pad','sq ft',null,0,1.35,90,'b'],
+    ['fl_vin','floor','Sheet vinyl','sq ft',null,0,2.10,60,'b'],
+    ['fl_lvl','floor','Floor leveling compound','sq ft',null,0,1.45,60,'b'],
+    ['fl_qtr','floor','Quarter round','ft','base',0,1.85,40,'b'],
+    ['fl_trn','floor','Transition strip','each',null,0,18,3,'b'],
+    ['fl_tck','floor','Tack strip','ft',null,0,0.85,60,'b'],
+
+    ['cb_base','cab','Base cabinets','ft',null,0,68,1.6,'b'],
+    ['cb_wall','cab','Wall cabinets','ft',null,0,62,1.8,'b'],
+    ['cb_tall','cab','Tall or pantry cabinet','each',null,0,145,0.8,'b'],
+    ['cb_van','cab','Vanity cabinet','each',null,0,125,0.9,'b'],
+    ['cb_lam','cab','Laminate or wood countertop','ft',null,0,38,2.5,'b'],
+    ['cb_qtz','cab','Quartz or solid surface top, fabricated','ft',null,78,0,0,'a'],
+    ['cb_snk','cab','Sink cutout and mount','each',null,0,125,0.8,''],
+    ['cb_bk','cab','Backsplash tile','sq ft',null,0,11.00,10,'b'],
+    ['cb_hw','cab','Cabinet hardware','each',null,0,6,12,'b'],
+    ['cb_cr','cab','Cabinet crown','ft',null,0,6.50,12,'b'],
+    ['cb_fil','cab','Filler strips and scribe','each',null,0,22,3,'b'],
+
+    ['ba_tub','bath','Tub, set and secure','each',null,0,245,0.5,'b'],
+    ['ba_pan','bath','Shower pan or base','each',null,0,285,0.45,'b'],
+    ['ba_dr','bath','Shower door','each',null,0,165,0.7,'b'],
+    ['ba_mir','bath','Mirror or medicine cabinet','each',null,0,55,1.5,'b'],
+    ['ba_acc','bath','Towel bars and accessories','each',null,0,22,3,'b'],
+    ['ba_nch','bath','Shower niche','each',null,0,95,0.7,'b'],
+    ['ba_wp','bath','Waterproof membrane on the surround','sq ft',null,0,1.85,35,'b'],
+    ['ba_wax','bath','Reset a toilet, wax ring and bolts','each',null,0,65,1.2,'b'],
+
+    ['pl_res','plumb','Pull and reset a toilet','each',null,165,0,0,'s'],
+    ['pl_toi','plumb','New toilet, supplied and set','each',null,420,0,0,'s'],
+    ['pl_van','plumb','Vanity sink and faucet','each',null,485,0,0,'s'],
+    ['pl_snk','plumb','Kitchen sink and faucet','each',null,545,0,0,'s'],
+    ['pl_vlv','plumb','Tub or shower valve','each',null,675,0,0,'s'],
+    ['pl_set','plumb','Tub or shower rough and set','each',null,850,0,0,'s'],
+    ['pl_ln','plumb','Branch line repair','each',null,385,0,0,'s'],
+    ['pl_rep','plumb','Whole-house repipe','each',null,5800,0,0,'sa'],
+    ['pl_wh','plumb','Water heater replacement','each',null,1450,0,0,'s'],
+    ['pl_dsp','plumb','Garbage disposal','each',null,285,0,0,'s'],
+    ['pl_wb','plumb','Washer box and hoses','each',null,245,0,0,'s'],
+    ['pl_stp','plumb','Angle stops and supplies, per fixture','each',null,95,0,0,'s'],
+    ['pl_drn','plumb','Drain line repair','each',null,425,0,0,'s'],
+    ['pl_hose','plumb','Hose bib replacement','each',null,185,0,0,'s'],
+
+    ['el_dev','elec','Receptacle or switch','each',null,45,0,0,'s'],
+    ['el_gfc','elec','GFCI receptacle','each',null,95,0,0,'s'],
+    ['el_crc','elec','New circuit run','each',null,185,0,0,'s'],
+    ['el_can','elec','Recessed light','each',null,165,0,0,'s'],
+    ['el_fix','elec','Fixture or ceiling fan','each',null,145,0,0,'s'],
+    ['el_smk','elec','Smoke or CO detector','each',null,110,0,0,'s'],
+    ['el_fan','elec','Bath exhaust fan','each',null,385,0,0,'s'],
+    ['el_pan','elec','Panel or breaker work','each',null,350,0,0,'s'],
+    ['el_sub','elec','Subpanel','each',null,1450,0,0,'sa'],
+    ['el_rw','elec','Rewire a room','each',null,1250,0,0,'sa'],
+
+    ['hv_dct','hvac','Duct section repair or replace','each',null,285,0,0,'s'],
+    ['hv_reg','hvac','Register or return, remove and reset','each',null,85,0,0,'s'],
+    ['hv_cnd','hvac','Condensate line clear and reroute','each',null,225,0,0,'s'],
+    ['hv_ah','hvac','Air handler closet rebuild','each',null,650,0,0,'sa'],
+
+    ['ex_sof','ext','Soffit repair','ft',null,0,6.50,12,'b'],
+    ['ex_fas','ext','Fascia repair','ft',null,0,7.25,11,'b'],
+    ['ex_sid','ext','Siding patch','sq ft',null,0,5.80,14,'b'],
+    ['ex_stu','ext','Stucco patch','sq ft',null,0,8.50,10,'b'],
+    ['ex_wsh','ext','Pressure wash','sq ft',null,0.04,0.28,300,''],
+    ['ex_scr','ext','Screen repair','each',null,0,55,1.5,'b'],
+    ['ex_pnt','ext','Exterior paint','sq ft',null,0,1.05,120,'b'],
+    ['ex_vnt','ext','Soffit or gable vent','each',null,0,68,1.2,'b'],
+
+    ['rn_lift','rent','Drywall lift rental','day',null,0,0,0,'b'],
+    ['rn_hop','rent','Texture rig and compressor rental','day',null,0,0,0,'b'],
+    ['rn_sand','rent','Floor sander rental','day',null,0,0,0,'b'],
+    ['rn_saw','rent','Wet tile saw rental','day',null,0,0,0,'b'],
+    ['rn_str','rent','Carpet stretcher rental','day',null,0,0,0,'b'],
+    ['rn_scaf','rent','Scaffold rental','day',null,0,0,0,'b'],
+    ['rn_van','rent','Truck or trailer rental','day',null,0,0,0,'b'],
+
+    ['fn_prm','final','Permit and fees','each',null,375,0,0,'a'],
+    ['fn_trp','final','Trip and setup','each',null,0,75,1,''],
+    ['fn_cln','final','Final clean','sq ft','floor',0,0.35,350,'b'],
+    ['fn_pch','final','Punch list and touch up','hour',null,0,68,1,''],
+    ['fn_ppe','final','PPE and safety','job','one',0,0,0,'b'],
+    ['fn_pot','final','Portable toilet rental','month',null,185,0,0,''],
+    ['fn_fast','final','Fasteners and adhesives','job','one',0,0,0,'b']
+  ].map(mkI); }
+
+  /* buy: k, [driving items], trade, name, purchase unit, driving units per purchase unit,
+           price (number) or grades [[label, price], ...], flags(n=no waste, f=fixed against finish level) */
+  function mkB(a){
+    var v = typeof a[6] === 'number' ? [{n:'', p:a[6]}] : a[6].map(function(x){ return {n:x[0], p:x[1]}; });
+    var f = a[7] || '';
+    return {k:a[0], from:a[1], t:a[2], n:a[3], u:a[4], per:a[5], v:v, sel:0, ver:0,
+            nw:f.indexOf('n')>=0, fx:f.indexOf('f')>=0};
+  }
+  function defBuy(){ return [
+    /* demo and protection */
+    ['prot',['dm_prot'],'demo','Floor protection, ram board or paper','roll',400,[['Rosin paper',18.98],['Ram board',42.98]],'n'],
+    ['poly',['dm_bar'],'demo','6 mil poly sheeting','roll',400,14.98,'nf'],
+    ['zip',['dm_bar'],'demo','Zip poles and dust barrier tape','set',200,26.98,'nf'],
+    ['bags',['dm_dw','dm_ceil','dm_pop'],'demo','Heavy contractor bags','box',400,24.98,'nf'],
+    ['dump',['dm_dump'],'demo','Dumpster or bagster','each',1,[['Bagster, 3 cu yd',35.00],['10 yard dumpster',395.00],['20 yard dumpster',525.00]],'n'],
+    ['popcov',['dm_pop'],'demo','Plastic and scraper blades','job',0,32.00,'nf'],
+
+    /* framing */
+    ['stud',['fr_stud'],'frame','Stud','each',1,[['2x4x92-5/8 stud',4.68],['2x4x8',5.28],['2x6x92-5/8',9.48]],'n'],
+    ['pt24',['fr_plate'],'frame','Pressure treated 2x4, per ft','ft',1,0.98,''],
+    ['l24',['fr_top','fr_furr','fr_blk','fr_ro'],'frame','2x4 framing lumber, per ft','ft',1,0.62,''],
+    ['wallkit',['fr_wall'],'frame','Studs and plates for new wall, per ft','ft',1,6.80,''],
+    ['hdr',['fr_head'],'frame','Header stock, 2x8 or 2x10','each',1,26.00,'n'],
+    ['strap',['fr_strap'],'frame','Hurricane strap or tie','each',1,1.68,'n'],
+    ['osb',['fr_sub'],'frame','Subfloor sheathing, 4x8','sheet',32,[['1/2 in. CDX',36.98],['3/4 in. T&G',48.00]],''],
+    ['joist',['fr_joist'],'frame','Joist stock, 2x8 or 2x10','each',1,26.00,'n'],
+    ['fnail',['fr_stud','fr_wall','fr_plate','fr_top','fr_blk','fr_ro','fr_sub','fr_furr'],'frame','Framing nails and screws','box',400,18.98,'nf'],
+    ['adhes',['fr_sub','fr_furr','in_foam'],'frame','Construction adhesive','tube',80,5.48,'nf'],
+
+    /* insulation */
+    ['b13',['in_r13'],'insul','R-13 batt, 88 sq ft bag','bag',88,[['Unfaced',68.00],['Kraft faced',74.00]],''],
+    ['b19',['in_r19'],'insul','R-19 batt, 75 sq ft bag','bag',75,88.00,''],
+    ['b30',['in_r30'],'insul','R-30 attic batt, 58 sq ft bag','bag',58,130.00,''],
+    ['bsn',['in_snd'],'insul','Sound batt, 88 sq ft bag','bag',88,84.00,''],
+    ['blow',['in_blow'],'insul','Blown insulation, bag at R-30','bag',40,46.00,''],
+    ['foam',['in_foam'],'insul','Rigid foam board, 4x8','sheet',32,[['1/2 in.',22.98],['1 in.',29.98]],''],
+    ['vb',['in_vb'],'insul','Vapor barrier, 500 sq ft roll','roll',500,38.00,'n'],
+
+    /* drywall */
+    ['sheet',['dw_wall','dw_ceil'],'dry','Drywall panel','sheet',32,[['1/2 in. 4x8',18.48],['1/2 in. lightweight 4x8',19.98],['1/2 in. 4x12, fewer joints',27.98]],''],
+    ['s58',['dw_58'],'dry','Drywall, 5/8 in. type X','sheet',32,[['4x8',23.98],['4x12',34.98]],''],
+    ['smr',['dw_mr'],'dry','Moisture-resistant board','sheet',32,[['Green board 4x8',22.98],['Mold resistant 4x8',25.98]],''],
+    ['sflex',['dw_flex'],'dry','1/4 in. flexible board, 4x8','sheet',32,14.98,''],
+    ['cbd',['dw_cb'],'dry','Cement board','sheet',15,[['1/4 in. 3x5',12.98],['1/2 in. 3x5',14.98]],''],
+    ['mud',['dw_fin','dw_l5'],'dry','Joint compound, 4.5 gal','bucket',475,[['All-purpose',21.98],['Lightweight Plus 3',23.98]],'nf'],
+    ['hotmud',['dw_hot','dw_ps','dw_pm','dw_pl'],'dry','Setting compound, 18 lb bag','bag',250,12.98,'nf'],
+    ['texmud',['dw_tex','dw_sm'],'dry','Texture or topping compound','bucket',300,18.98,'nf'],
+    ['tape',['dw_fin','dw_hot'],'dry','Joint tape','roll',1250,[['Mesh, 300 ft',6.98],['Paper, 500 ft',8.48]],'nf'],
+    ['screw',['dw_wall','dw_ceil','dw_58','dw_mr','dw_flex'],'dry','Drywall screws, 5 lb','box',1000,24.98,'nf'],
+    ['cbscr',['dw_cb'],'dry','Cement board screws and tape','box',300,18.98,'nf'],
+    ['bead',['dw_bead'],'dry','Corner bead, 8 ft','stick',1,[['Vinyl',3.68],['Metal',4.28],['Paper faced',5.28]],'n'],
+    ['bull',['dw_bull'],'dry','Bullnose corner bead, 8 ft','stick',1,7.98,'n'],
+    ['arch',['dw_arch'],'dry','Archway flex bead','each',1,12.98,'n'],
+    ['acc',['dw_acc'],'dry','Access panel','each',1,32.00,'n'],
+    ['soffkit',['dw_soff'],'dry','Soffit framing and board, per ft','ft',1,6.50,''],
+    ['sand',['dw_fin','dw_l5','dw_hot','dw_ps','dw_pm','dw_pl'],'dry','Sanding sponges, screens and pole','job',0,28.00,'nf'],
+
+    /* paint */
+    ['prim',['pt_pr'],'paint','Drywall primer, 1 gal','gal',250,[['PVA drywall primer',24.98],['All-surface bonding primer',32.98]],'n'],
+    ['blk',['pt_blk'],'paint','Stain-blocking primer, 1 gal','gal',200,[['Oil based',32.98],['Shellac based',38.98]],'n'],
+    ['wp',['pt_wall'],'paint','Interior wall paint, 1 gal','gal',175,[['Contractor flat',28.98],['Eggshell, washable',38.98],['Premium scrubbable',52.98]],'n'],
+    ['wp1',['pt_w1'],'paint','Interior wall paint, 1 gal','gal',350,38.98,'n'],
+    ['cp',['pt_ceil'],'paint','Ceiling paint, 1 gal','gal',175,[['Flat white',29.98],['Premium, one coat',39.98]],'n'],
+    ['enam',['pt_trim','pt_door','pt_cab','pt_clo'],'paint','Trim enamel, 1 gal','gal',300,[['Latex semi-gloss',46.98],['Cabinet and trim enamel',58.98]],'n'],
+    ['caulk',['pt_clk','tr_base','tr_crwn','tr_case','tr_chr','fl_qtr','tr_shoe','tr_wns'],'paint','Paintable caulk','tube',60,[['Acrylic latex',4.68],['Siliconized acrylic',6.28]],'n'],
+    ['ptape',['pt_sup'],'paint','Painter tape, plastic and drops','job',0,64.00,'nf'],
+    ['roll',['pt_sup'],'paint','Roller covers, brushes, trays, liners','job',0,52.00,'nf'],
+    ['bucket',['pt_sup'],'paint','Buckets, grids, pole and rags','job',0,38.00,'nf'],
+
+    /* trim and doors */
+    ['base',['tr_base'],'trim','Baseboard','ft',1,[['MDF 3-1/4 in.',1.28],['Primed pine 3-1/4 in.',1.85],['MDF 5-1/4 in.',2.45],['PVC, wet areas',3.10]],''],
+    ['shoe',['tr_shoe'],'trim','Shoe molding','ft',1,[['Pine',0.95],['PVC',1.65]],''],
+    ['crown',['tr_crwn'],'trim','Crown molding','ft',1,[['MDF 3-5/8 in.',2.15],['Primed pine 3-5/8 in.',2.65],['MDF 5-1/4 in.',3.85]],''],
+    ['chair',['tr_chr'],'trim','Chair rail','ft',1,2.35,''],
+    ['case',['tr_case'],'trim','Door and window casing','ft',1,[['MDF colonial',1.15],['Primed pine colonial',1.45],['Craftsman flat stock',1.95]],''],
+    ['stool',['tr_stl'],'trim','Window stool and apron','each',1,34.00,'n'],
+    ['jmb',['tr_jmb'],'trim','Jamb extension stock','each',1,18.00,'n'],
+    ['door',['tr_door'],'trim','Interior prehung door','each',1,[['Hollow core flat',112.00],['Hollow core 6 panel',138.00],['Solid core',288.00]],'n'],
+    ['slab',['tr_slab'],'trim','Slab door','each',1,[['Hollow core',82.00],['6 panel',104.00],['Solid core',214.00]],'n'],
+    ['bif',['tr_bif'],'trim','Bifold closet door','each',1,78.00,'n'],
+    ['barn',['tr_barn'],'trim','Barn door slab and track','each',1,285.00,'n'],
+    ['dhw',['tr_hw'],'trim','Door hardware','set',1,[['Knob, passage',12.00],['Lever, passage',24.00],['Lever, privacy',28.00]],'n'],
+    ['hinge',['tr_slab','tr_barn'],'trim','Hinges and screws','set',1,8.98,'n'],
+    ['stop',['tr_stop'],'trim','Door stop or bumper','each',1,3.28,'n'],
+    ['shelf',['tr_shf'],'trim','Closet shelf and rod','ft',1,[['Wire shelf kit',4.98],['Wood shelf and rod',9.50]],''],
+    ['wns',['tr_wns'],'trim','Wainscot panel and battens','sq ft',1,3.20,''],
+    ['nails',['tr_base','tr_crwn','tr_case','tr_door','fl_qtr','tr_chr','tr_shoe','tr_wns','tr_slab','tr_stl'],'trim','Finish nails, filler and putty','box',300,16.98,'nf'],
+    ['shim',['tr_door','tr_slab','tr_bif','tr_jmb','cb_base','cb_wall'],'trim','Shims','bundle',12,4.28,'nf'],
+
+    /* flooring */
+    ['lvp',['fl_lvp'],'floor','LVP flooring, about 24 sq ft a box','box',24,[['4mm glue down',48.00],['5mm click, pad attached',66.00],['6mm rigid core waterproof',89.00]],''],
+    ['lam',['fl_lam'],'floor','Laminate flooring','box',22,[['7mm, about 24 sq ft a carton',44.00],['10mm, about 27 sq ft a carton',52.00],['12mm water resistant, about 20 sq ft a carton',58.00]],''],
+    ['eng',['fl_eng'],'floor','Engineered hardwood, about 22 sq ft a box','box',22,[['3/8 in.',89.00],['1/2 in. wide plank',118.00]],''],
+    ['ul',['fl_lvp','fl_lam','fl_eng'],'floor','Floor underlayment, 100 sq ft roll','roll',100,[['Standard foam',32.00],['With moisture barrier',48.00]],''],
+    ['tile',['fl_tile'],'floor','Porcelain floor tile','sq ft',1,[['Builder grade',1.98],['Standard',3.15],['Wood look or large format',4.98]],''],
+    ['wtile',['fl_wt','cb_bk'],'floor','Wall tile','sq ft',1,[['Ceramic subway',2.28],['Porcelain',3.65],['Mosaic or accent',7.85]],''],
+    ['thin',['fl_tile','fl_wt','cb_bk','dw_cb'],'floor','Thinset mortar, 50 lb','bag',80,[['Standard',17.98],['Modified, large format',24.98]],'nf'],
+    ['grout',['fl_tile','fl_wt','cb_bk'],'floor','Grout, 10 lb','bag',100,[['Sanded',21.98],['Epoxy',48.98]],'nf'],
+    ['seal',['fl_tile','fl_wt','cb_bk'],'floor','Grout sealer','bottle',250,22.98,'nf'],
+    ['tilesup',['fl_tile','fl_wt','cb_bk'],'floor','Spacers, float, sponges and blades','job',0,42.00,'nf'],
+    ['ftrim',['fl_trim'],'floor','Tile edge trim or Schluter','ft',1,3.85,''],
+    ['refin',['fl_ref'],'floor','Sanding abrasives and polyurethane','set',250,88.00,'nf'],
+    ['carp',['fl_carp'],'floor','Carpet and pad','sq ft',1,[['Builder grade',2.05],['Mid grade',2.58],['Plush or textured',3.78]],''],
+    ['vin',['fl_vin'],'floor','Sheet vinyl','sq ft',1,2.10,''],
+    ['lvlr',['fl_lvl'],'floor','Floor leveling compound, 50 lb','bag',40,24.98,'nf'],
+    ['qtr',['fl_qtr'],'floor','Quarter round','ft',1,0.95,''],
+    ['trn',['fl_trn'],'floor','Transition strip','each',1,[['T-mold or reducer',18.00],['Stair nose or threshold',26.00]],'n'],
+    ['tck',['fl_tck'],'floor','Tack strip','ft',1,0.42,''],
+
+    /* cabinets */
+    ['cbb',['cb_base'],'cab','Base cabinets, per ft','ft',1,[['Stock unfinished',168.00],['Stock shaker',212.00],['Semi-custom',305.00]],''],
+    ['cbw',['cb_wall'],'cab','Wall cabinets, per ft','ft',1,[['Stock unfinished',132.00],['Stock shaker',165.00],['Semi-custom',242.00]],''],
+    ['cbt',['cb_tall'],'cab','Tall or pantry cabinet','each',1,[['Stock',285.00],['Shaker',385.00],['Semi-custom',565.00]],'n'],
+    ['cbv',['cb_van'],'cab','Vanity cabinet','each',1,[['24 in. stock',225.00],['36 in. shaker',285.00],['48 in. with top',425.00]],'n'],
+    ['cbl',['cb_lam'],'cab','Countertop, per ft','ft',1,[['Laminate postform',38.00],['Laminate custom',48.00],['Butcher block',78.00]],''],
+    ['cbh',['cb_hw'],'cab','Cabinet hardware','each',1,[['Knob',3.20],['Pull',4.50],['Soft close pull',6.80]],'n'],
+    ['cbc',['cb_cr'],'cab','Cabinet crown','ft',1,4.20,''],
+    ['cbf',['cb_fil'],'cab','Filler strip and scribe','each',1,18.00,'n'],
+    ['cbscrw',['cb_base','cb_wall','cb_tall','cb_van'],'cab','Cabinet screws and brackets','box',20,14.98,'nf'],
+
+    /* bath */
+    ['btub',['ba_tub'],'bath','Tub','each',1,[['Steel',355.00],['Acrylic',465.00],['Soaker or drop-in',745.00]],'n'],
+    ['bpan',['ba_pan'],'bath','Shower pan or base','each',1,[['Acrylic 32x32',315.00],['Acrylic 60x32',425.00],['Tileable pan kit',615.00]],'n'],
+    ['bdr',['ba_dr'],'bath','Shower door','each',1,[['Framed sliding',315.00],['Semi frameless',425.00],['Frameless',845.00]],'n'],
+    ['bmir',['ba_mir'],'bath','Mirror or medicine cabinet','each',1,[['Plate mirror',68.00],['Medicine cabinet',118.00]],'n'],
+    ['bacc',['ba_acc'],'bath','Towel bar or accessory','each',1,26.00,'n'],
+    ['bnch',['ba_nch'],'bath','Shower niche','each',1,62.00,'n'],
+    ['bwp',['ba_wp'],'bath','Waterproofing membrane','sq ft',1,[['Liquid membrane',1.35],['Sheet membrane',2.35]],''],
+    ['bwax',['ba_wax'],'bath','Wax ring, bolts and supply line','set',1,18.98,'n'],
+    ['bsil',['ba_tub','ba_pan','ba_dr','fl_wt'],'bath','Silicone sealant','tube',40,8.98,'nf'],
+
+    /* exterior */
+    ['sof',['ex_sof'],'ext','Soffit material','ft',1,[['Vinyl',3.20],['Aluminum',3.80]],''],
+    ['fas',['ex_fas'],'ext','Fascia board','ft',1,4.60,''],
+    ['sid',['ex_sid'],'ext','Siding','sq ft',1,[['Vinyl',2.45],['Fiber cement',3.40]],''],
+    ['stu',['ex_stu'],'ext','Stucco patch mix, 40 lb','bag',40,14.98,'nf'],
+    ['scr',['ex_scr'],'ext','Screen and spline','each',1,22.00,'n'],
+    ['xp',['ex_pnt'],'ext','Exterior paint, 1 gal','gal',300,[['Standard',38.98],['Premium with primer',54.98]],'n'],
+    ['vnt',['ex_vnt'],'ext','Soffit or gable vent','each',1,16.98,'n'],
+
+    /* rentals */
+    ['rlift',['rn_lift'],'rent','Drywall lift, per day','day',1,39.00,'nf'],
+    ['rhop',['rn_hop'],'rent','Texture rig and compressor, per day','day',1,58.00,'nf'],
+    ['rsand',['rn_sand'],'rent','Floor sander, per day','day',1,68.00,'nf'],
+    ['rsaw',['rn_saw'],'rent','Wet tile saw, per day','day',1,55.00,'nf'],
+    ['rstr',['rn_str'],'rent','Carpet stretcher and kicker, per day','day',1,28.00,'nf'],
+    ['rscaf',['rn_scaf'],'rent','Scaffold, per day','day',1,45.00,'nf'],
+    ['rvan',['rn_van'],'rent','Truck or trailer, per day','day',1,89.00,'nf'],
+
+    /* finish out */
+    ['clean',['fn_cln'],'final','Cleaning supplies and trash bags','job',0,38.00,'nf'],
+    ['ppe',['fn_ppe'],'final','Respirators, gloves, glasses, suits','job',0,58.00,'nf'],
+    ['fast',['fn_fast'],'final','Screws, anchors, adhesive, blades','job',0,48.00,'nf']
+  ].map(mkB); }
+
+  function bPrice(b){ return b.v[Math.min(b.sel, b.v.length-1)].p; }
+  function padPct(){ return A('f_pad')/100; }
+  /* a price you have never checked is padded until you check it */
+  function bUsed(b){ return bPrice(b) * (b.ver ? 1 : 1 + padPct()); }
+  function bName(b){
+    var v = b.v[Math.min(b.sel, b.v.length-1)];
+    return b.n + (b.v.length > 1 && v.n ? ', ' + v.n : '');
+  }
+  function applyGrade(){
+    var tier = parseInt($('#f_grade').value,10) || 0;
+    BUY.forEach(function(b){ if (!b.fx) b.sel = Math.min(tier, b.v.length-1); });
+    drawPriceTables();
+  }
+
+  var DEF_TERMS =
+    'This estimate covers the scope listed above. Anything found once walls or floors are opened is priced and approved before that work goes ahead.\n\n' +
+    'Lines marked as an allowance are a budget, not a fixed price. The final number moves with the product actually selected or the conditions actually found.\n\n' +
+    'Licensed trades are performed by licensed subcontractors. Their price may move with actual conditions and is passed through with the coordination fee shown.\n\n' +
+    'Material prices are current at the time of this estimate. Deposit is due before work starts, the progress draw at the point noted, and the balance on completion.';
+
+  var PRESETS = [
+    {n:'Repipe patch and paint', rooms:[['Bedroom 1','Bedrooms',12,12,8,1,1],['Bedroom 2','Bedrooms',11,12,8,1,1],['Bath','Bath',5,8,8,1,1]],
+     on:['dm_prot','dw_pm','dw_hot','dw_tex','pt_pr','pt_wall','pt_sup','fn_cln','fn_trp','fn_fast']},
+    {n:'One-room water loss rebuild', rooms:[['Living room','Living',16,14,8,2,2]],
+     on:['dm_prot','dm_bar','in_r13','dw_wall','dw_fin','dw_bead','dw_tex','pt_pr','pt_wall','pt_ceil','pt_sup','tr_base','pt_trim','pt_clk','fl_lvp','fl_qtr','fl_trn','fn_cln','fn_trp','fn_fast']},
+    {n:'Full bath remodel', rooms:[['Bath','Bath',5,8,8,1,1]],
+     on:['dm_prot','dm_bar','dm_tile','dm_tub','dm_cab','dw_cb','dw_mr','dw_fin','ba_wp','fl_wt','fl_tile','fl_trim','ba_pan','ba_dr','ba_acc','cb_van','pt_pr','pt_ceil','pt_wall','pt_sup','tr_base','pl_toi','pl_van','pl_vlv','el_gfc','el_fan','rn_saw','fn_prm','fn_cln','fn_trp','fn_ppe','fn_fast']},
+    {n:'Whole house repaint', rooms:[['Living','Living',18,16,9,3,3],['Kitchen','Kitchen',12,14,9,2,1],['Bedroom 1','Bedrooms',13,12,9,1,2],['Bedroom 2','Bedrooms',12,11,9,1,1],['Hall','Hall',4,18,9,4,0]],
+     on:['dm_prot','dw_ps','pt_pr','pt_wall','pt_ceil','pt_trim','pt_clk','pt_sup','fn_cln','fn_trp']},
+    {n:'Kitchen refresh', rooms:[['Kitchen','Kitchen',12,14,9,2,1]],
+     on:['dm_prot','dm_cab','cb_base','cb_wall','cb_lam','cb_snk','cb_bk','cb_hw','cb_fil','pt_pr','pt_wall','pt_ceil','pt_sup','fl_lvp','tr_base','fl_qtr','pl_snk','pl_dsp','el_dev','el_gfc','fn_cln','fn_trp','fn_fast']},
+    {n:'Popcorn removal and retexture', rooms:[['Living','Living',18,16,9,3,3],['Bedroom 1','Bedrooms',13,12,9,1,2]],
+     on:['dm_prot','dm_bar','dm_pop','dw_fin','dw_tex','pt_pr','pt_ceil','pt_sup','fn_cln','fn_trp','rn_scaf']}
+  ];
+
+  /* scope checker: [test, message] */
+  function scopeWarnings(d){
+    var on = function(k){ return items[k] && items[k].on; };
+    var any = function(list){ return list.some(on); };
+    var w = [];
+    if (any(['dw_wall','dw_ceil','dw_58','dw_mr']) && !on('dw_fin'))
+      w.push('You are hanging board but nothing is taping and finishing it.');
+    if (on('dw_fin') && on('pt_wall') && !on('pt_pr'))
+      w.push('New drywall getting painted with no primer line. Two coats over bare mud will flash.');
+    if (any(['fl_wt','ba_pan']) && !on('ba_wp'))
+      w.push('Shower or tub tile with no waterproofing line. That is the callback that costs you the job.');
+    if (on('fl_tile') && !any(['dw_cb','fl_lvl']))
+      w.push('Tile going down with no backer board and no leveling. Check the substrate.');
+    if (any(['dm_dw','dm_ceil','dm_fl','dm_tile','dm_cab','dm_tub','dm_pop']) && !any(['dm_dump','dm_haul']))
+      w.push('Demo with nowhere for the debris to go. Add a dumpster or haul loads.');
+    if (on('dm_tr') && !any(['tr_base','fl_qtr']))
+      w.push('Pulling baseboard with nothing going back.');
+    if (any(['fl_lvp','fl_lam','fl_eng','fl_tile','fl_carp','fl_vin']) && !on('fl_trn'))
+      w.push('New flooring with no transition strips at the doorways.');
+    if (on('fl_carp') && !on('fl_tck'))
+      w.push('Carpet with no tack strip.');
+    if (on('tr_door') && !on('tr_hw'))
+      w.push('New doors with no hardware line.');
+    if (on('pt_wall') && !on('pt_sup'))
+      w.push('Painting with no sundries line. Tape, plastic, covers and brushes run real money.');
+    if (any(['pt_wall','pt_ceil','pt_trim']) && !on('pt_clk'))
+      w.push('Paint with no caulk line. Every trim joint needs it.');
+    if (any(['pl_toi','pl_van','pl_snk','pl_vlv','pl_set','el_crc','el_pan','el_sub','el_rw','fr_wall']) && !on('fn_prm'))
+      w.push('Licensed trade work or new framing with no permit line.');
+    if (rooms.length && !on('fn_cln'))
+      w.push('No final clean. You will do it anyway, so charge for it.');
+    if (rooms.length && !on('fn_trp'))
+      w.push('No trip and setup charge.');
+    if (rooms.length && !on('dm_prot'))
+      w.push('No floor and content protection. Cheap line, saves an expensive argument.');
+    if (on('dm_pop') && !on('dm_bar'))
+      w.push('Scraping popcorn without containment. Pre-1980 ceilings may also need testing before you touch them.');
+    if (d.subSub > 0 && num($('#f_submarkup').value) === 0)
+      w.push('You are coordinating and warranting subs for free. Sub markup is at zero.');
+    var blank = CAT.filter(function(c){ return items[c.k].on && qtyOf(c) <= 0; });
+    if (blank.length)
+      w.push(blank.length + ' checked line' + (blank.length===1?' has':'s have') + ' no quantity, so ' +
+             (blank.length===1?'it is':'they are') + ' adding nothing to the price: ' +
+             blank.slice(0,6).map(function(c){ return c.n; }).join(', ') +
+             (blank.length>6 ? ', and ' + (blank.length-6) + ' more.' : '.'));
+    if (d.floored)
+      w.push('This job priced below your floor and was raised to the walk-away number. Check the scope for something you underpriced rather than just sending it.');
+    if (d.unvShare > 0.5 && d.matSub > 200)
+      w.push('More than half the material cost comes from prices never checked at the store. They are padded, so this quote runs high.');
+    if (d.total > 2500 && num($('#f_dep').value) === 0)
+      w.push('No deposit on a ' + money0(d.total) + ' job. You would be financing the materials.');
+    if (any(['dw_ceil','dw_tex','pt_ceil']) && !on('rn_lift') && d.trades.dry && d.trades.dry.hrs > 8)
+      w.push('Ceiling work of this size usually wants a drywall lift. It is a cheap rental line.');
+    return w;
+  }
+
+  var CAT = defCat(), BUY = defBuy();
+  var items = {}, rooms = [], seq = 0, custom = [], onhand = {};
+  var rowRefs = {};
+
+  function initItems(){ CAT.forEach(function(c){ if (!items[c.k]) items[c.k] = {on:false, q:null, g:0}; }); }
+  function catOf(k){ for (var i=0;i<CAT.length;i++) if (CAT[i].k===k) return CAT[i]; return null; }
+
+  /* ---------- geometry ---------- */
+  function A(id){ return num($('#'+id).value); }
+  function roomMath(r){
+    if (r.mode === 'direct'){
+      return {perim:num(r.dBase), wall:num(r.dWall), ceil:num(r.dCeil), floor:num(r.dFloor),
+              base:num(r.dBase), cases:num(r.dCase), doors:num(r.doors), windows:num(r.windows)};
+    }
+    var per = 2*(r.L + r.W);
+    return {perim:per,
+      wall: Math.max(0, per*r.H - r.doors*A('a_dooropen') - r.windows*A('a_winopen')),
+      ceil: r.L*r.W, floor: r.L*r.W,
+      base: Math.max(0, per - r.doors*A('a_doorwidth')),
+      cases: r.doors*A('a_casedoor') + r.windows*A('a_casewin'),
+      doors:r.doors, windows:r.windows};
+  }
+  var _tcache = null;
+  function totalsFor(gi){
+    if (_tcache && _tcache[gi]) return _tcache[gi];
+    var t = {wall:0, ceil:0, floor:0, base:0, perim:0, cases:0, doors:0, windows:0};
+    rooms.forEach(function(r){
+      if (gi > 0 && r.g !== gi) return;
+      var m = roomMath(r);
+      t.wall+=m.wall; t.ceil+=m.ceil; t.floor+=m.floor; t.base+=m.base;
+      t.perim+=m.perim; t.cases+=m.cases; t.doors+=m.doors; t.windows+=m.windows;
+    });
+    if (!_tcache) _tcache = {};
+    _tcache[gi] = t;
+    return t;
+  }
+  var AUTO_MAP = {wall:'wall', ceil:'ceil', floor:'floor', base:'base', perim:'perim', case:'cases', doors:'doors', windows:'windows'};
+  function autoQty(c){
+    if (!c.auto) return null;
+    if (c.auto === 'one') return 1;
+    var v = totalsFor(items[c.k].g)[AUTO_MAP[c.auto]];
+    return v == null ? null : Math.round(v*10)/10;
+  }
+  function qtyOf(c){
+    var st = items[c.k];
+    if (!st.on) return 0;
+    if (st.q != null) return st.q;
+    var a = autoQty(c);
+    return a == null ? 0 : a;
+  }
+
+  /* ---------- buy list ---------- */
+  function buyList(waste){
+    var out = [];
+    BUY.forEach(function(b){
+      var driver = 0;
+      b.from.forEach(function(k){ var c = catOf(k); if (c) driver += qtyOf(c); });
+      if (driver <= 0) return;
+      var want = b.per === 0 ? 1 : ceil(driver * (b.nw ? 1 : waste) / b.per);
+      if (want <= 0) return;
+      var have = Math.max(0, num(onhand[b.k]));
+      var buy = Math.max(0, want - have);
+      out.push({k:b.k, t:b.t, label:bName(b), want:want, have:have, qty:buy,
+                unit:b.u, price:bUsed(b), raw:bPrice(b), ver:!!b.ver, cost:buy*bUsed(b)});
+    });
+    return out;
+  }
+
+  /* ---------- calc ---------- */
+  var last = null;
+
+  function calc(){
+    _tcache = null;
+    var waste = 1 + A('f_waste')/100;
+    var buys = buyList(waste);
+
+    var lines = [];
+    CAT.forEach(function(c){
+      var q = qtyOf(c);
+      if (q <= 0) return;
+      var matCost = c.buy ? 0 : q*c.mat;
+      lines.push({k:c.k, t:c.t, n:c.n, u:c.u, q:q, allow:c.allow, sub:c.sub,
+                  mat:c.sub?0:matCost, lab:c.sub?0:q*c.lab, subCost:c.sub?matCost:0,
+                  hrs:(c.hr && !c.sub) ? q/c.hr : 0});
+    });
+
+    var byBuy = {};
+    buys.forEach(function(b){ byBuy[b.t] = (byBuy[b.t]||0) + b.cost; });
+
+    var cust = custom.filter(function(c){ return c.qty>0 && c.rate!==0 && c.desc; });
+    var cusCost = cust.reduce(function(s,c){ return s + num(c.cost)*c.qty; },0);
+    var matSub = buys.reduce(function(s,b){ return s+b.cost; },0) + lines.reduce(function(s,l){ return s+l.mat; },0);
+    var labSub = lines.reduce(function(s,l){ return s+l.lab; },0);
+    var subSub = lines.reduce(function(s,l){ return s+l.subCost; },0);
+    var cusSub = cust.reduce(function(s,c){ return s+c.qty*c.rate; },0);
+    var hours  = lines.reduce(function(s,l){ return s+l.hrs; },0) + cust.reduce(function(s,c){ return s+num(c.hrs); },0);
+
+    var tax = matSub * A('f_tax')/100;
+    var mUp = matSub * A('f_markup')/100;
+    var sUp = subSub * A('f_submarkup')/100;
+    var direct = matSub + tax + mUp + labSub + subSub + sUp + cusSub;
+    var op = direct * A('f_op')/100;
+    var cont = direct * A('f_cont')/100;
+    var total = direct + op + cont;
+
+    var minJob = A('f_min'), bumped = false;
+    if (total > 0 && total < minJob){ total = minJob; bumped = true; }
+    var rnd = A('f_round');
+    if (rnd > 0 && total > 0) total = Math.ceil(total/rnd)*rnd;
+
+    var costHr = A('f_costhr');
+    var cost = matSub + tax + subSub + cusCost + hours*costHr;
+    /* the floor: never sell below what it costs plus the margin you refuse to go under */
+    var fm = Math.min(0.9, A('f_floormargin')/100);
+    var floorPrice = fm < 1 ? cost/(1-fm) : cost;
+    var floored = false;
+    if (cost > 0 && total < floorPrice){ total = floorPrice; floored = true;
+      if (rnd > 0) total = Math.ceil(total/rnd)*rnd; }
+    var unvCost = buys.reduce(function(s,b){ return s + (b.ver ? 0 : b.cost); },0);
+    var unvShare = matSub > 0 ? unvCost/matSub : 0;
+    var billedHr = hours > 0 ? labSub/hours : 0;
+    var crew = Math.max(1, A('f_crew'));
+    var hrday = Math.max(1, A('f_hrday'));
+    var days = hours/(crew*hrday);
+    var floorSF = totalsFor(0).floor;
+    var profit = total - cost;
+    var margin = total > 0 ? profit/total : 0;
+
+    var trades = {};
+    lines.forEach(function(l){
+      var tr = trades[l.t] || (trades[l.t] = {mat:0, lab:0, sub:0, hrs:0, lines:[]});
+      tr.mat += l.mat; tr.lab += l.lab; tr.sub += l.subCost; tr.hrs += l.hrs; tr.lines.push(l);
+    });
+    Object.keys(byBuy).forEach(function(k){
+      var tr = trades[k] || (trades[k] = {mat:0, lab:0, sub:0, hrs:0, lines:[]});
+      tr.mat += byBuy[k];
+    });
+
+    last = {buys:buys, lines:lines, cust:cust, trades:trades, matSub:matSub, labSub:labSub,
+            subSub:subSub, cusSub:cusSub, tax:tax, mUp:mUp, sUp:sUp, op:op, cont:cont,
+            total:total, bumped:bumped, waste:waste, hours:hours, days:days, floorSF:floorSF,
+            cost:cost, profit:profit, margin:margin, billedHr:billedHr, costHr:costHr,
+            floorPrice:floorPrice, floored:floored, unvShare:unvShare, cusCost:cusCost};
+
+    paintAmounts(); drawSheet(); drawBuy(); drawCheck(); drawLetterhead(); drawWarnings();
+    var t = totalsFor(0);
+    $('#roomTotals').textContent = rooms.length
+      ? Math.round(t.wall)+' sq ft of wall, '+Math.round(t.ceil)+' sq ft of ceiling, '+
+        Math.round(t.floor)+' sq ft of floor, '+Math.round(t.base)+' ft of base, '+
+        Math.round(t.cases)+' ft of casing, '+t.doors+' doors, '+t.windows+' windows'
+      : 'Add a room and the quantities below fill themselves in.';
+  }
+
+  /* ---------- rooms ---------- */
+  function newRoom(copy){
+    seq++;
+    if (copy){ var c = JSON.parse(JSON.stringify(copy)); c.id = seq; c.name = copy.name+' copy'; return c; }
+    return {id:seq, name:'Room '+seq, g:0, mode:'rect', L:12, W:12, H:8, doors:1, windows:1,
+            dWall:0, dCeil:0, dFloor:0, dBase:0, dCase:0, notes:''};
+  }
+  function roomCard(r){
+    var el = document.createElement('div');
+    el.className = 'room';
+    var gopts = GROUPS.map(function(g,i){ return '<option value="'+i+'"'+(i===r.g?' selected':'')+'>'+g+'</option>'; }).join('');
+    var rect =
+      '<div class="dims">' +
+        '<div><label>Length ft</label><input type="number" inputmode="decimal" data-f="L" value="'+r.L+'" min="0" step="0.5"></div>' +
+        '<div><label>Width ft</label><input type="number" inputmode="decimal" data-f="W" value="'+r.W+'" min="0" step="0.5"></div>' +
+        '<div><label>Height ft</label><input type="number" inputmode="decimal" data-f="H" value="'+r.H+'" min="0" step="0.5"></div>' +
+        '<div><label>Doors</label><input type="number" inputmode="numeric" data-f="doors" value="'+r.doors+'" min="0" step="1"></div>' +
+        '<div><label>Windows</label><input type="number" inputmode="numeric" data-f="windows" value="'+r.windows+'" min="0" step="1"></div>' +
+      '</div>';
+    var direct =
+      '<div class="dims direct">' +
+        '<div><label>Wall sq ft</label><input type="number" inputmode="decimal" data-f="dWall" value="'+r.dWall+'" min="0" step="1"></div>' +
+        '<div><label>Ceiling sq ft</label><input type="number" inputmode="decimal" data-f="dCeil" value="'+r.dCeil+'" min="0" step="1"></div>' +
+        '<div><label>Floor sq ft</label><input type="number" inputmode="decimal" data-f="dFloor" value="'+r.dFloor+'" min="0" step="1"></div>' +
+        '<div><label>Base ft</label><input type="number" inputmode="decimal" data-f="dBase" value="'+r.dBase+'" min="0" step="1"></div>' +
+        '<div><label>Casing ft</label><input type="number" inputmode="decimal" data-f="dCase" value="'+r.dCase+'" min="0" step="1"></div>' +
+        '<div><label>Doors</label><input type="number" inputmode="numeric" data-f="doors" value="'+r.doors+'" min="0" step="1"></div>' +
+      '</div>';
+
+    el.innerHTML =
+      '<div class="room-top">' +
+        '<div><label>Room</label><input type="text" class="room-name" data-f="name" value="'+esc(r.name)+'"></div>' +
+        '<div><label>Area tag</label><select data-f="g">'+gopts+'</select></div>' +
+        '<div><label>Measured as</label><select data-f="mode">' +
+          '<option value="rect"'+(r.mode==='rect'?' selected':'')+'>Rectangle</option>' +
+          '<option value="direct"'+(r.mode==='direct'?' selected':'')+'>Direct entry</option></select></div>' +
+        '<button class="btn-sm" data-dup="1">Duplicate</button>' +
+        '<button class="btn-x" data-del="1">Remove</button>' +
+      '</div>' +
+      '<div data-dimwrap>' + (r.mode==='direct' ? direct : rect) + '</div>' +
+      '<div style="margin-top:9px"><label>Notes for this room, prints on the estimate</label>' +
+        '<input type="text" data-f="notes" value="'+esc(r.notes)+'" placeholder="Water line ran behind the closet wall, ceiling stained about 3 ft out"></div>' +
+      '<p class="room-math"></p>';
+
+    function handle(ev){
+      var f = ev.target.getAttribute('data-f'); if (!f) return;
+      if (f === 'name' || f === 'notes') r[f] = ev.target.value;
+      else if (f === 'g') r.g = parseInt(ev.target.value,10);
+      else if (f === 'mode'){
+        r.mode = ev.target.value;
+        if (r.mode === 'direct'){
+          var m = roomMath({mode:'rect', L:r.L, W:r.W, H:r.H, doors:r.doors, windows:r.windows});
+          r.dWall = Math.round(m.wall); r.dCeil = Math.round(m.ceil); r.dFloor = Math.round(m.floor);
+          r.dBase = Math.round(m.base); r.dCase = Math.round(m.cases);
+        }
+        el.querySelector('[data-dimwrap]').innerHTML = r.mode==='direct' ? direct.replace(/value="\d+(\.\d+)?"/g, function(){ return arguments[0]; }) : rect;
+        redrawRooms(); refreshAuto(); calc(); return;
+      }
+      else r[f] = Math.max(0, num(ev.target.value));
+      stamp(el,r); refreshAuto(); calc();
+    }
+    el.addEventListener('input', handle);
+    el.addEventListener('change', handle);
+    el.querySelector('[data-del]').addEventListener('click', function(){
+      for (var i=0;i<rooms.length;i++) if (rooms[i].id===r.id){ rooms.splice(i,1); break; }
+      el.remove(); refreshAuto(); calc();
+    });
+    el.querySelector('[data-dup]').addEventListener('click', function(){
+      var c = newRoom(r); rooms.push(c); $('#rooms').appendChild(roomCard(c)); refreshAuto(); calc();
+    });
+    stamp(el,r);
+    return el;
+  }
+  function stamp(el,r){
+    var m = roomMath(r);
+    el.querySelector('.room-math').textContent =
+      Math.round(m.wall)+' sq ft wall, '+Math.round(m.ceil)+' sq ft ceiling, '+
+      Math.round(m.floor)+' sq ft floor, '+Math.round(m.base)+' ft base, '+Math.round(m.cases)+' ft casing';
+  }
+  function addRoom(){ var r = newRoom(); rooms.push(r); $('#rooms').appendChild(roomCard(r)); refreshAuto(); calc(); }
+  function redrawRooms(){ var c = $('#rooms'); c.innerHTML=''; rooms.forEach(function(r){ c.appendChild(roomCard(r)); }); }
+
+  /* ---------- work list ---------- */
+  function drawTrades(){
+    var host = $('#trades'); host.innerHTML = ''; rowRefs = {};
+    TRADES.forEach(function(tr){
+      var mine = CAT.filter(function(c){ return c.t===tr.k; });
+      if (!mine.length) return;
+      var d = document.createElement('details');
+      d.className = 'trade';
+      d.innerHTML = '<summary><span>'+esc(tr.name)+
+        (tr.sub?' <span class="flagsub">licensed sub</span>':'')+
+        '</span><span class="amt" data-tramt="'+tr.k+'">—</span></summary><div class="inner"></div>';
+      var inner = d.querySelector('.inner');
+      mine.forEach(function(c){
+        var st = items[c.k];
+        var gopts = GROUPS.map(function(g,i){ return '<option value="'+i+'"'+(i===st.g?' selected':'')+'>'+g+'</option>'; }).join('');
+        var row = document.createElement('div');
+        row.className = 'li'+(st.on?'':' off');
+        row.setAttribute('data-search', (c.n+' '+tr.name).toLowerCase());
+        row.innerHTML =
+          '<input type="checkbox" aria-label="Include '+esc(c.n)+'"'+(st.on?' checked':'')+'>' +
+          '<span class="nm">'+esc(c.n)+(c.allow?' <em>allowance</em>':'')+'</span>' +
+          '<select aria-label="Area for '+esc(c.n)+'">'+gopts+'</select>' +
+          '<input class="qty-in" type="number" inputmode="decimal" step="0.5" min="0" aria-label="Quantity">' +
+          '<span class="u">'+esc(c.u)+'</span>' +
+          '<span class="amt">—</span>';
+        var cb = row.querySelector('input[type=checkbox]');
+        var sel = row.querySelector('select');
+        var qi = row.querySelector('.qty-in');
+        var amt = row.querySelector('.amt');
+        rowRefs[c.k] = {row:row, cb:cb, sel:sel, qi:qi, amt:amt, item:c};
+        cb.addEventListener('change', function(){ st.on = cb.checked; row.classList.toggle('off', !st.on); refreshAuto(); calc(); });
+        sel.addEventListener('change', function(){ st.g = parseInt(sel.value,10); refreshAuto(); calc(); });
+        qi.addEventListener('input', function(){
+          st.q = qi.value === '' ? null : Math.max(0, num(qi.value));
+          qi.classList.toggle('auto', st.q == null); calc();
+        });
+        inner.appendChild(row);
+      });
+      host.appendChild(d);
+    });
+    refreshAuto();
+  }
+  function refreshAuto(){
+    _tcache = null;
+    Object.keys(rowRefs).forEach(function(k){
+      var ref = rowRefs[k], st = items[k];
+      if (st.q != null){ ref.qi.value = st.q; ref.qi.classList.remove('auto'); }
+      else {
+        var a = autoQty(ref.item);
+        ref.qi.value = a == null ? '' : a;
+        ref.qi.placeholder = a == null ? 'qty' : '';
+        ref.qi.classList.add('auto');
+      }
+      ref.sel.value = st.g;
+    });
+  }
+  function paintAmounts(){
+    var d = last, byK = {};
+    d.lines.forEach(function(l){ byK[l.k] = l; });
+    Object.keys(rowRefs).forEach(function(k){
+      var l = byK[k], ref = rowRefs[k];
+      ref.amt.textContent = l ? money0(l.mat+l.lab+l.subCost) : '—';
+      ref.row.classList.toggle('empty', items[k].on && !l);
+    });
+    TRADES.forEach(function(tr){
+      var el = $('[data-tramt="'+tr.k+'"]'); if (!el) return;
+      var g = d.trades[tr.k];
+      el.textContent = g ? money0(g.mat+g.lab+g.sub) : '—';
+    });
+  }
+  function applyFilter(){
+    var q = $('#filter').value.trim().toLowerCase();
+    var onlyOn = $('#onlyChecked').getAttribute('data-on') === '1';
+    Object.keys(rowRefs).forEach(function(k){
+      var row = rowRefs[k].row;
+      var hit = !q || row.getAttribute('data-search').indexOf(q) >= 0;
+      if (onlyOn && !items[k].on) hit = false;
+      row.hidden = !hit;
+    });
+    $$('.trade').forEach(function(d){
+      var vis = $$('.li', d).some(function(r){ return !r.hidden; });
+      d.hidden = !vis;
+      if (vis && (q || onlyOn)) d.open = true;
+    });
+  }
+  function drawWarnings(){
+    var w = scopeWarnings(last), el = $('#checkList');
+    if (!rooms.length && !last.total){ el.innerHTML = ''; return; }
+    el.innerHTML = w.length
+      ? '<div class="advisory warn"><h4>Before you send it, ' + w.length + ' thing' + (w.length===1?'':'s') + ' to look at</h4><ul>' +
+        w.map(function(x){ return '<li>'+esc(x)+'</li>'; }).join('') + '</ul></div>'
+      : (last.total > 0 ? '<div class="advisory ok"><h4>Nothing obvious missing</h4>The usual omissions are all covered.</div>' : '');
+  }
+
+  /* ---------- custom ---------- */
+  function drawCustom(){
+    var b = $('#customBody'); b.innerHTML = '';
+    if (!custom.length){ b.innerHTML = '<tr><td colspan="7" style="color:var(--soft);font-size:14px">Nothing added.</td></tr>'; return; }
+    custom.forEach(function(c,i){
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td><input type="text" value="'+esc(c.desc)+'" data-c="desc"></td>' +
+        '<td class="n"><input class="qty-in" type="number" step="0.5" value="'+c.qty+'" data-c="qty"></td>' +
+        '<td class="n"><input class="price-in" type="number" step="1" value="'+c.rate+'" data-c="rate"></td>' +
+        '<td class="n"><input class="price-in" type="number" step="1" value="'+(c.cost||0)+'" data-c="cost"></td>' +
+        '<td class="n"><input class="qty-in" type="number" step="0.5" value="'+(c.hrs||0)+'" data-c="hrs"></td>' +
+        '<td class="n amt">'+money(c.qty*c.rate)+'</td>' +
+        '<td class="n"><button class="btn-x">Remove</button></td>';
+      tr.addEventListener('input', function(ev){
+        var f = ev.target.getAttribute('data-c'); if (!f) return;
+        c[f] = f==='desc' ? ev.target.value : num(ev.target.value);
+        tr.querySelector('.amt').textContent = money(c.qty*c.rate); calc();
+      });
+      tr.querySelector('.btn-x').addEventListener('click', function(){ custom.splice(i,1); drawCustom(); calc(); });
+      b.appendChild(tr);
+    });
+  }
+
+  /* ---------- price editors ---------- */
+  function drawPriceTables(){
+    var host = $('#buyPriceTables'); host.innerHTML = '';
+    TRADES.forEach(function(tr){
+      var mine = BUY.filter(function(b){ return b.t===tr.k; });
+      if (!mine.length) return;
+      var d = document.createElement('details');
+      d.innerHTML = '<summary>'+esc(tr.name)+' <span style="font-family:var(--sans);font-size:13px;font-weight:400;color:var(--soft)">'+mine.length+' items</span></summary><div class="body"></div>';
+      var tbl = document.createElement('table');
+      tbl.innerHTML = '<thead><tr><th>Item</th><th>Grade</th><th class="n">One unit covers</th><th class="n">Price</th><th class="n">Checked</th></tr></thead><tbody></tbody>';
+      var tb = tbl.querySelector('tbody');
+      mine.forEach(function(x){
+        var sel = x.sel = Math.min(x.sel, x.v.length-1);
+        var gradeCell = x.v.length > 1
+          ? '<select class="var-sel">'+x.v.map(function(v,i){ return '<option value="'+i+'"'+(i===sel?' selected':'')+'>'+esc(v.n||'Standard')+'</option>'; }).join('')+'</select>'
+          : '<span style="color:var(--soft);font-size:13px">—</span>';
+        var coverCell = x.per === 0
+          ? '<td class="n" style="color:var(--soft);font-size:13px">flat, per job</td>'
+          : '<td class="n"><input class="qty-in cover-in" type="number" min="0.01" step="0.5" value="'+x.per+'"> <span style="font-size:12px;color:var(--soft)">'+esc(x.u)+'</span></td>';
+        var row = document.createElement('tr');
+        row.setAttribute('data-search', (x.n+' '+x.v.map(function(v){return v.n;}).join(' ')).toLowerCase());
+        row.innerHTML = '<td>'+esc(x.n)+'</td><td>'+gradeCell+'</td>' + coverCell +
+          '<td class="n"><input class="price-in" type="number" min="0" step="0.01" value="'+bPrice(x).toFixed(2)+'"></td>' +
+          '<td class="n"><input type="checkbox" style="width:19px;height:19px;accent-color:#2F6B4F"'+(x.ver?' checked':'')+' aria-label="Price checked at the store"></td>';
+        var vs = row.querySelector('.var-sel'), pi = row.querySelector('.price-in');
+        var ci = row.querySelector('.cover-in'), vb = row.querySelector('input[type=checkbox]');
+        if (vs) vs.addEventListener('change', function(){ x.sel = parseInt(vs.value,10); pi.value = bPrice(x).toFixed(2); vb.checked = !!x.ver; calc(); });
+        if (ci) ci.addEventListener('input', function(){ x.per = Math.max(0.01, num(ci.value)); calc(); });
+        pi.addEventListener('input', function(){
+          x.v[Math.min(x.sel,x.v.length-1)].p = num(pi.value);
+          x.ver = Date.now(); vb.checked = true; calc();
+        });
+        vb.addEventListener('change', function(){ x.ver = vb.checked ? Date.now() : 0; calc(); });
+        tb.appendChild(row);
+      });
+      d.querySelector('.body').appendChild(tbl);
+      host.appendChild(d);
+    });
+
+    var rh = $('#rateTrades'); rh.innerHTML = '';
+    TRADES.forEach(function(tr){
+      var mine = CAT.filter(function(c){ return c.t===tr.k; });
+      if (!mine.length) return;
+      var d = document.createElement('details');
+      d.innerHTML = '<summary>'+esc(tr.name)+'</summary><div class="body"></div>';
+      var tbl = document.createElement('table');
+      tbl.innerHTML = '<thead><tr><th>Line</th><th class="n">Unit</th><th class="n">' +
+        (tr.sub?'Sub allowance':'Material') + '</th>' + (tr.sub?'':'<th class="n">Labor</th><th class="n">Per hour</th>') +
+        '</tr></thead><tbody></tbody>';
+      var tb = tbl.querySelector('tbody');
+      mine.forEach(function(c){
+        var matCell = c.buy
+          ? '<td class="n" style="color:var(--soft);font-size:13px">from list</td>'
+          : '<td class="n"><input class="price-in" type="number" min="0" step="0.01" value="'+c.mat.toFixed(2)+'" data-m="1"></td>';
+        var row = document.createElement('tr');
+        row.innerHTML = '<td>'+esc(c.n)+'</td><td class="n">'+esc(c.u)+'</td>' + matCell +
+          (tr.sub ? '' :
+            '<td class="n"><input class="price-in" type="number" min="0" step="0.05" value="'+c.lab.toFixed(2)+'" data-l="1"></td>' +
+            '<td class="n"><input class="price-in" type="number" min="0" step="0.5" value="'+(c.hr||0)+'" data-h="1"></td>');
+        row.addEventListener('input', function(ev){
+          if (ev.target.getAttribute('data-m')) c.mat = num(ev.target.value);
+          if (ev.target.getAttribute('data-l')) c.lab = num(ev.target.value);
+          if (ev.target.getAttribute('data-h')) c.hr = num(ev.target.value);
+          calc();
+        });
+        tb.appendChild(row);
+      });
+      d.querySelector('.body').appendChild(tbl);
+      rh.appendChild(d);
+    });
+  }
+
+  var SET_FIELDS = ['f_waste','f_tax','f_markup','f_submarkup','f_op','f_cont','f_min','f_round',
+                    'f_dep','f_mid','f_midwhen','f_costhr','f_crew','f_hrday','f_targmarg',
+                    'a_dooropen','a_winopen','a_doorwidth','a_casedoor','a_casewin','f_pad','f_floormargin',
+                    'b_name','b_phone','b_email','b_site','b_lic','authText'];
+
+  function savePrices(){
+    var s = {cat:CAT, buy:BUY, fields:{}, stamp:new Date().toISOString()};
+    SET_FIELDS.forEach(function(id){ var el = document.getElementById(id); if (el) s.fields[id] = el.value; });
+    if (store.set(K_P,s)){ showStamp(s.stamp); toast('Saved on this device'); } else toast('Could not save here');
+  }
+  function loadPrices(){
+    var s = store.get(K_P); if (!s) return;
+    if (s.cat && s.cat.length) CAT = s.cat;
+    if (s.buy && s.buy.length) BUY = s.buy;
+    if (s.fields) Object.keys(s.fields).forEach(function(id){ var el = document.getElementById(id); if (el) el.value = s.fields[id]; });
+    showStamp(s.stamp);
+  }
+  function showStamp(iso){
+    $('#priceStamp').textContent = iso
+      ? 'Prices last checked '+new Date(iso).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})
+      : 'Prices never checked';
+  }
+  function resetPrices(){
+    CAT = defCat(); BUY = defBuy(); items = {}; initItems(); onhand = {};
+    $('#authText').value = DEF_TERMS;
+    store.del(K_P); applyGrade(); drawTrades(); calc(); showStamp(null); toast('Back to the originals');
+  }
+
+  /* ---------- jobs ---------- */
+  var JOB_FIELDS = ['cust','custPhone','addr','scopeName','qdate','qnum','valid','payer','f_grade','printMode'];
+  function snapshot(){
+    var f = {};
+    JOB_FIELDS.forEach(function(id){ var el = document.getElementById(id); if (el) f[id] = el.value; });
+    return {id:$('#qnum').value||('job'+Date.now()), saved:new Date().toISOString(),
+            label:($('#cust').value||'Unnamed')+' — '+($('#scopeName').value||$('#addr').value||'no scope'),
+            fields:f, rooms:rooms, items:items, custom:custom, onhand:onhand,
+            grades:BUY.map(function(b){ return b.sel; }), seq:seq};
+  }
+  function restore(j){
+    JOB_FIELDS.forEach(function(id){ var el = document.getElementById(id); if (el && j.fields[id]!==undefined) el.value = j.fields[id]; });
+    rooms = j.rooms||[]; custom = j.custom||[]; onhand = j.onhand||{}; seq = j.seq||rooms.length;
+    items = {}; initItems();
+    if (j.items) Object.keys(j.items).forEach(function(k){ if (items[k]) items[k] = j.items[k]; });
+    if (j.grades && j.grades.length === BUY.length) BUY.forEach(function(b,i){ b.sel = j.grades[i]; });
+    redrawRooms(); drawPriceTables(); drawTrades(); drawCustom(); calc(); toast('Job loaded');
+  }
+  function saveJob(){
+    var jobs = store.get(K_J)||[], s = snapshot(), i = -1;
+    for (var x=0;x<jobs.length;x++) if (jobs[x].id===s.id){ i = x; break; }
+    if (i>=0) jobs[i] = s; else jobs.unshift(s);
+    toast(store.set(K_J, jobs.slice(0,60)) ? 'Job saved' : 'Could not save here');
+    drawJobs();
+  }
+  function drawJobs(){
+    var jobs = store.get(K_J)||[], b = $('#jobList');
+    if (!jobs.length){ b.innerHTML = '<p class="note" style="margin:0">No saved jobs yet.</p>'; return; }
+    b.innerHTML = '';
+    jobs.forEach(function(j){
+      var row = document.createElement('div');
+      row.className = 'jobrow';
+      row.innerHTML = '<span><b>'+esc(j.id)+'</b> '+esc(j.label)+'</span>' +
+        '<span><button class="btn-sm">Open</button> <button class="btn-x">Delete</button></span>';
+      row.querySelector('.btn-sm').addEventListener('click', function(){ restore(j); });
+      row.querySelector('.btn-x').addEventListener('click', function(){
+        store.set(K_J, (store.get(K_J)||[]).filter(function(x){ return x.id!==j.id; })); drawJobs();
+      });
+      b.appendChild(row);
+    });
+  }
+  function newJob(){
+    rooms=[]; custom=[]; onhand={}; seq=0; items={}; initItems();
+    ['cust','custPhone','addr','scopeName'].forEach(function(id){ var el=document.getElementById(id); if (el) el.value=''; });
+    stampDates(); redrawRooms(); drawTrades(); drawCustom(); addRoom(); toast('New job started');
+  }
+  function exportAll(){
+    var data = {kind:'bailey-rebuild-backup', v:3, when:new Date().toISOString(),
+                prices:store.get(K_P), jobs:store.get(K_J), current:snapshot()};
+    var blob = new Blob([JSON.stringify(data,null,2)], {type:'application/json'});
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'bailey-estimator-backup-'+new Date().toISOString().slice(0,10)+'.json';
+    document.body.appendChild(a); a.click(); a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); }, 1000);
+    toast('Backup downloaded');
+  }
+  function importFile(file){
+    var fr = new FileReader();
+    fr.onload = function(){
+      var d;
+      try { d = JSON.parse(fr.result); } catch(e){ toast('That file would not read'); return; }
+      if (!d || d.kind !== 'bailey-rebuild-backup'){ toast('Not a backup from this tool'); return; }
+      if (d.prices) store.set(K_P, d.prices);
+      if (d.jobs) store.set(K_J, d.jobs);
+      loadPrices(); drawPriceTables(); drawJobs();
+      if (d.current) restore(d.current);
+      toast('Backup restored');
+    };
+    fr.readAsText(file);
+  }
+
+  function drawPresets(){
+    var host = $('#presets'); host.innerHTML = '';
+    PRESETS.forEach(function(p){
+      var b = document.createElement('button');
+      b.className = 'btn-quiet'; b.textContent = p.n;
+      b.addEventListener('click', function(){
+        rooms = []; seq = 0; onhand = {};
+        p.rooms.forEach(function(r){
+          seq++;
+          rooms.push({id:seq, name:r[0], g:Math.max(0, GROUPS.indexOf(r[1])), mode:'rect',
+                      L:r[2], W:r[3], H:r[4], doors:r[5], windows:r[6],
+                      dWall:0, dCeil:0, dFloor:0, dBase:0, dCase:0, notes:''});
+        });
+        items = {}; initItems();
+        p.on.forEach(function(k){ if (items[k]) items[k].on = true; });
+        $('#scopeName').value = p.n;
+        redrawRooms(); drawTrades(); calc(); toast(p.n+' loaded');
+      });
+      host.appendChild(b);
+    });
+  }
+
+  /* ---------- output ---------- */
+  function drawLetterhead(){
+    var bits = [$('#b_phone').value, $('#b_email').value, $('#b_site').value].filter(Boolean).join('   ');
+    var lic = $('#b_lic').value ? '<div class="c">License / BTR '+esc($('#b_lic').value)+'</div>' : '';
+    $('#letterhead').innerHTML = '<div class="n">'+esc($('#b_name').value)+'</div><div class="c">'+esc(bits)+'</div>'+lic;
+    $('#brandMark').innerHTML = esc($('#b_name').value).replace(/Restorian/, '<span>Restorian</span>');
+  }
+
+  function drawBuy(){
+    var host = $('#buyTables'), d = last;
+    if (!d.buys.length){
+      host.innerHTML = '<p style="color:var(--soft)">Nothing to buy yet.</p>';
+      $('#buyNote').textContent = 'Check some work on the scope tab and the list builds itself.'; return;
+    }
+    host.innerHTML = '';
+    TRADES.forEach(function(tr){
+      var mine = d.buys.filter(function(b){ return b.t===tr.k; });
+      if (!mine.length) return;
+      var sec = document.createElement('div');
+      sec.style.marginBottom = '16px';
+      var tbl = document.createElement('table');
+      tbl.innerHTML = '<thead><tr><th>Material</th><th class="n">Need</th><th class="n">Have</th><th class="n">Buy</th><th class="n">Each</th><th class="n">Cost</th></tr></thead><tbody></tbody>';
+      var tb = tbl.querySelector('tbody');
+      mine.forEach(function(x){
+        var row = document.createElement('tr');
+        row.innerHTML = '<td>'+esc(x.label)+(x.ver?'':' <span style="color:var(--brick);font-size:12px">unchecked, padded</span>')+'</td><td class="n">'+x.want+' '+esc(x.unit)+'</td>' +
+          '<td class="n"><input class="qty-in" type="number" min="0" step="1" value="'+(x.have||'')+'" placeholder="0"></td>' +
+          '<td class="n" style="font-weight:600">'+x.qty+'</td><td class="n">'+money(x.price)+'</td><td class="n">'+money(x.cost)+'</td>';
+        row.querySelector('input').addEventListener('input', function(e){
+          onhand[x.k] = Math.max(0, num(e.target.value)); calc();
+        });
+        tb.appendChild(row);
+      });
+      var sub = mine.reduce(function(s,x){ return s+x.cost; },0);
+      var tot = document.createElement('tr');
+      tot.innerHTML = '<td style="font-weight:600">Subtotal</td><td></td><td></td><td></td><td></td><td class="n" style="font-weight:600">'+money(sub)+'</td>';
+      tb.appendChild(tot);
+      sec.innerHTML = '<h3 style="font-size:18px;color:var(--soft);margin-bottom:5px">'+esc(tr.name)+'</h3>';
+      sec.appendChild(tbl);
+      host.appendChild(sec);
+    });
+    var t = d.buys.reduce(function(s,x){ return s+x.cost; },0);
+    var f = document.createElement('p');
+    f.style.cssText = 'font-family:var(--cond);font-size:22px;font-weight:700;text-align:right;margin:6px 0 0';
+    f.textContent = 'Register total before tax: '+money(t);
+    host.appendChild(f);
+    $('#buyNote').textContent = 'Sheet goods, trim, flooring and cabinets carry '+Math.round((d.waste-1)*100)+
+      '% waste. Paint, mud, fasteners and rentals come off coverage rates or counts that already allow for slop. Everything rounds up to whole units.';
+  }
+
+  function drawCheck(){
+    var d = last, targ = A('f_targmarg')/100;
+    var cls = d.total === 0 ? '' : (d.margin >= targ ? 'good' : (d.margin >= targ*0.7 ? '' : 'warn'));
+    var psf = d.floorSF > 0 ? d.total/d.floorSF : 0;
+    $('#checkStats').innerHTML =
+      '<div><div class="v">'+(d.hours?d.hours.toFixed(1):'0')+'</div><div class="k">labor hours</div></div>' +
+      '<div><div class="v">'+(d.days?d.days.toFixed(1):'0')+'</div><div class="k">crew days</div></div>' +
+      '<div class="'+cls+'"><div class="v">'+Math.round(d.margin*100)+'%</div><div class="k">gross margin</div></div>' +
+      '<div><div class="v">'+(psf?money0(psf):'—')+'</div><div class="k">per sq ft of floor</div></div>';
+
+    var notes = [];
+    if (d.total > 0){
+      notes.push('Price '+money0(d.total)+' against an estimated cost of '+money0(d.cost)+', leaving '+money0(d.profit)+'.');
+      if (d.hours > 0)
+        notes.push('You bill '+money0(d.billedHr)+' an hour of labor and it costs you '+money0(d.costHr)+
+                   ', so every hour on this job nets '+money0(d.billedHr-d.costHr)+' before materials and overhead.');
+      if (d.margin < targ)
+        notes.push('That is under your '+Math.round(targ*100)+'% target. Raise labor rates, trim the scope, or take it knowing why.');
+      if (d.days > 0)
+        notes.push('At '+$('#f_crew').value+' on site for '+$('#f_hrday').value+' hours, that is about '+
+                   Math.ceil(d.days)+' working day'+(Math.ceil(d.days)===1?'':'s')+', so quote a window with slack in it.');
+      if (d.matSub > 0 && d.total > 0)
+        notes.push('Materials are '+Math.round(d.matSub/d.total*100)+'% of the price and labor is '+
+                   Math.round(d.labSub/d.total*100)+'%. On rebuild work labor usually runs higher than material.');
+    }
+    var g = [];
+    g.push('<div class="sumline b"><span>Estimated cost to do the work</span><span>'+money(d.cost)+'</span></div>');
+    g.push('<div class="sumline"><span>Walk-away price, cost plus your '+Math.round(A('f_floormargin'))+'% floor</span><span>'+money(d.floorPrice)+'</span></div>');
+    g.push('<div class="sumline b"><span>Price on the estimate</span><span>'+money(d.total)+'</span></div>');
+    g.push('<div class="sumline"><span>Room above the floor</span><span>'+money(d.total-d.floorPrice)+'</span></div>');
+    var verdict, vcls;
+    if (d.total === 0){ verdict = 'Nothing scoped yet.'; vcls = ''; }
+    else if (d.floored){
+      verdict = 'The scope and rates you entered priced this job below your floor, so the tool raised it to ' +
+                money0(d.total) + '. Do not discount from here. If the customer will not pay it, the job is the problem, not the price.';
+      vcls = ' warn';
+    } else if (d.margin >= targ){
+      verdict = 'Priced ' + money0(d.total - d.floorPrice) + ' clear of your walk-away number and above your ' +
+                Math.round(targ*100) + '% target. This one pays.';
+      vcls = ' ok';
+    } else {
+      verdict = 'Above the hard floor but under your ' + Math.round(targ*100) + '% target. It will not lose money, it just will not make much.';
+      vcls = '';
+    }
+    var unv = Math.round(d.unvShare*100);
+    if (d.matSub > 0){
+      g.push('<div class="sumline"><span>Material dollars from prices you have not checked</span><span>'+unv+'%</span></div>');
+    }
+    $('#guard').innerHTML = g.join('') +
+      '<div class="advisory'+vcls+'" style="margin-top:12px"><h4>Verdict</h4><p style="margin:0">'+esc(verdict)+'</p>' +
+      (unv > 40 && d.matSub > 0 ? '<p style="margin:6px 0 0">'+unv+'% of your material cost rests on prices nobody has verified. They are padded '+
+        Math.round(padPct()*100)+'% for that reason, which protects you but also loses you jobs on price. An hour in the aisles fixes it.</p>' : '') +
+      '</div>';
+
+    $('#checkNotes').innerHTML = notes.length
+      ? '<div class="advisory'+(d.margin<targ?' warn':'')+'"><h4>What this job is really doing</h4>' +
+        notes.map(function(n){ return '<p style="margin:0 0 5px">'+esc(n)+'</p>'; }).join('') + '</div>'
+      : '';
+
+    var hb = $('#hoursBody'); hb.innerHTML = '';
+    var crew = Math.max(1,A('f_crew')), hrday = Math.max(1,A('f_hrday'));
+    TRADES.forEach(function(tr){
+      var g = d.trades[tr.k]; if (!g || (!g.hrs && !g.lab && !g.mat && !g.sub)) return;
+      var amt = g.mat+g.lab+g.sub;
+      var row = document.createElement('tr');
+      row.innerHTML = '<td>'+esc(tr.name)+'</td><td class="n">'+g.hrs.toFixed(1)+'</td>' +
+        '<td class="n">'+(g.hrs/(crew*hrday)).toFixed(1)+'</td><td class="n">'+money(g.lab)+'</td>' +
+        '<td class="n">'+(g.hrs?money(g.lab/g.hrs):'—')+'</td>' +
+        '<td class="n">'+(d.total?Math.round(amt/d.total*100)+'%':'—')+'</td>';
+      hb.appendChild(row);
+    });
+    if (!hb.children.length) hb.innerHTML = '<tr><td colspan="6" style="color:var(--soft)">Nothing scoped yet.</td></tr>';
+  }
+
+  function row(cells){ return '<tr>' + cells.map(function(c,i){ return '<td'+(i?' class="n"':'')+'>'+c+'</td>'; }).join('') + '</tr>'; }
+  function line(l,v,b){ return '<div class="sumline'+(b?' b':'')+'"><span>'+l+'</span><span>'+money(v)+'</span></div>'; }
+
+  function drawSheet(){
+    var d = last, body = $('#sheetBody'), mode = $('#printMode').value;
+    var parts = [];
+    if ($('#cust').value.trim()) parts.push($('#cust').value.trim());
+    if ($('#addr').value.trim()) parts.push($('#addr').value.trim());
+    if ($('#scopeName').value.trim()) parts.push($('#scopeName').value.trim());
+    parts.push($('#qdate').value+', No. '+$('#qnum').value);
+    $('#sheetSub').textContent = parts.join(', ');
+
+    if (d.total === 0){
+      body.innerHTML = '<p class="empty">Nothing scoped yet. Add a room and check some work, or hit a quick start.</p>';
+      $('#mobileTotalVal').textContent = '$0'; return;
+    }
+
+    var html = '';
+    if (rooms.length){
+      html += '<section><h3>Areas</h3><table><tbody>';
+      rooms.forEach(function(r){
+        var m = roomMath(r);
+        html += row([esc(r.name)+(r.notes?'<br><span style="color:var(--soft);font-size:13px">'+esc(r.notes)+'</span>':''),
+                     '', Math.round(m.floor)+' sq ft']);
+      });
+      html += '</tbody></table></section>';
+    }
+
+    TRADES.forEach(function(tr){
+      var g = d.trades[tr.k]; if (!g) return;
+      var amt = g.mat+g.lab+g.sub; if (amt <= 0) return;
+      html += '<section><h3>'+esc(tr.name)+(tr.sub?' <span style="font-size:12px;color:var(--brick)">licensed sub</span>':'')+'</h3>';
+      if (mode !== 'cust'){
+        html += '<table><tbody>';
+        g.lines.forEach(function(l){
+          var extra = (mode==='int' && l.hrs) ? ' <span style="color:var(--soft);font-size:12px">'+l.hrs.toFixed(1)+' hr</span>' : '';
+          html += row([esc(l.n)+(l.allow?' <span style="color:var(--brick);font-size:12px">allowance</span>':'')+extra,
+                       l.q+' '+l.u, money(l.mat+l.lab+l.subCost)]);
+        });
+        var ownMat = g.lines.reduce(function(s,l){ return s+l.mat; },0);
+        if (g.mat - ownMat > 0.005) html += row(['Materials for this trade','',money(g.mat-ownMat)]);
+        html += '</tbody></table>';
+      }
+      html += line('Subtotal', amt, true) + '</section>';
+    });
+
+    if (d.cusSub){
+      html += '<section><h3>Additional</h3><table><tbody>';
+      d.cust.forEach(function(c){ html += row([esc(c.desc), c.qty, money(c.qty*c.rate)]); });
+      html += '</tbody></table></section>';
+    }
+
+    if (mode === 'int'){
+      html += '<section>' +
+        line('Materials at cost', d.matSub) + line('Sales tax at the register', d.tax) +
+        line('Material markup', d.mUp) + line('Labor billed', d.labSub) +
+        line('Subs at cost', d.subSub) + line('Sub markup', d.sUp) +
+        line('Overhead and profit', d.op) + line('Contingency', d.cont) +
+        '</section><section>' +
+        line('Estimated cost to do it', d.cost, true) + line('Gross profit', d.profit, true) +
+        '<div class="sumline b"><span>Gross margin</span><span>'+Math.round(d.margin*100)+'%</span></div>' +
+        '<div class="sumline"><span>Labor hours</span><span>'+d.hours.toFixed(1)+'</span></div>' +
+        '<div class="sumline"><span>Crew days</span><span>'+d.days.toFixed(1)+'</span></div>' +
+        (d.floorSF ? '<div class="sumline"><span>Per sq ft of floor</span><span>'+money(d.total/d.floorSF)+'</span></div>' : '') +
+        '<div class="sumline"><span>Walk-away price</span><span>'+money(d.floorPrice)+'</span></div>' +
+        '</section>';
+    } else {
+      html += '<section>' +
+        line('Materials', d.matSub + d.tax + d.mUp) +
+        line('Labor', d.labSub) +
+        (d.subSub ? line('Licensed trades', d.subSub + d.sUp) : '') +
+        (d.op ? line('Overhead and profit', d.op) : '') +
+        (d.cont ? line('Contingency', d.cont) : '') +
+        '</section>';
+    }
+
+    html += '<div class="total"><span class="lab">'+(mode==='int'?'Price':'Total price')+'</span><span class="val">'+money0(d.total)+'</span></div>';
+
+    var dp = A('f_dep')/100, mp = A('f_mid')/100;
+    if (dp + mp > 0.95) mp = Math.max(0, 0.95 - dp);
+    var dep = d.total*dp, mid = d.total*mp, fin = d.total - dep - mid;
+    html += '<div class="terms">' +
+      '<div class="sumline"><span>Deposit before work starts</span><span>'+money0(dep)+'</span></div>' +
+      (mid > 0 ? '<div class="sumline"><span>Draw at '+esc($('#f_midwhen').value)+'</span><span>'+money0(mid)+'</span></div>' : '') +
+      '<div class="sumline"><span>Balance on completion</span><span>'+money0(fin)+'</span></div>' +
+      '<p style="margin:9px 0 0">Good for '+$('#valid').value+'. ' +
+      ($('#payer').value === 'Homeowner, cash' ? 'Cash price. ' : '') +
+      (d.bumped ? 'Minimum job charge applied. ' : '') +
+      (d.subSub ? 'Plumbing, electrical and HVAC are performed by licensed subcontractors. ' : '') +
+      '</p></div>';
+
+    if (mode !== 'int'){
+      var terms = $('#authText').value;
+      if (terms.trim()){
+        html += '<div class="sign">' +
+          terms.split(/\n\s*\n/).map(function(p){ return '<p style="margin:0 0 7px">'+esc(p)+'</p>'; }).join('') +
+          '<div class="sigrow">' +
+            '<div><div class="sigbox"></div><div class="sigline">Customer signature</div></div>' +
+            '<div><div class="sigbox"></div><div class="sigline">Date</div></div>' +
+          '</div></div>';
+      }
+    }
+
+    body.innerHTML = html;
+    $('#mobileTotalVal').textContent = money0(d.total);
+  }
+
+  /* ---------- text ---------- */
+  function quoteText(){
+    var d = last;
+    if (!d || d.total === 0) return 'Nothing scoped yet.';
+    var L = [];
+    L.push(($('#b_name').value||'Bailey the Restorian').toUpperCase()+' — ESTIMATE '+$('#qnum').value);
+    L.push([$('#b_phone').value,$('#b_email').value].filter(Boolean).join('   '));
+    L.push($('#qdate').value);
+    if ($('#cust').value.trim()) L.push('For: '+$('#cust').value.trim());
+    if ($('#addr').value.trim()) L.push('At: '+$('#addr').value.trim());
+    if ($('#scopeName').value.trim()) L.push('Scope: '+$('#scopeName').value.trim());
+    L.push('');
+    TRADES.forEach(function(tr){
+      var g = d.trades[tr.k]; if (!g) return;
+      var amt = g.mat+g.lab+g.sub; if (amt <= 0) return;
+      L.push(tr.name.toUpperCase()+(tr.sub?' (licensed sub)':'')+'   '+money(amt));
+      g.lines.forEach(function(l){ L.push('   '+l.n+'  '+l.q+' '+l.u+(l.allow?'  (allowance)':'')); });
+    });
+    L.push('');
+    L.push('TOTAL: '+money0(d.total));
+    var dp = A('f_dep')/100, mp = A('f_mid')/100;
+    L.push('Deposit: '+money0(d.total*dp));
+    if (mp > 0) L.push('Draw at '+$('#f_midwhen').value+': '+money0(d.total*mp));
+    L.push('Balance on completion: '+money0(d.total*(1-dp-mp)));
+    L.push('Good for '+$('#valid').value+'.');
+    return L.join('\n');
+  }
+  function buyText(){
+    var d = last;
+    if (!d || !d.buys.length) return 'Nothing to buy yet.';
+    var L = ["LOWE'S RUN — "+$('#qnum').value+'   '+($('#addr').value||''), ''];
+    TRADES.forEach(function(tr){
+      var mine = d.buys.filter(function(b){ return b.t===tr.k && b.qty > 0; });
+      if (!mine.length) return;
+      L.push(tr.name.toUpperCase());
+      mine.forEach(function(x){ L.push('   [ ] '+x.qty+' '+x.unit+'   '+x.label+'   '+money(x.cost)); });
+      L.push('');
+    });
+    L.push('Before tax: '+money(d.buys.reduce(function(s,x){ return s+x.cost; },0)));
+    return L.join('\n');
+  }
+
+  function toast(m){
+    var el = document.createElement('div'); el.className='toast'; el.textContent=m;
+    document.body.appendChild(el); setTimeout(function(){ el.remove(); },2200);
+  }
+  function copyText(text, okMsg){
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ toast(okMsg); }, fb);
+    } else fb();
+    function fb(){
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position='fixed'; ta.style.top='-1000px';
+      document.body.appendChild(ta); ta.select();
+      var ok=false; try{ ok = document.execCommand('copy'); }catch(e){}
+      ta.remove(); toast(ok?okMsg:'Copy blocked here, print instead');
+    }
+  }
+
+  /* a walk-the-aisles sheet: every material, what one unit has to cover,
+     what the tool currently thinks, and blanks for the real price and item number */
+  function printCheckSheet(){
+    var w = window.open('', '_blank');
+    if (!w){ toast('Allow pop-ups to print the check sheet'); return; }
+    var rows = '';
+    TRADES.forEach(function(tr){
+      var mine = BUY.filter(function(b){ return b.t===tr.k; });
+      if (!mine.length) return;
+      rows += '<tr class="dept"><td colspan="6">'+esc(tr.name)+'</td></tr>';
+      mine.forEach(function(b){
+        b.v.forEach(function(v,i){
+          rows += '<tr>' +
+            '<td>'+esc(b.n)+(v.n?' — '+esc(v.n):'')+'</td>' +
+            '<td class="c">'+(b.per===0?'per job':b.per+' '+esc(b.u))+'</td>' +
+            '<td class="c">'+money(v.p)+'</td>' +
+            '<td class="blank"></td><td class="blank"></td>' +
+            '<td class="c">'+(b.ver?'\u2713':'')+'</td>' +
+          '</tr>';
+        });
+      });
+    });
+    var total = BUY.reduce(function(s,b){ return s+b.v.length; },0);
+    w.document.write(
+      '<!doctype html><html><head><meta charset="utf-8"><title>Price check sheet</title><style>' +
+      'body{font-family:Arial,Helvetica,sans-serif;font-size:11px;margin:14px;color:#000}' +
+      'h1{font-size:19px;margin:0 0 2px}p.sub{margin:0 0 10px;font-size:11px;color:#444}' +
+      'table{width:100%;border-collapse:collapse}' +
+      'th{text-align:left;font-size:10px;text-transform:none;border-bottom:2px solid #000;padding:4px 3px}' +
+      'td{border-bottom:1px solid #ccc;padding:5px 3px;vertical-align:middle}' +
+      'td.c{text-align:right;white-space:nowrap}' +
+      'td.blank{border-bottom:1px solid #000;min-width:78px}' +
+      'tr.dept td{background:#eee;font-weight:bold;font-size:12px;border-bottom:1px solid #000;padding:5px 3px}' +
+      '@media print{@page{margin:12mm}}' +
+      '</style></head><body>' +
+      '<h1>' + esc($('#b_name').value) + ' — material price check</h1>' +
+      '<p class="sub">' + total + ' prices. Store: ______________________  Date: ____________  ' +
+      'Coverage is what one purchase unit has to cover. If the package on the shelf covers something different, write it in the price column too.</p>' +
+      '<table><thead><tr><th>Material</th><th class="c">One unit covers</th><th class="c">Tool says</th>' +
+      '<th>Shelf price</th><th>Item number</th><th class="c">OK</th></tr></thead><tbody>' +
+      rows + '</tbody></table></body></html>');
+    w.document.close();
+    setTimeout(function(){ w.print(); }, 400);
+  }
+
+  function showTab(which){
+    [['tabScope','panScope'],['tabBuy','panBuy'],['tabCheck','panCheck'],['tabSetup','panSetup']].forEach(function(p){
+      var on = p[0]===which;
+      $('#'+p[0]).setAttribute('aria-selected', on?'true':'false');
+      $('#'+p[1]).hidden = !on;
+    });
+  }
+  function stampDates(){
+    var now = new Date();
+    $('#qdate').value = now.toLocaleDateString('en-US',{year:'numeric',month:'short',day:'numeric'});
+    $('#qnum').value = 'RB-'+String(now.getFullYear()).slice(2)+
+      String(now.getMonth()+1).padStart(2,'0')+String(now.getDate()).padStart(2,'0')+
+      '-'+String(Math.floor(Math.random()*90)+10);
+  }
+
+  /* ---------- boot ---------- */
+  initItems();
+  ['dm_prot','dw_wall','dw_fin','dw_bead','pt_pr','pt_wall','pt_ceil','pt_sup','tr_base','pt_clk','fn_cln','fn_trp','fn_fast']
+    .forEach(function(k){ if (items[k]) items[k].on = true; });
+  $('#authText').value = DEF_TERMS;
+  if (!store.ok) $('#storeWarn').hidden = false;
+  loadPrices();
+  stampDates();
+  applyGrade();
+  drawPresets(); drawTrades(); drawCustom(); drawJobs();
+
+  $('#tabScope').addEventListener('click', function(){ showTab('tabScope'); });
+  $('#tabBuy').addEventListener('click', function(){ showTab('tabBuy'); });
+  $('#tabCheck').addEventListener('click', function(){ showTab('tabCheck'); });
+  $('#tabSetup').addEventListener('click', function(){ showTab('tabSetup'); });
+  $('#addRoom').addEventListener('click', addRoom);
+  $('#clearRooms').addEventListener('click', function(){ rooms=[]; seq=0; $('#rooms').innerHTML=''; refreshAuto(); calc(); });
+  $('#addCustom').addEventListener('click', function(){ custom.push({desc:'',qty:1,rate:0,cost:0,hrs:0}); drawCustom(); });
+  $('#filter').addEventListener('input', applyFilter);
+  $('#expandAll').addEventListener('click', function(){ $$('.trade').forEach(function(d){ d.open = true; }); });
+  $('#collapseAll').addEventListener('click', function(){ $$('.trade').forEach(function(d){ d.open = false; }); });
+  $('#onlyChecked').addEventListener('click', function(){
+    var on = this.getAttribute('data-on') === '1';
+    this.setAttribute('data-on', on?'0':'1');
+    this.textContent = on ? 'Only checked' : 'Show all';
+    applyFilter();
+  });
+  $('#priceFilter').addEventListener('input', function(){
+    var q = this.value.trim().toLowerCase();
+    $$('#buyPriceTables tbody tr').forEach(function(tr){
+      var s = tr.getAttribute('data-search');
+      tr.hidden = !!q && (!s || s.indexOf(q) < 0);
+    });
+    if (q) $$('#buyPriceTables details').forEach(function(d){ d.open = true; });
+  });
+  $('#f_grade').addEventListener('change', function(){ applyGrade(); calc(); });
+  $('#printBtn').addEventListener('click', function(){
+    document.body.classList.remove('print-buy'); showTab('tabScope'); window.print();
+  });
+  $('#printBuy').addEventListener('click', function(){
+    document.body.classList.add('print-buy'); window.print();
+    setTimeout(function(){ document.body.classList.remove('print-buy'); }, 500);
+  });
+  $('#clearHave').addEventListener('click', function(){ onhand = {}; calc(); toast('On-hand cleared'); });
+  $('#copyBtn').addEventListener('click', function(){ copyText(quoteText(),'Quote copied'); });
+  $('#copyBuy').addEventListener('click', function(){ copyText(buyText(),'Shopping list copied'); });
+  $('#printCheck').addEventListener('click', printCheckSheet);
+  $('#savePrices').addEventListener('click', savePrices);
+  $('#resetPrices').addEventListener('click', resetPrices);
+  $('#saveJob').addEventListener('click', saveJob);
+  $('#newJob').addEventListener('click', newJob);
+  $('#exportAll').addEventListener('click', exportAll);
+  $('#importBtn').addEventListener('click', function(){ $('#importFile').click(); });
+  $('#importFile').addEventListener('change', function(){ if (this.files && this.files[0]) importFile(this.files[0]); this.value=''; });
+  $('#printMode').addEventListener('change', drawSheet);
+
+  SET_FIELDS.concat(JOB_FIELDS).forEach(function(id){
+    var el = document.getElementById(id); if (!el) return;
+    el.addEventListener('input', calc);
+    if (el.tagName === 'SELECT') el.addEventListener('change', calc);
+  });
+
+  addRoom();
+})();
+</script>
+</body>
+</html>

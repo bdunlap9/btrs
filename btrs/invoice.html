@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Invoice Builder — Water Damage Restoration</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="icon.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;1,800&family=Barlow+Semi+Condensed:wght@500;600&family=Barlow:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --orange:#DC4402; --orange-dk:#A33200;
+  --blue:#0040A2; --navy:#04173A;
+  --bone:#EDE6DA; --ink:#0A0A0C;
+  --rule:#C8C2B6; --muted:#6A655D;
+  --paper:#FFFFFF;
+  --display:"Barlow Condensed",Impact,sans-serif;
+  --label:"Barlow Semi Condensed",sans-serif;
+  --body:"Barlow","Segoe UI",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",Consolas,monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;background:#4A4238;font-family:var(--body);font-size:15px;color:var(--ink);line-height:1.5}
+input,select,textarea,button{font-family:inherit;font-size:inherit;color:inherit}
+input,select,textarea{
+  background:transparent;border:none;border-bottom:1px dashed var(--rule);
+  padding:3px 2px;width:100%;border-radius:0;
+}
+input:hover,select:hover,textarea:hover{background:#FFF9E8}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--orange);outline-offset:1px;background:#FFF9E8}
+input[type=number]{-moz-appearance:textfield;font-family:var(--mono);text-align:right}
+input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+textarea{resize:vertical;line-height:1.45}
+
+/* ---------- toolbar ---------- */
+.bar{
+  position:sticky;top:0;z-index:50;background:var(--ink);color:var(--bone);
+  border-bottom:3px solid var(--orange);
+}
+.bar-in{max-width:940px;margin:0 auto;padding:10px 16px;display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bar h1{
+  font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;
+  font-size:19px;margin:0 auto 0 0;letter-spacing:.01em;white-space:nowrap;
+}
+.bar h1 span{color:var(--orange)}
+.tb{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.07em;
+  font-size:12px;background:transparent;border:1.5px solid #55504A;color:var(--bone);
+  padding:7px 12px;cursor:pointer;white-space:nowrap;
+}
+.tb:hover{border-color:var(--orange);color:var(--orange)}
+.tb.go{background:var(--orange);border-color:var(--orange);color:#fff}
+.tb.go:hover{background:#fff;color:var(--orange)}
+
+/* ---------- rate card ---------- */
+.rates{max-width:940px;margin:0 auto;background:var(--navy);color:var(--bone);padding:0 16px}
+.rates.hide{display:none}
+.rates-in{padding:20px 0 24px}
+.rates h2{
+  font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;
+  font-size:22px;margin:0 0 4px;
+}
+.rates p.note{color:#9DB2D2;font-size:13.5px;margin:0 0 18px;max-width:70ch}
+.rate-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:8px 22px}
+.rate-row{display:grid;grid-template-columns:1fr 86px;gap:10px;align-items:center;padding:5px 0;border-bottom:1px solid rgba(255,255,255,.14)}
+.rate-row label{font-size:13.5px;color:#DDE5F2;line-height:1.25}
+.rate-row .u{font-family:var(--label);font-size:10.5px;color:#7E96BC;text-transform:uppercase;letter-spacing:.08em;display:block}
+.rate-row input{color:#fff;border-bottom-color:#3A5788;font-weight:600}
+.rate-row input:hover,.rate-row input:focus{background:#0B2A5E}
+
+/* ---------- paper ---------- */
+.sheet{
+  max-width:940px;margin:26px auto 60px;background:var(--paper);
+  padding:44px 46px 40px;box-shadow:0 14px 40px rgba(0,0,0,.4);
+}
+@media (max-width:700px){.sheet{padding:26px 20px;margin:14px auto 40px}}
+
+.head{display:grid;grid-template-columns:1.25fr .95fr;gap:30px;align-items:start;padding-bottom:20px;border-bottom:4px solid var(--ink)}
+@media (max-width:640px){.head{grid-template-columns:1fr;gap:18px}}
+.head-logo{max-width:230px;margin-bottom:12px}
+.head-logo img{width:100%;display:block}
+.biz input{font-size:14.5px;padding:2px}
+.biz .bizname input{
+  font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;
+  font-size:28px;line-height:1;padding:0;border-bottom-color:transparent;
+}
+.biz .bizname input:hover,.biz .bizname input:focus{border-bottom-color:var(--rule)}
+.cred{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.08em;
+  font-size:10.5px;color:var(--orange-dk);margin-top:6px;
+}
+.inv-block{text-align:right}
+.inv-block .word{
+  font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;
+  font-size:52px;line-height:.85;color:var(--orange);margin:0 0 10px;
+}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:5px 12px;align-items:center;font-size:14px}
+.kv dt{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.09em;
+  font-size:10.5px;color:var(--muted);white-space:nowrap;text-align:right;
+}
+.kv dd{margin:0}
+.kv input{text-align:right;font-family:var(--mono);font-size:13.5px}
+
+/* parties */
+.parties{display:grid;grid-template-columns:1fr 1fr;gap:26px;padding:22px 0;border-bottom:1.5px solid var(--rule)}
+@media (max-width:640px){.parties{grid-template-columns:1fr;gap:16px}}
+.blk h3{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.14em;
+  font-size:10.5px;color:#fff;background:var(--ink);display:inline-block;
+  padding:3px 9px;margin:0 0 9px;
+}
+.blk input,.blk textarea{font-size:14.5px}
+
+/* job bar */
+.jobbar{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:14px;padding:16px 0;border-bottom:1.5px solid var(--rule)}
+.jf label{
+  display:block;font-family:var(--label);font-weight:600;text-transform:uppercase;
+  letter-spacing:.1em;font-size:10px;color:var(--muted);margin-bottom:2px;
+}
+.jf input,.jf select{font-size:14px}
+
+/* ---------- line items ---------- */
+.additems{display:flex;flex-wrap:wrap;gap:6px;padding:16px 0 12px;align-items:center}
+.additems .lbl{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.1em;
+  font-size:10.5px;color:var(--muted);margin-right:4px;
+}
+.chip{
+  font-family:var(--label);font-weight:600;font-size:12px;letter-spacing:.03em;
+  background:#F1EDE4;border:1.5px solid var(--rule);color:#2E2A24;
+  padding:5px 10px;cursor:pointer;white-space:nowrap;
+}
+.chip:hover{background:var(--orange);border-color:var(--orange);color:#fff}
+
+table{width:100%;border-collapse:collapse}
+thead th{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.09em;
+  font-size:10.5px;background:var(--ink);color:var(--bone);
+  padding:8px 8px;text-align:left;
+}
+thead th.n{text-align:right;width:66px}
+thead th.d{text-align:right;width:56px}
+thead th.r{text-align:right;width:92px}
+thead th.a{text-align:right;width:104px}
+thead th.x{width:32px}
+tbody td{border-bottom:1px solid #E2DDD3;padding:5px 8px;vertical-align:top}
+tbody tr:hover{background:#FCFAF5}
+td.desc input{font-size:14.5px}
+td.desc .sub input{font-size:12.5px;color:var(--muted);font-style:italic}
+td.amt{
+  text-align:right;font-family:var(--mono);font-weight:600;font-size:14.5px;
+  padding-top:8px;white-space:nowrap;
+}
+td.unit select{font-size:12.5px;font-family:var(--label);color:var(--muted)}
+.kill{
+  background:transparent;border:none;color:#B9B2A6;cursor:pointer;
+  font-size:19px;line-height:1;padding:2px 4px;
+}
+.kill:hover{color:#B3311A}
+.rowadd{
+  margin-top:10px;font-family:var(--label);font-weight:600;text-transform:uppercase;
+  letter-spacing:.08em;font-size:11.5px;background:transparent;
+  border:1.5px dashed var(--rule);color:var(--muted);padding:8px 14px;cursor:pointer;width:100%;
+}
+.rowadd:hover{border-color:var(--orange);color:var(--orange)}
+
+/* ---------- totals ---------- */
+.foot{display:grid;grid-template-columns:1fr 340px;gap:34px;padding-top:24px}
+@media (max-width:700px){.foot{grid-template-columns:1fr;gap:22px}}
+.notes h3{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.14em;
+  font-size:10.5px;color:var(--muted);margin:0 0 7px;
+}
+.notes textarea{font-size:13.5px;min-height:76px;border:1px dashed var(--rule);padding:8px}
+.tot-row{display:grid;grid-template-columns:1fr 110px;gap:10px;align-items:center;padding:6px 0;font-size:14.5px}
+.tot-row.sub{border-top:1.5px solid var(--rule)}
+.tot-row .k{font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.08em;font-size:11.5px;color:var(--muted)}
+.tot-row .v{text-align:right;font-family:var(--mono);font-weight:600}
+.tot-row input{font-family:var(--mono);text-align:right;font-weight:600}
+.pct{display:grid;grid-template-columns:52px 1fr;gap:6px;align-items:center}
+.pct input{font-size:13px}
+.due{
+  background:var(--ink);color:#fff;padding:14px 16px;margin-top:10px;
+  display:flex;justify-content:space-between;align-items:baseline;gap:14px;
+}
+.due .k{
+  font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;
+  font-size:22px;line-height:1;
+}
+.due .v{font-family:var(--display);font-style:italic;font-weight:800;font-size:34px;line-height:1;color:var(--orange)}
+
+/* paid stamp */
+.stamp{
+  display:none;margin-top:14px;border:4px solid #1F7A3D;color:#1F7A3D;
+  font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;
+  font-size:30px;text-align:center;padding:8px 12px;transform:rotate(-3deg);letter-spacing:.04em;
+}
+.stamp.on{display:block}
+
+/* payment + sign */
+.pay{margin-top:30px;padding-top:20px;border-top:4px solid var(--ink);display:grid;grid-template-columns:1fr 1fr;gap:30px}
+@media (max-width:640px){.pay{grid-template-columns:1fr;gap:20px}}
+.pay h3{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.14em;
+  font-size:10.5px;color:var(--muted);margin:0 0 8px;
+}
+.pay p{margin:0 0 6px;font-size:13.5px}
+.sig{margin-top:26px;border-top:1.5px solid var(--ink);padding-top:6px;font-family:var(--label);font-size:10.5px;text-transform:uppercase;letter-spacing:.1em;color:var(--muted)}
+.terms{
+  margin-top:22px;font-size:11.5px;color:var(--muted);line-height:1.5;
+  border-top:1px solid var(--rule);padding-top:12px;
+}
+.terms textarea{font-size:11.5px;border:none;color:var(--muted)}
+
+.truck{
+  margin-top:16px;border:2px solid var(--rule);background:#F7F4ED;padding:14px 16px;
+}
+.truck h4{
+  font-family:var(--label);font-weight:600;text-transform:uppercase;letter-spacing:.12em;
+  font-size:10.5px;color:var(--muted);margin:0 0 10px;
+}
+.truck-bar{height:16px;background:#E0DACE;border:1px solid var(--rule);position:relative;overflow:hidden}
+.truck-fill{height:100%;background:var(--blue);width:0;transition:width .3s ease}
+.truck-fill.over{background:var(--orange)}
+.truck-tick{position:absolute;top:0;bottom:0;width:2px;background:var(--ink);opacity:.35}
+.truck-msg{margin-top:9px;font-size:13.5px;line-height:1.45}
+.truck-msg b{font-family:var(--display);font-style:italic;font-weight:800;text-transform:uppercase;font-size:17px}
+.truck-msg .ok{color:#1F7A3D}
+.truck-msg .warn{color:var(--orange-dk)}
+.toast{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:99;
+  background:var(--ink);color:var(--bone);padding:11px 20px;font-size:14px;
+  border-left:5px solid var(--orange);opacity:0;pointer-events:none;transition:opacity .25s;
+}
+.toast.on{opacity:1}
+
+/* ---------- print ---------- */
+@media print{
+  @page{size:letter portrait;margin:0.5in}
+  body{background:#fff}
+  .bar,.rates,.additems,.rowadd,.kill,.toast,.noprint{display:none!important}
+  .sheet{max-width:none;margin:0;padding:0;box-shadow:none}
+  input,select,textarea{border:none!important;background:transparent!important;outline:none!important;-webkit-appearance:none;appearance:none}
+  input,select,textarea{color:#000!important}
+  thead th{background:#0A0A0C!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .inv-block .word,.due .v{color:#DC4402!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .due{background:#0A0A0C!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .blk h3{background:#0A0A0C!important;color:#fff!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .stamp{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  tr,.pay,.foot{break-inside:avoid}
+  thead{display:table-header-group}
+  td.unit select{-webkit-appearance:none;appearance:none}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<div class="bar">
+  <div class="bar-in">
+    <h1>Invoice <span>Builder</span></h1>
+    <button class="tb" id="btnRates">Rate card</button>
+    <button class="tb" id="btnSave">Save file</button>
+    <button class="tb" id="btnLoad">Open file</button>
+    <button class="tb" id="btnNew">New invoice</button>
+    <button class="tb go" id="btnPrint">Print / Save PDF</button>
+    <input type="file" id="fileIn" accept=".json" style="display:none">
+  </div>
+</div>
+
+<!-- ============ RATE CARD ============ -->
+<div class="rates hide" id="ratePanel">
+  <div class="rates-in">
+    <h2>Your rate card</h2>
+    <p class="note">Pre-filled for the Brevard market with a one-truck setup &mdash; <b>starting points, not gospel.</b> Published 2026 Florida mitigation pricing runs roughly $3&ndash;4/sq&nbsp;ft for Cat&nbsp;1, $4&ndash;7 for Cat&nbsp;2 and $7&ndash;7.50 for Cat&nbsp;3 on larger losses; these rates land a job in that neighbourhood. Small jobs always price higher per square foot because the call-out and setup don't shrink. Change anything &mdash; your edits save on this device and override these permanently.</p>
+    <div class="rate-grid" id="rateGrid"></div>
+  </div>
+</div>
+
+<!-- ============ INVOICE ============ -->
+<div class="sheet" id="sheet">
+
+  <div class="head">
+    <div class="biz">
+      <div class="head-logo"><img src="logo.jpg" alt="" id="logoImg" onerror="this.parentNode.style.display='none'"></div>
+      <div class="bizname"><input id="bizName" value="Bailey The Restorian"></div>
+      <div class="cred">IICRC-Certified &middot; Water Damage Restoration Technician (WRT)</div>
+      <div style="margin-top:8px">
+        <input id="bizPhone" value="(321) 300-4076">
+        <input id="bizEmail" value="bailey@baileytherestorian.com">
+        <input id="bizAddr" placeholder="Street address">
+        <input id="bizCity" value="West Melbourne, FL 32904">
+        <input id="bizLic" placeholder="License / cert no. (optional)">
+      </div>
+    </div>
+
+    <div class="inv-block">
+      <p class="word">Invoice</p>
+      <dl class="kv">
+        <dt>Invoice&nbsp;#</dt><dd><input id="invNo"></dd>
+        <dt>Date</dt><dd><input type="date" id="invDate"></dd>
+        <dt>Due</dt><dd><input id="invDue" value="Due on receipt"></dd>
+      </dl>
+    </div>
+  </div>
+
+  <div class="parties">
+    <div class="blk">
+      <h3>Bill to</h3>
+      <input id="cliName" placeholder="Customer name">
+      <input id="cliPhone" placeholder="Phone">
+      <input id="cliEmail" placeholder="Email">
+      <input id="cliAddr" placeholder="Billing address">
+      <input id="cliCity" placeholder="City, State ZIP">
+    </div>
+    <div class="blk">
+      <h3>Job site</h3>
+      <input id="siteAddr" placeholder="Property address (if different)">
+      <input id="siteCity" placeholder="City, State ZIP">
+      <textarea id="siteNote" rows="2" placeholder="Affected areas — e.g. kitchen, hallway, master closet"></textarea>
+    </div>
+  </div>
+
+  <div class="jobbar">
+    <div class="jf"><label>Date of loss</label><input type="date" id="lossDate"></div>
+    <div class="jf"><label>Cause of loss</label><input id="lossCause" placeholder="AC drain line"></div>
+    <div class="jf"><label>Category</label>
+      <select id="lossCat"><option value="">—</option><option>Cat 1</option><option>Cat 2</option><option>Cat 3</option></select>
+    </div>
+    <div class="jf"><label>Class</label>
+      <select id="lossCls"><option value="">—</option><option>Class 1</option><option>Class 2</option><option>Class 3</option><option>Class 4</option></select>
+    </div>
+    <div class="jf"><label>Days on site</label><input type="number" id="jobDays" min="0" step="1" placeholder="4"></div>
+    <div class="jf"><label>Technician</label><input id="tech" placeholder="Bailey"></div>
+  </div>
+
+  <div class="additems noprint">
+    <span class="lbl">Quick add</span>
+    <span id="chips"></span>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Description</th>
+        <th>Unit</th>
+        <th class="n">Qty</th>
+        <th class="d">Days</th>
+        <th class="r">Rate</th>
+        <th class="a">Amount</th>
+        <th class="x noprint"></th>
+      </tr>
+    </thead>
+    <tbody id="items"></tbody>
+  </table>
+  <button class="rowadd noprint" id="btnRow">+ Add blank line</button>
+
+  <div class="truck noprint" id="truck">
+    <h4>Ram 1500 load check</h4>
+    <div class="truck-bar">
+      <div class="truck-fill" id="truckFill"></div>
+      <div class="truck-tick" style="left:50%"></div>
+    </div>
+    <p class="truck-msg" id="truckMsg"></p>
+  </div>
+
+  <div class="foot">
+    <div class="notes">
+      <h3>Notes for the customer</h3>
+      <textarea id="notes" rows="4" placeholder="Equipment set 8/14, monitored daily, dry standard reached 8/18. Moisture logs and photos available on request."></textarea>
+    </div>
+
+    <div class="totals">
+      <div class="tot-row sub"><span class="k">Subtotal</span><span class="v" id="tSub">$0.00</span></div>
+      <div class="tot-row">
+        <span class="k pct"><input type="number" id="discPct" value="0" min="0" step="1"> Discount %</span>
+        <span class="v" id="tDisc">$0.00</span>
+      </div>
+      <div class="tot-row">
+        <span class="k pct"><input type="number" id="taxPct" value="0" min="0" step="0.001"> Tax %</span>
+        <span class="v" id="tTax">$0.00</span>
+      </div>
+      <div class="tot-row"><span class="k">Total</span><span class="v" id="tTotal">$0.00</span></div>
+      <div class="tot-row"><span class="k">Paid / deposit</span><span class="v"><input type="number" id="paid" value="0" min="0" step="0.01"></span></div>
+      <div class="due"><span class="k">Balance due</span><span class="v" id="tDue">$0.00</span></div>
+      <div class="stamp" id="stamp">Paid in full</div>
+    </div>
+  </div>
+
+  <div class="pay">
+    <div>
+      <h3>Payment</h3>
+      <p><b>Accepted:</b> <input id="payMethods" value="Cash, check, Zelle, card" style="display:inline-block;width:auto;min-width:200px"></p>
+      <p><b>Make checks payable to:</b> <input id="payTo" value="Bailey The Restorian" style="display:inline-block;width:auto;min-width:200px"></p>
+      <p style="margin-top:10px;font-size:13px;color:#6A655D">Thank you for your business. Please reach out with any questions about this invoice.</p>
+    </div>
+    <div>
+      <h3>Customer acceptance</h3>
+      <p style="font-size:13px;color:#6A655D">Work described above was completed and is accepted as satisfactory.</p>
+      <div class="sig">Signature</div>
+      <div class="sig" style="margin-top:22px">Printed name &amp; date</div>
+    </div>
+  </div>
+
+  <div class="terms">
+    <textarea id="terms" rows="3">Payment is due on receipt unless otherwise agreed in writing. This invoice covers emergency mitigation and structural drying services only; reconstruction and repairs are quoted separately. Moisture documentation and daily readings are retained and available upon request.</textarea>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ---------- safe storage (degrades silently) ---------- */
+var store = {
+  get:function(k){ try{ return window.localStorage.getItem(k); }catch(e){ return null; } },
+  set:function(k,v){ try{ window.localStorage.setItem(k,v); }catch(e){} }
+};
+
+var $ = function(id){ return document.getElementById(id); };
+var money = function(n){
+  return (n<0?"-$":"$") + Math.abs(n).toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:2});
+};
+var num = function(v){ var n=parseFloat(v); return isNaN(n)?0:n; };
+
+function toast(msg){
+  var t=$("toast"); t.textContent=msg; t.classList.add("on");
+  clearTimeout(t._h); t._h=setTimeout(function(){ t.classList.remove("on"); },2200);
+}
+
+/* ---------- rate card definition ---------- */
+/* rate = 0 means "not set yet" — you fill these in once. */
+var PRESETS = [
+  /* ---------------------------------------------------------------
+     DEFAULTS: Brevard County / West Melbourne market, solo operator
+     running out of a Ram 1500 (portable extraction, no truck-mount).
+     These are STARTING POINTS anchored to published 2026 Florida
+     ranges — not gospel. Change any of them; your edits are saved
+     and override these permanently on this device.
+     --------------------------------------------------------------- */
+  {id:"emerg",   label:"Emergency service call",                unit:"each",   days:false, rate:175},
+  {id:"after",   label:"After-hours / weekend / holiday",       unit:"each",   days:false, rate:125},
+  {id:"trip",    label:"Trip charge beyond 25 mi",              unit:"each",   days:false, rate:45},
+  {id:"insp",    label:"Inspection, moisture map & photos",     unit:"each",   days:false, rate:150},
+
+  {id:"extract", label:"Water extraction \u2014 portable unit",    unit:"sq ft",  days:false, rate:0.65},
+  {id:"extheavy",label:"Extraction \u2014 weighted / heavy pass",  unit:"sq ft",  days:false, rate:1.10},
+
+  {id:"airmov",  label:"Air mover",                             unit:"day",    days:true,  rate:28},
+  {id:"dehu",    label:"LGR dehumidifier",                      unit:"day",    days:true,  rate:88},
+  {id:"afd",     label:"Air scrubber (HEPA)",                   unit:"day",    days:true,  rate:78},
+  {id:"deliver", label:"Equipment delivery & pickup",           unit:"each",   days:false, rate:95},
+  {id:"rental",  label:"Rented equipment (pass-through + 15%)", unit:"day",    days:true,  rate:0},
+
+  {id:"labor",   label:"Technician labor",                      unit:"hour",   days:false, rate:75},
+  {id:"monitor", label:"Daily monitoring visit & readings",     unit:"each",   days:false, rate:75},
+
+  {id:"anti",    label:"Antimicrobial application",             unit:"sq ft",  days:false, rate:0.35},
+  {id:"padrem",  label:"Carpet pad removal & bag",              unit:"sq ft",  days:false, rate:0.55},
+  {id:"carprem", label:"Carpet removal & bag",                  unit:"sq ft",  days:false, rate:0.45},
+  {id:"base",    label:"Baseboard removal",                     unit:"lin ft", days:false, rate:2.25},
+  {id:"floodcut",label:"Drywall flood cut (2 ft)",              unit:"lin ft", days:false, rate:4.50},
+  {id:"content", label:"Content manipulation",                  unit:"hour",   days:false, rate:65},
+  {id:"block",   label:"Block & pad furniture",                 unit:"each",   days:false, rate:12},
+
+  {id:"haul",    label:"Debris haul-off \u2014 per truck load",    unit:"load",   days:false, rate:185},
+  {id:"dump",    label:"Landfill / tipping fee (at cost)",       unit:"each",   days:false, rate:0},
+  {id:"consum",  label:"PPE & consumables",                     unit:"each",   days:false, rate:45}
+];
+
+/* Bed-space cost of each piece of gear, out of one Ram 1500 load (=100).
+   Rough planning figures for a 5'7" bed — verify against your own
+   payload sticker, especially with wet carpet aboard. */
+var BED = { airmov:6, dehu:22, afd:18, extractor:25 };
+
+var UNITS = ["each","sq ft","lin ft","day","hour","load","gal","room"];
+
+function loadRates(){
+  var saved={};
+  try{ saved=JSON.parse(store.get("btr_rates")||"{}"); }catch(e){}
+  PRESETS.forEach(function(p){ if(typeof saved[p.id]==="number") p.rate=saved[p.id]; });
+}
+function saveRates(){
+  var o={}; PRESETS.forEach(function(p){ o[p.id]=p.rate; });
+  store.set("btr_rates", JSON.stringify(o));
+}
+function loadBiz(){
+  var b={};
+  try{ b=JSON.parse(store.get("btr_biz")||"{}"); }catch(e){}
+  ["bizName","bizPhone","bizEmail","bizAddr","bizCity","bizLic","payTo","payMethods","terms"].forEach(function(k){
+    if(b[k]!==undefined && $(k)) $(k).value=b[k];
+  });
+}
+function saveBiz(){
+  var b={};
+  ["bizName","bizPhone","bizEmail","bizAddr","bizCity","bizLic","payTo","payMethods","terms"].forEach(function(k){
+    if($(k)) b[k]=$(k).value;
+  });
+  store.set("btr_biz", JSON.stringify(b));
+}
+
+/* ---------- build rate panel + chips ---------- */
+function renderRates(){
+  $("rateGrid").innerHTML = PRESETS.map(function(p){
+    return '<div class="rate-row">'+
+      '<label for="rt_'+p.id+'">'+p.label+'<span class="u">per '+p.unit+'</span></label>'+
+      '<input type="number" id="rt_'+p.id+'" data-rid="'+p.id+'" min="0" step="0.01" value="'+(p.rate||"")+'" placeholder="0.00">'+
+    '</div>';
+  }).join("");
+}
+function renderChips(){
+  $("chips").innerHTML = PRESETS.map(function(p){
+    return '<button type="button" class="chip" data-add="'+p.id+'">'+p.label+'</button>';
+  }).join(" ");
+}
+
+$("rateGrid").addEventListener("input", function(e){
+  var id=e.target.getAttribute("data-rid"); if(!id) return;
+  PRESETS.forEach(function(p){ if(p.id===id) p.rate=num(e.target.value); });
+  saveRates(); renderChips();
+});
+
+/* ---------- line items ---------- */
+var rowSeq=0;
+function addRow(preset){
+  rowSeq++;
+  var p = preset || {label:"",unit:"each",days:false,rate:0};
+  var tr=document.createElement("tr");
+  tr.innerHTML =
+    '<td class="desc">'+
+      '<input class="i-desc" value="'+String(p.label).replace(/"/g,"&quot;")+'" placeholder="Description">'+
+      '<div class="sub"><input class="i-sub" placeholder="Detail / location (optional)"></div>'+
+    '</td>'+
+    '<td class="unit"><select class="i-unit">'+
+      UNITS.map(function(u){ return '<option'+(u===p.unit?" selected":"")+'>'+u+'</option>'; }).join("")+
+    '</select></td>'+
+    '<td><input type="number" class="i-qty" value="1" min="0" step="0.01"></td>'+
+    '<td><input type="number" class="i-days" value="'+(p.days?(num($("jobDays").value)||1):1)+'" min="0" step="0.5"></td>'+
+    '<td><input type="number" class="i-rate" value="'+(p.rate||"")+'" min="0" step="0.01" placeholder="0.00"></td>'+
+    '<td class="amt i-amt">$0.00</td>'+
+    '<td class="noprint"><button type="button" class="kill" title="Remove line">&times;</button></td>';
+  $("items").appendChild(tr);
+  calc();
+  return tr;
+}
+
+$("items").addEventListener("input", calc);
+$("items").addEventListener("click", function(e){
+  if(e.target.classList.contains("kill")){
+    e.target.closest("tr").remove();
+    calc();
+  }
+});
+$("chips").addEventListener("click", function(e){
+  var id=e.target.getAttribute("data-add"); if(!id) return;
+  PRESETS.forEach(function(p){ if(p.id===id) addRow(p); });
+});
+$("btnRow").addEventListener("click", function(){ addRow(); });
+
+/* ---------- totals ---------- */
+function calc(){
+  var sub=0;
+  Array.prototype.forEach.call($("items").querySelectorAll("tr"), function(tr){
+    var q=num(tr.querySelector(".i-qty").value);
+    var d=num(tr.querySelector(".i-days").value);
+    var r=num(tr.querySelector(".i-rate").value);
+    if(d<=0) d=1;
+    var amt=q*d*r;
+    tr.querySelector(".i-amt").textContent=money(amt);
+    sub+=amt;
+  });
+  var disc = sub * (num($("discPct").value)/100);
+  var afterDisc = sub - disc;
+  var tax = afterDisc * (num($("taxPct").value)/100);
+  var total = afterDisc + tax;
+  var paid = num($("paid").value);
+  var due = total - paid;
+
+  $("tSub").textContent=money(sub);
+  $("tDisc").textContent="-"+money(disc);
+  $("tTax").textContent=money(tax);
+  $("tTotal").textContent=money(total);
+  $("tDue").textContent=money(due);
+  $("stamp").classList.toggle("on", total>0 && due<=0.004);
+  truckCheck();
+}
+["discPct","taxPct","paid"].forEach(function(id){ $(id).addEventListener("input", calc); });
+
+/* ---------- truck load check ---------- */
+function truckCheck(){
+  var counts={airmov:0,dehu:0,afd:0};
+  Array.prototype.forEach.call($("items").querySelectorAll("tr"), function(tr){
+    var d=tr.querySelector(".i-desc").value.toLowerCase();
+    var q=num(tr.querySelector(".i-qty").value);
+    if(tr.querySelector(".i-unit").value!=="day") return;
+    if(d.indexOf("air mover")>-1) counts.airmov+=q;
+    else if(d.indexOf("scrubber")>-1||d.indexOf("afd")>-1) counts.afd+=q;
+    else if(d.indexOf("dehumidifier")>-1||d.indexOf("lgr")>-1) counts.dehu+=q;
+  });
+  var used = counts.airmov*BED.airmov + counts.dehu*BED.dehu + counts.afd*BED.afd + BED.extractor;
+  var trips = Math.max(1, Math.ceil(used/100));
+  var pct = Math.min(used, 200)/2;
+
+  var fill=$("truckFill");
+  fill.style.width = pct + "%";
+  fill.classList.toggle("over", used>100);
+
+  var gear = counts.airmov+" air mover"+(counts.airmov===1?"":"s")+
+             ", "+counts.dehu+" dehu"+(counts.dehu===1?"":"s")+
+             ", "+counts.afd+" scrubber"+(counts.afd===1?"":"s");
+  var msg;
+  if(counts.airmov+counts.dehu+counts.afd===0){
+    msg = '<span style="color:#6A655D">Add equipment lines and this estimates how many trips the load takes.</span>';
+  } else if(used<=100){
+    msg = '<b class="ok">One trip.</b> '+gear+' plus the extractor fits in the bed (about '+Math.round(used)+'% full).';
+  } else {
+    msg = '<b class="warn">'+trips+' trips.</b> '+gear+' plus the extractor is roughly '+Math.round(used/100*10)/10+
+          ' truckloads. Bill the extra run under Equipment delivery &amp; pickup, or stage the set over two visits.';
+  }
+  $("truckMsg").innerHTML = msg;
+}
+
+/* keep equipment day-counts in sync when job length changes */
+$("jobDays").addEventListener("input", function(){
+  var d=num(this.value); if(d<=0) return;
+  Array.prototype.forEach.call($("items").querySelectorAll("tr"), function(tr){
+    if(tr.querySelector(".i-unit").value==="day") tr.querySelector(".i-days").value=d;
+  });
+  calc();
+});
+
+/* remember business details */
+["bizName","bizPhone","bizEmail","bizAddr","bizCity","bizLic","payTo","payMethods","terms"].forEach(function(k){
+  var el=$(k); if(el) el.addEventListener("input", saveBiz);
+});
+
+/* ---------- invoice number + dates ---------- */
+function pad(n){ return n<10?"0"+n:""+n; }
+function todayISO(){
+  var d=new Date();
+  return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());
+}
+function nextInvNo(){
+  var d=new Date();
+  var seq = parseInt(store.get("btr_seq")||"0",10)+1;
+  store.set("btr_seq", String(seq));
+  return d.getFullYear()+pad(d.getMonth()+1)+"-"+pad(seq);
+}
+
+/* ---------- save / load ---------- */
+function collect(){
+  var ids=["bizName","bizPhone","bizEmail","bizAddr","bizCity","bizLic","invNo","invDate","invDue",
+           "cliName","cliPhone","cliEmail","cliAddr","cliCity","siteAddr","siteCity","siteNote",
+           "lossDate","lossCause","lossCat","lossCls","jobDays","tech","notes","discPct","taxPct",
+           "paid","payMethods","payTo","terms"];
+  var f={};
+  ids.forEach(function(k){ if($(k)) f[k]=$(k).value; });
+  var rows=[];
+  Array.prototype.forEach.call($("items").querySelectorAll("tr"), function(tr){
+    rows.push({
+      desc:tr.querySelector(".i-desc").value,
+      sub:tr.querySelector(".i-sub").value,
+      unit:tr.querySelector(".i-unit").value,
+      qty:tr.querySelector(".i-qty").value,
+      days:tr.querySelector(".i-days").value,
+      rate:tr.querySelector(".i-rate").value
+    });
+  });
+  return {v:1, fields:f, rows:rows};
+}
+function restore(data){
+  if(!data||!data.fields) return;
+  Object.keys(data.fields).forEach(function(k){ if($(k)) $(k).value=data.fields[k]; });
+  $("items").innerHTML="";
+  (data.rows||[]).forEach(function(r){
+    var tr=addRow({label:r.desc,unit:r.unit,days:false,rate:num(r.rate)});
+    tr.querySelector(".i-sub").value=r.sub||"";
+    tr.querySelector(".i-qty").value=r.qty;
+    tr.querySelector(".i-days").value=r.days;
+    tr.querySelector(".i-rate").value=r.rate;
+  });
+  calc();
+}
+
+$("btnSave").addEventListener("click", function(){
+  var d=collect();
+  var name=(($("cliName").value||"invoice").replace(/[^a-z0-9]+/gi,"-")+"_"+($("invNo").value||"")).replace(/^-+|-+$/g,"");
+  var blob=new Blob([JSON.stringify(d,null,2)],{type:"application/json"});
+  var a=document.createElement("a");
+  a.href=URL.createObjectURL(blob);
+  a.download=name+".json";
+  document.body.appendChild(a); a.click(); document.body.removeChild(a);
+  setTimeout(function(){ URL.revokeObjectURL(a.href); },1000);
+  toast("Saved. Keep it — you can reopen and edit later.");
+});
+$("btnLoad").addEventListener("click", function(){ $("fileIn").click(); });
+$("fileIn").addEventListener("change", function(e){
+  var f=e.target.files[0]; if(!f) return;
+  var fr=new FileReader();
+  fr.onload=function(){
+    try{ restore(JSON.parse(fr.result)); toast("Invoice loaded."); }
+    catch(err){ toast("That file didn't look like a saved invoice."); }
+  };
+  fr.readAsText(f);
+  e.target.value="";
+});
+$("btnNew").addEventListener("click", function(){
+  if(!confirm("Start a new blank invoice? Save the current one first if you need it.")) return;
+  ["cliName","cliPhone","cliEmail","cliAddr","cliCity","siteAddr","siteCity","siteNote",
+   "lossDate","lossCause","notes","jobDays","tech"].forEach(function(k){ if($(k)) $(k).value=""; });
+  $("lossCat").value=""; $("lossCls").value="";
+  $("discPct").value=0; $("taxPct").value=0; $("paid").value=0;
+  $("items").innerHTML="";
+  $("invNo").value=nextInvNo();
+  $("invDate").value=todayISO();
+  addRow(); calc();
+  window.scrollTo(0,0);
+  toast("New invoice started.");
+});
+$("btnPrint").addEventListener("click", function(){ window.print(); });
+$("btnRates").addEventListener("click", function(){
+  var p=$("ratePanel");
+  p.classList.toggle("hide");
+  if(!p.classList.contains("hide")) p.scrollIntoView({behavior:"smooth",block:"start"});
+});
+
+/* ---------- boot ---------- */
+loadRates(); loadBiz(); renderRates(); renderChips();
+$("invDate").value = todayISO();
+$("invNo").value = nextInvNo();
+addRow();
+calc();
+
+if(!PRESETS.some(function(p){ return p.rate>0; })){
+  setTimeout(function(){ toast("First time? Open the rate card and set your prices."); }, 700);
+}
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bailey the Restorian — Water Mitigation Scope, Drying Plan &amp; Estimate</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#EFEDE6; --card:#FBFAF6; --ink:#1C2430; --soft:#5A6472;
+    --rule:#CBC5B8; --rule-strong:#A9A294; --mark:#F2B01E;
+    --water:#2E6E8E; --water-dark:#1E4C64; --brick:#9C3B2A; --good:#2F6B4F;
+    --sans:'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+    --cond:'Barlow Condensed', 'Arial Narrow', system-ui, sans-serif;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0}
+  body{
+    font-family:var(--sans);font-size:16px;line-height:1.5;color:var(--ink);
+    background-color:var(--paper);
+    background-image:
+      linear-gradient(to right, rgba(28,36,48,.055) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(28,36,48,.055) 1px, transparent 1px);
+    background-size:26px 26px;-webkit-text-size-adjust:100%;
+  }
+  h1,h2,h3{font-family:var(--cond);font-weight:700;line-height:1.05;margin:0;letter-spacing:.01em}
+
+  .masthead{background:var(--ink);color:var(--card);border-bottom:5px solid var(--water);padding:18px 20px 14px}
+  .masthead-in{max-width:1240px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:flex-end;gap:6px 18px}
+  .wordmark{font-family:var(--cond);font-size:40px;font-weight:700;letter-spacing:-.012em;line-height:.95}
+  .wordmark span{color:var(--mark)}
+  .tagline{font-size:14.5px;color:#B9C0CB;padding-bottom:5px}
+  .tagline b{color:var(--card);font-weight:500}
+
+  .tabs{max-width:1240px;margin:0 auto;padding:14px 20px 0;display:flex;gap:6px;flex-wrap:wrap}
+  .tab{font-family:var(--cond);font-size:19px;font-weight:600;padding:8px 16px;border:1px solid var(--rule-strong);
+       border-bottom:none;background:#E3E0D7;color:var(--soft);border-radius:2px 2px 0 0;cursor:pointer}
+  .tab[aria-selected=true]{background:var(--card);color:var(--ink);box-shadow:inset 0 3px 0 var(--water)}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 20px 120px;display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:22px;align-items:start}
+  .panel{padding-top:18px}
+  .panel[hidden]{display:none}
+
+  .block{background:var(--card);border:1px solid var(--rule);border-radius:2px;margin-bottom:18px}
+  .block > h2{font-size:21px;padding:9px 14px 8px;border-bottom:1px solid var(--rule);display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+  .block > h2 small{font-family:var(--sans);font-size:13px;font-weight:400;color:var(--soft)}
+  .body{padding:14px}
+
+  label{display:block;font-size:13.5px;color:var(--soft);margin-bottom:3px}
+  input[type=text],input[type=number],select,textarea{
+    width:100%;font-family:var(--sans);font-size:16px;color:var(--ink);background:#fff;
+    border:1px solid var(--rule-strong);border-radius:2px;padding:7px 8px;font-variant-numeric:tabular-nums;
+  }
+  textarea{min-height:64px;resize:vertical}
+  input:focus-visible,select:focus-visible,button:focus-visible,summary:focus-visible,textarea:focus-visible{outline:3px solid var(--water);outline-offset:1px}
+  .grid{display:grid;gap:10px}
+  .g2{grid-template-columns:1fr 1fr}
+  .g3{grid-template-columns:1fr 1fr 1fr}
+  .g4{grid-template-columns:repeat(4,1fr)}
+
+  .pick{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+  .pick.four{grid-template-columns:repeat(4,1fr)}
+  .pick label{margin:0;position:relative}
+  .pick input{position:absolute;opacity:0;width:1px;height:1px}
+  .pick span{display:block;border:1px solid var(--rule-strong);border-radius:2px;background:#fff;padding:8px 10px;cursor:pointer;font-size:13.5px;color:var(--soft);height:100%}
+  .pick span b{display:block;font-family:var(--cond);font-size:19px;font-weight:600;color:var(--ink);margin-bottom:2px}
+  .pick input:checked + span{background:var(--water-dark);border-color:var(--water-dark);color:#D6E4EC}
+  .pick input:checked + span b{color:#fff}
+  .pick input:focus-visible + span{outline:3px solid var(--water);outline-offset:1px}
+
+  .advisory{border-left:4px solid var(--water);background:#EAF1F5;padding:10px 12px;margin-top:12px;font-size:14px}
+  .advisory h4{font-family:var(--cond);font-size:17px;margin:0 0 4px}
+  .advisory ul{margin:0;padding-left:18px}
+  .advisory li{margin:2px 0}
+  .advisory.hot{border-left-color:var(--brick);background:#F6EAE7}
+  .advisory.warn{border-left-color:var(--mark);background:#FAF2DE}
+
+  .room{border:1px solid var(--rule);border-left:4px solid var(--water);border-radius:2px;padding:12px;margin-bottom:12px;background:#fff}
+  .room-top{display:flex;gap:6px;align-items:flex-end;margin-bottom:10px}
+  .room-top > div:first-child{flex:1}
+  .room-name{font-family:var(--cond);font-size:22px;font-weight:600;padding:4px 6px}
+  .dims{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:9px}
+  .opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px;padding-top:11px;border-top:1px dashed var(--rule)}
+  .chip{position:relative}
+  .chip input{position:absolute;opacity:0;width:1px;height:1px}
+  .chip span{display:block;font-size:14px;padding:5px 11px;border:1px solid var(--rule-strong);border-radius:2px;cursor:pointer;background:#fff;color:var(--soft);user-select:none}
+  .chip input:checked + span{background:var(--ink);border-color:var(--ink);color:#fff}
+  .chip input:focus-visible + span{outline:3px solid var(--water);outline-offset:1px}
+  .room-math{margin-top:11px;font-size:13.5px;color:var(--soft);font-variant-numeric:tabular-nums}
+
+  button{font-family:var(--sans);font-size:15px;cursor:pointer;border-radius:2px}
+  .btn{background:var(--ink);color:#fff;border:1px solid var(--ink);padding:9px 15px;font-weight:500}
+  .btn:hover{background:#2A3644}
+  .btn-mark{background:var(--mark);border-color:#C88F0E;color:var(--ink);font-weight:600;padding:9px 15px}
+  .btn-mark:hover{background:#FFC135}
+  .btn-quiet{background:#fff;color:var(--ink);border:1px solid var(--rule-strong);padding:8px 13px}
+  .btn-quiet:hover{border-color:var(--ink)}
+  .btn-x{background:none;border:none;color:var(--brick);font-size:14px;padding:4px 6px}
+  .btn-x:hover{text-decoration:underline}
+  .btn-sm{background:#fff;border:1px solid var(--rule-strong);font-size:13.5px;padding:4px 9px;color:var(--soft)}
+  .btn-sm:hover{border-color:var(--ink);color:var(--ink)}
+  .actions{display:flex;flex-wrap:wrap;gap:9px}
+
+  table{width:100%;border-collapse:collapse;font-size:14.5px;font-variant-numeric:tabular-nums}
+  th{text-align:left;font-family:var(--cond);font-size:16px;font-weight:600;color:var(--soft);padding:5px 6px;border-bottom:1px solid var(--rule)}
+  td{padding:5px 6px;border-bottom:1px solid #E7E3D9;vertical-align:top}
+  td.n,th.n{text-align:right;white-space:nowrap}
+  tbody tr:last-child td{border-bottom:none}
+  .price-in{width:84px;padding:4px 5px;font-size:14.5px;text-align:right}
+  .qty-in{width:64px;padding:4px 5px;font-size:14.5px;text-align:right}
+
+  details{border-top:1px solid var(--rule)}
+  details summary{font-family:var(--cond);font-size:19px;font-weight:600;padding:9px 14px;cursor:pointer;list-style:none}
+  details summary::-webkit-details-marker{display:none}
+  details summary::before{content:'+ ';color:var(--soft)}
+  details[open] summary::before{content:'– '}
+  details .body{border-top:1px solid var(--rule)}
+
+  .plan{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--rule-strong);border:1px solid var(--rule-strong)}
+  .plan div{background:var(--water-dark);color:#fff;padding:11px 10px;text-align:center}
+  .plan .v{font-family:var(--cond);font-size:34px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+  .plan .k{font-size:12.5px;color:#B7CEDB;margin-top:3px}
+  .plan div.short{background:var(--brick)}
+
+  .quote{position:sticky;top:16px}
+  .sheet{background:var(--card);border:1px solid var(--rule-strong);border-radius:2px}
+  .sheet-head{background:var(--ink);color:#fff;padding:11px 14px}
+  .sheet-head h2{font-size:22px}
+  .sheet-head p{margin:2px 0 0;font-size:13.5px;color:#B9C0CB}
+  .sheet section{padding:12px 14px;border-bottom:1px solid var(--rule)}
+  .sheet h3{font-size:17px;margin-bottom:6px;color:var(--soft)}
+  .sumline{display:flex;justify-content:space-between;gap:12px;padding:3px 0;font-size:15px;font-variant-numeric:tabular-nums}
+  .total{background:var(--mark);padding:12px 14px;display:flex;justify-content:space-between;align-items:center;gap:10px}
+  .total .lab{font-family:var(--cond);font-size:20px;font-weight:600}
+  .total .val{font-family:var(--cond);font-size:42px;font-weight:700;line-height:1;font-variant-numeric:tabular-nums}
+  .terms{padding:12px 14px;font-size:13.5px;color:var(--soft)}
+  .empty{padding:26px 14px;color:var(--soft);font-size:15px}
+
+  .sign{padding:12px 14px;border-top:1px solid var(--rule);font-size:13px;color:var(--soft)}
+  .sigrow{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-top:16px}
+  .sigline{border-top:1px solid var(--ink);padding-top:3px;font-size:12px}
+  .sigbox{height:34px}
+
+  /* psychrometrics */
+  .rd{border:1px solid var(--rule);border-radius:2px;margin-bottom:10px;background:#fff}
+  .rd-head{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 11px;border-bottom:1px solid var(--rule);background:#F3F1EA}
+  .rd-head b{font-family:var(--cond);font-size:19px}
+  .rd-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;padding:11px}
+  .rd-sub{font-size:12px;color:var(--soft);margin-top:2px;font-variant-numeric:tabular-nums}
+  .flag{font-size:13.5px;padding:7px 11px;border-top:1px dashed var(--rule)}
+  .flag.ok{color:var(--good)}
+  .flag.warn{color:#8A6100}
+  .flag.bad{color:var(--brick)}
+  .spark{padding:11px;border-top:1px solid var(--rule)}
+
+  .jobrow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:7px 0;border-bottom:1px solid #E7E3D9;font-size:14.5px}
+  .jobrow:last-child{border-bottom:none}
+  .jobrow b{font-weight:600}
+
+  .banner{background:#FAF2DE;border:1px solid var(--mark);border-left:4px solid var(--mark);padding:9px 12px;font-size:14px;margin-bottom:16px;border-radius:2px}
+
+  .note{font-size:13px;color:var(--soft);margin:9px 0 0}
+  .toast{position:fixed;left:50%;transform:translateX(-50%);bottom:22px;background:var(--ink);color:#fff;padding:9px 16px;border-radius:2px;font-size:14.5px;z-index:60}
+  .mobile-total{display:none}
+  .printonly{display:none}
+
+  @media (max-width:960px){
+    .wrap{grid-template-columns:1fr;padding-bottom:84px}
+    .quote{position:static}
+    .dims,.g4,.rd-grid{grid-template-columns:1fr 1fr}
+    .pick,.pick.four{grid-template-columns:1fr 1fr}
+    .plan{grid-template-columns:1fr 1fr}
+    .wordmark{font-size:32px}
+    .mobile-total{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:50;background:var(--mark);border-top:2px solid var(--ink);padding:9px 16px;justify-content:space-between;align-items:center}
+    .mobile-total .lab{font-family:var(--cond);font-size:17px;font-weight:600}
+    .mobile-total .val{font-family:var(--cond);font-size:28px;font-weight:700;font-variant-numeric:tabular-nums}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+  @media print{
+    body{background:#fff}
+    .noprint,.masthead,.tabs,.mobile-total,.banner{display:none!important}
+    .wrap{display:block;max-width:none;padding:0}
+    .panel[hidden]{display:block!important}
+    .printonly{display:block}
+    .sheet{border:none}
+    .sheet-head{background:#fff;color:#000;border-bottom:3px solid #000}
+    .sheet-head p{color:#333}
+    .total{background:#fff;border-top:3px solid #000;border-bottom:3px solid #000}
+    .plan div{background:#fff;color:#000;border:1px solid #000}
+    .plan .k{color:#333}
+    .quote{position:static}
+    .pagebreak{page-break-before:always}
+    .letterhead{border-bottom:3px solid #000;padding-bottom:8px;margin-bottom:14px}
+    .letterhead .n{font-family:var(--cond);font-size:30px;font-weight:700}
+    .letterhead .c{font-size:13px}
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead noprint">
+  <div class="masthead-in">
+    <div class="wordmark" id="brandMark">Bailey the <span>Restorian</span></div>
+    <div class="tagline"><b>Water mitigation scope, drying plan, and estimate.</b> Category and class size the equipment. Equipment and days set the price.</div>
+  </div>
+</header>
+
+<nav class="tabs noprint" role="tablist">
+  <button class="tab" role="tab" id="tabScope" aria-selected="true" aria-controls="panScope">Scope &amp; estimate</button>
+  <button class="tab" role="tab" id="tabLog" aria-selected="false" aria-controls="panLog">Drying log</button>
+  <button class="tab" role="tab" id="tabSetup" aria-selected="false" aria-controls="panSetup">Rates &amp; setup</button>
+</nav>
+
+<main class="wrap">
+
+  <div>
+    <div class="panel" id="panScope" role="tabpanel">
+
+      <div class="banner noprint" id="storeWarn" hidden>Saving is turned off in this window, so rates and jobs will not stick. Download the file and open it straight from your phone or computer to get saving back.</div>
+
+      <div class="block">
+        <h2>Loss <small>Prints on the estimate</small></h2>
+        <div class="body">
+          <div class="grid g2">
+            <div><label for="cust">Customer</label><input type="text" id="cust" placeholder="Name"></div>
+            <div><label for="custPhone">Customer phone</label><input type="text" id="custPhone" placeholder="(321) 555-0134"></div>
+          </div>
+          <div class="grid g2" style="margin-top:10px">
+            <div><label for="addr">Loss address</label><input type="text" id="addr" placeholder="Street, city"></div>
+            <div><label for="cause">Cause of loss</label><input type="text" id="cause" placeholder="Supply line under kitchen sink"></div>
+          </div>
+          <div class="grid g4" style="margin-top:10px">
+            <div><label for="dol">Date of loss</label><input type="text" id="dol"></div>
+            <div><label for="qdate">Date</label><input type="text" id="qdate"></div>
+            <div><label for="qnum">File number</label><input type="text" id="qnum"></div>
+            <div><label for="payer">Billing</label>
+              <select id="payer"><option>Homeowner, cash</option><option>Insurance claim</option><option>Property manager</option></select>
+            </div>
+          </div>
+          <div class="grid g3" id="claimFields" style="margin-top:10px;display:none">
+            <div><label for="carrier">Carrier</label><input type="text" id="carrier"></div>
+            <div><label for="claimno">Claim number</label><input type="text" id="claimno"></div>
+            <div><label for="adjuster">Adjuster</label><input type="text" id="adjuster"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Category <small>How dirty the water is</small></h2>
+        <div class="body">
+          <div class="pick" id="catPick">
+            <label><input type="radio" name="cat" value="1" checked><span><b>Cat 1</b>Clean source. Supply line, water heater, tub overflow.</span></label>
+            <label><input type="radio" name="cat" value="2"><span><b>Cat 2</b>Gray. Washer, dishwasher, toilet overflow with urine only.</span></label>
+            <label><input type="radio" name="cat" value="3"><span><b>Cat 3</b>Grossly contaminated. Sewage, ground surface water, seawater.</span></label>
+          </div>
+          <p class="note">Clean water sitting warm for two or three days stops behaving like clean water. If nobody knows when it started, price it up a category.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Class <small>How much material got wet</small></h2>
+        <div class="body">
+          <div class="pick four" id="classPick">
+            <label><input type="radio" name="cls" value="1"><span><b>Class 1</b>Small area, little absorption, mostly hard surfaces.</span></label>
+            <label><input type="radio" name="cls" value="2" checked><span><b>Class 2</b>Whole room of carpet and pad, wicking up walls under 24 in.</span></label>
+            <label><input type="radio" name="cls" value="3"><span><b>Class 3</b>Came from overhead. Ceilings, walls, insulation, carpet all wet.</span></label>
+            <label><input type="radio" name="cls" value="4"><span><b>Class 4</b>Specialty drying. Hardwood, plaster, concrete holding deep moisture.</span></label>
+          </div>
+          <div id="advisory"></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Affected areas <small>One block per room</small></h2>
+        <div class="body">
+          <div id="rooms"></div>
+          <div class="actions">
+            <button class="btn" id="addRoom">Add a room</button>
+            <button class="btn-quiet" id="clearRooms">Clear all rooms</button>
+          </div>
+          <p class="note">Wet wall feet default to the full perimeter. Change it if only one or two walls took water. Offsets are inside corners and closets that need their own air mover.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Drying plan <small>Sized off class and volume</small></h2>
+        <div class="body">
+          <div class="plan">
+            <div id="cAM"><div class="v" id="pAM">0</div><div class="k">air movers</div></div>
+            <div id="cDehu"><div class="v" id="pDehu">0</div><div class="k" id="kDehu">dehumidifiers</div></div>
+            <div id="cScrub"><div class="v" id="pScrub">0</div><div class="k">air scrubbers</div></div>
+            <div><div class="v" id="pDays">3</div><div class="k">drying days</div></div>
+          </div>
+          <p class="note" id="planNote"></p>
+          <div id="invNote"></div>
+          <div class="grid g4" style="margin-top:12px">
+            <div><label for="f_days">Drying days</label><input type="number" id="f_days" value="3" min="1" max="21" step="1"></div>
+            <div><label for="f_dehutype">Dehu type</label>
+              <select id="f_dehutype"><option value="lgr" selected>LGR</option><option value="conv">Conventional</option><option value="des">Desiccant</option></select>
+            </div>
+            <div><label for="f_dehucap">Dehu size, AHAM pints</label><input type="number" id="f_dehucap" value="70" min="20" step="5"></div>
+            <div><label for="f_scrubcfm">Scrubber CFM</label><input type="number" id="f_scrubcfm" value="500" min="100" step="50"></div>
+            <div><label for="f_amAdd">Extra air movers</label><input type="number" id="f_amAdd" value="0" min="0" step="1"></div>
+            <div><label for="f_inject">Cavity drying units</label><input type="number" id="f_inject" value="0" min="0" step="1"></div>
+            <div><label for="f_contain">Containment sq ft</label><input type="number" id="f_contain" value="0" min="0" step="10"></div>
+            <div><label for="f_loads">Debris loads</label><input type="number" id="f_loads" value="0" min="0" step="1"></div>
+            <div><label for="f_techs">Techs on site</label><input type="number" id="f_techs" value="2" min="1" step="1"></div>
+            <div><label for="f_afterhours">After hours call</label>
+              <select id="f_afterhours"><option value="1">No</option><option value="1.5">Yes, 1.5x</option><option value="2">Holiday, 2x</option></select>
+            </div>
+            <div><label for="f_rebuild">Rebuild allowance $</label><input type="number" id="f_rebuild" value="0" min="0" step="100"></div>
+            <div><label for="f_rebuildOn">Show rebuild</label>
+              <select id="f_rebuildOn"><option value="0">Mitigation only</option><option value="1">Include allowance</option></select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Custom lines <small>Anything the standard list misses</small></h2>
+        <div class="body">
+          <table><thead><tr><th>Description</th><th class="n">Qty</th><th class="n">Rate</th><th class="n">Amount</th><th></th></tr></thead>
+          <tbody id="customBody"></tbody></table>
+          <div class="actions" style="margin-top:10px"><button class="btn-quiet" id="addCustom">Add a line</button></div>
+          <p class="note">Toilet pull and reset, appliance disconnect, content pack-out hours, stair extraction, deodorization. Whatever this job needed that the list did not.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="panel" id="panLog" role="tabpanel" hidden>
+      <div class="block">
+        <h2>Daily readings <small>Temperature and humidity, one card per day</small></h2>
+        <div class="body">
+          <p class="note" style="margin:0 0 12px">Enter temperature and relative humidity and this works out grains per pound for you. Grain depression across the dehumidifier tells you it is actually pulling water. Affected air trending down day over day tells you the structure is releasing it. This is the record that justifies every equipment day on the invoice.</p>
+          <div class="grid g2">
+            <div><label for="f_material">Material being tracked</label><input type="text" id="f_material" value="Drywall, base of wall"></div>
+            <div><label for="f_targetmc">Dry standard, target MC %</label><input type="number" id="f_targetmc" value="1" min="0" step="0.5"></div>
+          </div>
+          <div id="readings" style="margin-top:14px"></div>
+          <div id="sparkWrap"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel" id="panSetup" role="tabpanel" hidden>
+
+      <div class="block">
+        <h2>Your business <small>Prints as the letterhead</small></h2>
+        <div class="body">
+          <div class="grid g2">
+            <div><label for="b_name">Business name</label><input type="text" id="b_name" value="Bailey the Restorian LLC"></div>
+            <div><label for="b_phone">Phone</label><input type="text" id="b_phone" value="(321) 300-4076"></div>
+          </div>
+          <div class="grid g3" style="margin-top:10px">
+            <div><label for="b_email">Email</label><input type="text" id="b_email" value="bailey@baileytherestorian.org"></div>
+            <div><label for="b_site">Website</label><input type="text" id="b_site" value="baileytherestorian.org"></div>
+            <div><label for="b_lic">License / BTR number</label><input type="text" id="b_lic" placeholder="Brevard County"></div>
+          </div>
+          <p class="note">The old version printed an estimate with no phone number on it. Fill this in once and it rides on every sheet.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Money <small>Applied to every job</small></h2>
+        <div class="body">
+          <div class="grid g4">
+            <div><label for="f_tax">Material tax %</label><input type="number" id="f_tax" value="7" min="0" step="0.5"></div>
+            <div><label for="f_markup">Overhead %</label><input type="number" id="f_markup" value="10" min="0" step="1"></div>
+            <div><label for="f_min">Minimum job $</label><input type="number" id="f_min" value="750" min="0" step="50"></div>
+            <div><label for="f_dep">Deposit %</label><input type="number" id="f_dep" value="50" min="0" max="100" step="5"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>What you own <small>Flags when the plan needs more than you have</small></h2>
+        <div class="body">
+          <div class="grid g3">
+            <div><label for="o_am">Air movers on hand</label><input type="number" id="o_am" value="0" min="0" step="1"></div>
+            <div><label for="o_dehu">Dehumidifiers on hand</label><input type="number" id="o_dehu" value="0" min="0" step="1"></div>
+            <div><label for="o_scrub">Air scrubbers on hand</label><input type="number" id="o_scrub" value="0" min="0" step="1"></div>
+          </div>
+          <p class="note">Leave at zero to turn the check off. Otherwise the plan tells you what to rent before you commit to a start date.</p>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Rates <small>Placeholders until you replace them</small></h2>
+        <div class="body">
+          <p class="note" style="margin:0 0 6px">These are not Xactimate pricing and not any carrier's price list. On a claim the carrier pays from their own list and this sheet is for scoping and checking whether what they approved covers your cost. On cash work, put your real numbers in.</p>
+        </div>
+        <details open>
+          <summary>Labor</summary>
+          <div class="body"><table><thead><tr><th>Line</th><th class="n">Per</th><th class="n">Rate</th></tr></thead><tbody id="laborBody"></tbody></table></div>
+        </details>
+        <details>
+          <summary>Equipment, per unit per day</summary>
+          <div class="body"><table><thead><tr><th>Unit</th><th class="n">Per day</th></tr></thead><tbody id="equipBody"></tbody></table></div>
+        </details>
+        <details>
+          <summary>Materials and consumables</summary>
+          <div class="body"><table><thead><tr><th>Item</th><th class="n">Unit</th><th class="n">Price</th></tr></thead><tbody id="matBody"></tbody></table></div>
+        </details>
+        <div class="body" style="border-top:1px solid var(--rule)">
+          <div class="actions">
+            <button class="btn-quiet" id="saveRates">Save these as my defaults</button>
+            <button class="btn-quiet" id="resetRates">Reset to originals</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Saved jobs <small>Stored on this device only</small></h2>
+        <div class="body">
+          <div class="actions" style="margin-bottom:12px">
+            <button class="btn" id="saveJob">Save current job</button>
+            <button class="btn-quiet" id="newJob">Start a new job</button>
+          </div>
+          <div id="jobList"></div>
+        </div>
+      </div>
+
+      <div class="block">
+        <h2>Authorization wording <small>Prints under the estimate</small></h2>
+        <div class="body">
+          <label for="authText">Text the customer signs</label>
+          <textarea id="authText"></textarea>
+          <p class="note">This is starter wording, not legal advice and not reviewed for Florida. Have an attorney look at it before you use it on real jobs, especially the payment and insurance parts, since Florida restricted assignment of benefits on newer property policies.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <aside class="quote">
+    <div class="printonly letterhead" id="letterhead"></div>
+    <div class="sheet" id="sheet">
+      <div class="sheet-head">
+        <h2>Mitigation estimate</h2>
+        <p id="sheetSub">Add an affected area to start the scope.</p>
+      </div>
+      <div id="sheetBody"><p class="empty">Nothing scoped yet.</p></div>
+    </div>
+    <div class="actions noprint" style="margin-top:12px">
+      <button class="btn-mark" id="printBtn">Print or save as PDF</button>
+      <button class="btn-quiet" id="copyBtn">Copy scope as text</button>
+    </div>
+    <p class="note noprint">Equipment counts are a starting plan from standard sizing rules. Your meter readings on day two decide whether it stays.</p>
+  </aside>
+
+</main>
+
+<div class="mobile-total noprint" id="mobileTotal">
+  <span class="lab">Mitigation total</span><span class="val" id="mobileTotalVal">$0</span>
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var $  = function(s, el){ return (el||document).querySelector(s); };
+  var $$ = function(s, el){ return Array.prototype.slice.call((el||document).querySelectorAll(s)); };
+  var num = function(v){ var n = parseFloat(v); return isFinite(n) ? n : 0; };
+  var money = function(n){ return '$' + (Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:2,maximumFractionDigits:2}); };
+  var money0 = function(n){ return '$' + Math.round(n).toLocaleString('en-US'); };
+  var ceil = function(n){ return Math.ceil(n - 1e-9); };
+  var fnum = function(v){
+    if (v === null || v === undefined || String(v).trim() === '') return NaN;
+    var n = parseFloat(v); return isFinite(n) ? n : NaN;
+  };
+  var esc = function(s){ return String(s == null ? '' : s).replace(/[&<>"]/g, function(c){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]; }); };
+
+  /* ---------- storage, guarded so it degrades instead of breaking ---------- */
+  var store = {
+    ok: (function(){ try { localStorage.setItem('__t','1'); localStorage.removeItem('__t'); return true; } catch(e){ return false; } })(),
+    get: function(k){ try { var v = localStorage.getItem(k); return v ? JSON.parse(v) : null; } catch(e){ return null; } },
+    set: function(k,v){ try { localStorage.setItem(k, JSON.stringify(v)); return true; } catch(e){ return false; } },
+    del: function(k){ try { localStorage.removeItem(k); } catch(e){} }
+  };
+  var K_RATES = 'btr_wd_rates_v2', K_JOBS = 'btr_wd_jobs_v2';
+
+  /* ---------- default rate book ---------- */
+  function defLabor(){ return [
+    {k:'emerg',   label:'Emergency response and inspection', per:'visit',  rate:175},
+    {k:'extract', label:'Water extraction',                  per:'sq ft',  rate:0.55},
+    {k:'carpet',  label:'Detach and remove carpet',          per:'sq ft',  rate:0.32},
+    {k:'pad',     label:'Remove and bag carpet pad',         per:'sq ft',  rate:0.38},
+    {k:'tack',    label:'Remove tack strip',                 per:'ft',     rate:0.45},
+    {k:'floor',   label:'Remove non-salvageable flooring',   per:'sq ft',  rate:1.35},
+    {k:'cut',     label:'Flood cut and remove drywall',      per:'sq ft',  rate:0.95},
+    {k:'insul',   label:'Remove wet insulation',             per:'sq ft',  rate:0.55},
+    {k:'base',    label:'Remove baseboard and trim',         per:'ft',     rate:0.70},
+    {k:'ceil',    label:'Remove wet ceiling material',       per:'sq ft',  rate:1.25},
+    {k:'anti',    label:'Apply antimicrobial',               per:'sq ft',  rate:0.28},
+    {k:'contain', label:'Set containment barrier',           per:'sq ft',  rate:1.10},
+    {k:'setup',   label:'Set and pick up equipment',         per:'job',    rate:95},
+    {k:'monitor', label:'Daily monitoring and readings',     per:'visit',  rate:85},
+    {k:'haul',    label:'Load and haul debris',              per:'load',   rate:145}
+  ]; }
+  function defEquip(){ return [
+    {k:'am',     label:'Air mover',                 rate:26},
+    {k:'lgr',    label:'Dehumidifier',              rate:85},
+    {k:'scrub',  label:'Air scrubber, HEPA',        rate:78},
+    {k:'inject', label:'Wall cavity drying system', rate:62}
+  ]; }
+  function defMats(){ return [
+    {k:'poly',  label:'6 mil poly sheeting',           unit:'sq ft', price:0.18},
+    {k:'anti',  label:'Antimicrobial, 1 gal',          unit:'gal',   price:38.00},
+    {k:'ppe',   label:'PPE, per tech per day',         unit:'set',   price:22.00},
+    {k:'bags',  label:'Heavy debris bags',             unit:'box',   price:24.00},
+    {k:'misc',  label:'Zip poles, tape, meters, misc', unit:'job',   price:45.00}
+  ]; }
+  var DEF_AUTH =
+    'I am the owner of the property listed above or authorized to act for the owner. I authorize the ' +
+    'contractor to perform the emergency mitigation work described in this scope, including removal of ' +
+    'materials identified as non-salvageable, and to place and operate drying equipment on the premises ' +
+    'until drying goals are reached.\n\n' +
+    'I understand equipment must stay in place and running, that turning it off or moving it may extend ' +
+    'drying time and affect the result, and that daily access is needed to take readings.\n\n' +
+    'I understand additional damage may be found once materials are opened, and that any change to this ' +
+    'scope will be presented to me for approval before that work goes ahead.\n\n' +
+    'I agree to pay the amounts on this estimate as invoiced.';
+
+  var LABOR = defLabor(), EQUIP = defEquip(), MATS = defMats();
+
+  var FLOORS = ['Carpet and pad','Hardwood','Laminate or LVP','Tile','Vinyl sheet','Concrete'];
+  var CUTS = [['0','No cut'],['2','2 ft flood cut'],['4','4 ft flood cut'],['99','Full wall']];
+
+  var rooms = [], seq = 0, custom = [], readings = [];
+
+  /* ---------- psychrometrics ---------- */
+  function gpp(tF, rh){
+    if (!isFinite(tF) || !isFinite(rh) || rh <= 0 || rh > 100) return null;
+    var tc = (tF - 32) * 5/9;
+    var es = 0.61121 * Math.exp((18.678 - tc/234.5) * (tc/(257.14 + tc)));
+    var e = es * (rh/100);
+    var P = 101.325;
+    if (e >= P) return null;
+    return (0.62198 * e / (P - e)) * 7000;
+  }
+  function dewF(tF, rh){
+    if (!isFinite(tF) || !isFinite(rh) || rh <= 0 || rh > 100) return null;
+    var tc = (tF - 32) * 5/9;
+    var a = Math.log(rh/100) + (17.625*tc)/(243.04+tc);
+    return (243.04*a/(17.625-a)) * 9/5 + 32;
+  }
+
+  /* ---------- advisories ---------- */
+  function catVal(){ var el = $('input[name=cat]:checked'); return el ? parseInt(el.value,10) : 1; }
+  function clsVal(){ var el = $('input[name=cls]:checked'); return el ? parseInt(el.value,10) : 2; }
+
+  function advisory(){
+    var cat = catVal(), cls = clsVal(), out = [], hot = false;
+    if (cat === 1) out.push('Salvageable materials can usually stay if you get them dry fast. Carpet and pad are often savable.');
+    if (cat === 2){ out.push('Pad comes out. Carpet may be salvageable after cleaning and antimicrobial.'); out.push('Gloves and eye protection at a minimum.'); }
+    if (cat === 3){
+      hot = true;
+      out.push('All porous material in the affected area comes out. Carpet, pad, insulation, and drywall below the water line get bagged and hauled.');
+      out.push('Full PPE, containment, and negative air. Nobody works this one in shorts and sneakers.');
+      out.push('If mold is involved past a small area, Florida wants a licensed mold remediator. Check before you scope it.');
+    }
+    if (cls === 3) out.push('Water came from above, so ceilings and insulation are in play. Expect more air movers than floor area alone suggests.');
+    if (cls === 4) out.push('Specialty drying. Hardwood, plaster, or concrete needs mats, panels, or desiccant. The sizing below is a floor, not a plan.');
+    if (cat > 1) out.push('Photograph everything before you cut. Moisture map, meter readings, and the source, all timestamped.');
+    var el = $('#advisory');
+    el.innerHTML = out.length
+      ? '<div class="advisory' + (hot ? ' hot' : '') + '"><h4>What this combination means</h4><ul>' +
+        out.map(function(s){ return '<li>' + s + '</li>'; }).join('') + '</ul></div>'
+      : '';
+  }
+
+  /* ---------- room math ---------- */
+  function roomMath(r){
+    var per = 2 * (r.L + r.W);
+    var cut = r.cut === 99 ? r.H : r.cut;
+    return {
+      perimeter: per,
+      cubic: r.L * r.W * r.H,
+      wetFloor: r.L * r.W * (r.wetPct/100),
+      cutSF: r.wallLF * cut,
+      baseLF: r.base ? r.wallLF : 0,
+      insulSF: r.insul ? r.wallLF * cut : 0,
+      ceilSF: r.ceiling ? r.L * r.W : 0
+    };
+  }
+
+  function totals(){
+    var t = {floor:0, cubic:0, cutSF:0, baseLF:0, insulSF:0, ceilSF:0,
+             carpetSF:0, padSF:0, floorSF:0, tackLF:0, offsets:0, wallLF:0};
+    rooms.forEach(function(r){
+      var m = roomMath(r);
+      t.floor += m.wetFloor; t.cubic += m.cubic; t.cutSF += m.cutSF;
+      t.baseLF += m.baseLF;  t.insulSF += m.insulSF; t.ceilSF += m.ceilSF;
+      t.offsets += r.offsets; t.wallLF += r.wallLF;
+      if (r.floor === 'Carpet and pad'){
+        if (catVal() >= 2 || r.pull){ t.padSF += m.wetFloor; t.tackLF += r.wallLF; }
+        if (catVal() >= 3 || r.pull) t.carpetSF += m.wetFloor;
+      } else if (r.pull){
+        t.floorSF += m.wetFloor;
+      }
+    });
+    return t;
+  }
+
+  /* ---------- drying plan ---------- */
+  var AM_PER   = {1:300, 2:150, 3:100, 4:100};
+  var DEHU_LGR = {1:150, 2:60,  3:50,  4:60};
+  var DEHU_CON = {1:100, 2:40,  3:30,  4:45};
+  var DES_CFM  = {1:3.0, 2:2.0, 3:1.5, 4:2.0};
+  var ACH      = {1:0,   2:4,   3:6};
+
+  function plan(t){
+    var cls = clsVal(), cat = catVal();
+    var byFloor = t.floor > 0 ? ceil(t.floor / AM_PER[cls]) : 0;
+    var byWall  = (cls >= 2 && t.wallLF > 0) ? ceil(t.wallLF / 16) : 0;
+    var am = Math.max(byFloor, byWall) + t.offsets + num($('#f_amAdd').value);
+    if (t.floor > 0 && am < 1) am = 1;
+
+    var type = $('#f_dehutype').value, cap = num($('#f_dehucap').value) || 70;
+    var need, dehu, unitLabel;
+    if (type === 'des'){
+      need = t.cubic / DES_CFM[cls];
+      dehu = t.cubic > 0 ? Math.max(1, ceil(need / 500)) : 0;
+      unitLabel = 'desiccant units';
+    } else {
+      var f = (type === 'conv' ? DEHU_CON : DEHU_LGR)[cls];
+      need = t.cubic / f;
+      dehu = t.cubic > 0 ? Math.max(1, ceil(need / cap)) : 0;
+      unitLabel = type === 'conv' ? 'conventional dehus' : 'LGR dehus';
+    }
+
+    var cfm = num($('#f_scrubcfm').value) || 500;
+    var ach = ACH[Math.min(cat,3)] || 0;
+    var scrub = (ach > 0 && t.cubic > 0) ? Math.max(1, ceil((t.cubic * ach / 60) / cfm)) : 0;
+
+    var days = Math.max(1, num($('#f_days').value) || 3);
+    return {am:am, dehu:dehu, scrub:scrub, days:days, need:need, type:type,
+            cap:cap, unitLabel:unitLabel, byFloor:byFloor, byWall:byWall, ach:ach, cfm:cfm};
+  }
+
+  /* ---------- line items ---------- */
+  function find(list, k){ for (var i=0;i<list.length;i++) if (list[i].k===k) return list[i]; return null; }
+
+  function laborLines(t, p){
+    var out = [], ah = num($('#f_afterhours').value) || 1;
+    function add(k, qty, mult){
+      if (qty <= 0) return;
+      var l = find(LABOR, k); if (!l) return;
+      var m = mult || 1;
+      out.push({label:l.label + (m > 1 ? ', after hours' : ''), qty:Math.round(qty), per:l.per, cost:qty*l.rate*m});
+    }
+    add('emerg', 1, ah);
+    add('extract', t.floor);
+    add('carpet', t.carpetSF);
+    add('pad', t.padSF);
+    add('tack', t.tackLF);
+    add('floor', t.floorSF);
+    add('cut', t.cutSF);
+    add('insul', t.insulSF);
+    add('base', t.baseLF);
+    add('ceil', t.ceilSF);
+    add('anti', t.floor + t.cutSF + t.ceilSF);
+    add('contain', num($('#f_contain').value));
+    add('setup', t.floor > 0 ? 1 : 0);
+    add('monitor', t.floor > 0 ? p.days : 0);
+    add('haul', num($('#f_loads').value));
+    return out;
+  }
+
+  function equipLines(p){
+    var out = [];
+    function add(k, units, labelOverride){
+      if (units <= 0 || p.days <= 0) return;
+      var e = find(EQUIP, k); if (!e) return;
+      out.push({label:labelOverride || e.label, units:units, days:p.days, cost:units*p.days*e.rate});
+    }
+    add('am', p.am);
+    add('lgr', p.dehu, p.type === 'des' ? 'Desiccant dehumidifier' : (p.type === 'conv' ? 'Conventional dehumidifier' : 'LGR dehumidifier'));
+    add('scrub', p.scrub);
+    add('inject', num($('#f_inject').value));
+    return out;
+  }
+
+  function matLines(t, p){
+    var out = [];
+    function add(k, qty){
+      if (qty <= 0) return;
+      var m = find(MATS, k); if (!m) return;
+      out.push({label:m.label, qty:qty, unit:m.unit, cost:qty*m.price});
+    }
+    add('poly', num($('#f_contain').value));
+    add('anti', ceil((t.floor + t.cutSF + t.ceilSF) / 800));
+    add('ppe', catVal() >= 2 ? (num($('#f_techs').value) || 1) * p.days : 0);
+    add('bags', (t.carpetSF + t.padSF + t.cutSF) > 0 ? ceil((t.carpetSF + t.padSF + t.cutSF) / 400) : 0);
+    add('misc', t.floor > 0 ? 1 : 0);
+    return out;
+  }
+
+  function customLines(){
+    return custom.filter(function(c){ return c.qty > 0 && c.rate !== 0 && c.desc; })
+      .map(function(c){ return {label:c.desc, qty:c.qty, cost:c.qty*c.rate}; });
+  }
+
+  function sum(list, key){ var s = 0; list.forEach(function(x){ s += x[key]; }); return s; }
+
+  /* ---------- rooms ---------- */
+  function newRoom(copy){
+    seq++;
+    if (copy){
+      var c = JSON.parse(JSON.stringify(copy));
+      c.id = seq; c.name = copy.name + ' copy';
+      return c;
+    }
+    return {id:seq, name:'Room ' + seq, L:12, W:12, H:8, wetPct:100,
+            wallLF:48, wallTouched:false, offsets:0, cut:2,
+            floor:'Carpet and pad', base:true, insul:false, ceiling:false, pull:false};
+  }
+
+  function roomCard(r){
+    var el = document.createElement('div');
+    el.className = 'room';
+    var floorOpts = FLOORS.map(function(f){ return '<option'+(f===r.floor?' selected':'')+'>'+f+'</option>'; }).join('');
+    var cutOpts = CUTS.map(function(c){ return '<option value="'+c[0]+'"'+(parseInt(c[0],10)===r.cut?' selected':'')+'>'+c[1]+'</option>'; }).join('');
+
+    el.innerHTML =
+      '<div class="room-top">' +
+        '<div><label>Area</label><input type="text" class="room-name" data-f="name" value="'+esc(r.name)+'"></div>' +
+        '<button class="btn-sm" data-dup="1">Duplicate</button>' +
+        '<button class="btn-x" data-del="1">Remove</button>' +
+      '</div>' +
+      '<div class="dims">' +
+        '<div><label>Length ft</label><input type="number" inputmode="decimal" data-f="L" value="'+r.L+'" min="0" step="0.5"></div>' +
+        '<div><label>Width ft</label><input type="number" inputmode="decimal" data-f="W" value="'+r.W+'" min="0" step="0.5"></div>' +
+        '<div><label>Height ft</label><input type="number" inputmode="decimal" data-f="H" value="'+r.H+'" min="0" step="0.5"></div>' +
+        '<div><label>Floor wet %</label><input type="number" inputmode="numeric" data-f="wetPct" value="'+r.wetPct+'" min="0" max="100" step="5"></div>' +
+      '</div>' +
+      '<div class="dims">' +
+        '<div><label>Wet wall ft</label><input type="number" inputmode="decimal" data-f="wallLF" value="'+r.wallLF+'" min="0" step="1"></div>' +
+        '<div><label>Offsets</label><input type="number" inputmode="numeric" data-f="offsets" value="'+r.offsets+'" min="0" step="1"></div>' +
+        '<div><label>Flood cut</label><select data-f="cut">'+cutOpts+'</select></div>' +
+        '<div><label>Flooring</label><select data-f="floor">'+floorOpts+'</select></div>' +
+      '</div>' +
+      '<div class="opts">' +
+        '<label class="chip"><input type="checkbox" data-b="base"'+(r.base?' checked':'')+'><span>Pull baseboard</span></label>' +
+        '<label class="chip"><input type="checkbox" data-b="insul"'+(r.insul?' checked':'')+'><span>Wet insulation</span></label>' +
+        '<label class="chip"><input type="checkbox" data-b="ceiling"'+(r.ceiling?' checked':'')+'><span>Ceiling affected</span></label>' +
+        '<label class="chip"><input type="checkbox" data-b="pull"'+(r.pull?' checked':'')+'><span>Pull flooring</span></label>' +
+      '</div>' +
+      '<p class="room-math"></p>';
+
+    function onField(ev){
+      var f = ev.target.getAttribute('data-f');
+      if (!f) return;
+      if (f === 'name') r.name = ev.target.value;
+      else if (f === 'floor') r.floor = ev.target.value;
+      else if (f === 'cut') r.cut = parseInt(ev.target.value,10);
+      else {
+        r[f] = Math.max(0, num(ev.target.value));
+        if (f === 'wallLF') r.wallTouched = true;
+        if ((f === 'L' || f === 'W') && !r.wallTouched){
+          r.wallLF = 2 * (r.L + r.W);
+          el.querySelector('[data-f=wallLF]').value = r.wallLF;
+        }
+      }
+      stamp(el, r); calc();
+    }
+    el.addEventListener('input', onField);
+    el.addEventListener('change', function(ev){
+      var b = ev.target.getAttribute('data-b');
+      if (b){ r[b] = ev.target.checked; stamp(el, r); calc(); }
+      else onField(ev);
+    });
+    el.querySelector('[data-del]').addEventListener('click', function(){
+      for (var i=0;i<rooms.length;i++) if (rooms[i].id === r.id){ rooms.splice(i,1); break; }
+      el.remove(); calc();
+    });
+    el.querySelector('[data-dup]').addEventListener('click', function(){
+      var c = newRoom(r);
+      rooms.push(c);
+      $('#rooms').appendChild(roomCard(c));
+      calc();
+    });
+
+    stamp(el, r);
+    return el;
+  }
+
+  function stamp(el, r){
+    var m = roomMath(r);
+    el.querySelector('.room-math').textContent =
+      Math.round(m.wetFloor) + ' sq ft wet floor, ' + Math.round(m.cubic) + ' cu ft of air, ' +
+      Math.round(m.cutSF) + ' sq ft of tear out, ' + Math.round(r.wallLF) + ' ft of wet wall';
+  }
+
+  function addRoom(){
+    var r = newRoom();
+    rooms.push(r);
+    $('#rooms').appendChild(roomCard(r));
+    calc();
+  }
+
+  function redrawRooms(){
+    var c = $('#rooms'); c.innerHTML = '';
+    rooms.forEach(function(r){ c.appendChild(roomCard(r)); });
+  }
+
+  /* ---------- custom lines ---------- */
+  function drawCustom(){
+    var b = $('#customBody'); b.innerHTML = '';
+    custom.forEach(function(c, i){
+      var tr = document.createElement('tr');
+      tr.innerHTML =
+        '<td><input type="text" value="'+esc(c.desc)+'" data-c="desc"></td>' +
+        '<td class="n"><input class="qty-in" type="number" step="0.5" value="'+c.qty+'" data-c="qty"></td>' +
+        '<td class="n"><input class="price-in" type="number" step="1" value="'+c.rate+'" data-c="rate"></td>' +
+        '<td class="n amt">'+money(c.qty*c.rate)+'</td>' +
+        '<td class="n"><button class="btn-x" data-rm="'+i+'">Remove</button></td>';
+      tr.addEventListener('input', function(ev){
+        var f = ev.target.getAttribute('data-c'); if (!f) return;
+        c[f] = f === 'desc' ? ev.target.value : num(ev.target.value);
+        tr.querySelector('.amt').textContent = money(c.qty*c.rate);
+        calc();
+      });
+      tr.querySelector('[data-rm]').addEventListener('click', function(){
+        custom.splice(i,1); drawCustom(); calc();
+      });
+      b.appendChild(tr);
+    });
+    if (!custom.length) b.innerHTML = '<tr><td colspan="5" style="color:var(--soft);font-size:14px">Nothing added.</td></tr>';
+  }
+
+  /* ---------- rate tables ---------- */
+  function drawRates(){
+    var lb = $('#laborBody'); lb.innerHTML = '';
+    LABOR.forEach(function(l){
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>'+esc(l.label)+'</td><td class="n">'+l.per+'</td>' +
+        '<td class="n"><input class="price-in" type="number" min="0" step="0.05" value="'+l.rate.toFixed(2)+'"></td>';
+      tr.querySelector('input').addEventListener('input', function(e){ l.rate = num(e.target.value); calc(); });
+      lb.appendChild(tr);
+    });
+    var eb = $('#equipBody'); eb.innerHTML = '';
+    EQUIP.forEach(function(x){
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>'+esc(x.label)+'</td><td class="n"><input class="price-in" type="number" min="0" step="1" value="'+x.rate.toFixed(2)+'"></td>';
+      tr.querySelector('input').addEventListener('input', function(e){ x.rate = num(e.target.value); calc(); });
+      eb.appendChild(tr);
+    });
+    var mb = $('#matBody'); mb.innerHTML = '';
+    MATS.forEach(function(m){
+      var tr = document.createElement('tr');
+      tr.innerHTML = '<td>'+esc(m.label)+'</td><td class="n">'+m.unit+'</td>' +
+        '<td class="n"><input class="price-in" type="number" min="0" step="0.01" value="'+m.price.toFixed(2)+'"></td>';
+      tr.querySelector('input').addEventListener('input', function(e){ m.price = num(e.target.value); calc(); });
+      mb.appendChild(tr);
+    });
+  }
+
+  var RATE_FIELDS = ['f_tax','f_markup','f_min','f_dep','o_am','o_dehu','o_scrub',
+                     'b_name','b_phone','b_email','b_site','b_lic','authText',
+                     'f_dehutype','f_dehucap','f_scrubcfm'];
+
+  function saveRates(){
+    var s = {labor:LABOR, equip:EQUIP, mats:MATS, fields:{}};
+    RATE_FIELDS.forEach(function(id){ var el = document.getElementById(id); if (el) s.fields[id] = el.value; });
+    toast(store.set(K_RATES, s) ? 'Defaults saved on this device' : 'Could not save here');
+  }
+  function loadRates(){
+    var s = store.get(K_RATES);
+    if (!s) return;
+    if (s.labor) LABOR = s.labor;
+    if (s.equip) EQUIP = s.equip;
+    if (s.mats)  MATS  = s.mats;
+    if (s.fields) Object.keys(s.fields).forEach(function(id){
+      var el = document.getElementById(id); if (el) el.value = s.fields[id];
+    });
+  }
+  function resetRates(){
+    LABOR = defLabor(); EQUIP = defEquip(); MATS = defMats();
+    $('#authText').value = DEF_AUTH;
+    store.del(K_RATES); drawRates(); calc(); toast('Back to the originals');
+  }
+
+  /* ---------- saved jobs ---------- */
+  var JOB_FIELDS = ['cust','custPhone','addr','cause','dol','qdate','qnum','payer','carrier','claimno','adjuster',
+                    'f_days','f_dehutype','f_dehucap','f_scrubcfm','f_amAdd','f_inject','f_contain','f_loads',
+                    'f_techs','f_afterhours','f_rebuild','f_rebuildOn','f_material','f_targetmc'];
+
+  function snapshot(){
+    var f = {};
+    JOB_FIELDS.forEach(function(id){ var el = document.getElementById(id); if (el) f[id] = el.value; });
+    return {id: $('#qnum').value || ('job' + Date.now()), saved: new Date().toISOString(),
+            label: ($('#cust').value || 'Unnamed') + ' — ' + ($('#addr').value || 'no address'),
+            fields:f, cat:catVal(), cls:clsVal(), rooms:rooms, custom:custom, readings:readings, seq:seq};
+  }
+  function restore(j){
+    JOB_FIELDS.forEach(function(id){
+      var el = document.getElementById(id);
+      if (el && j.fields[id] !== undefined) el.value = j.fields[id];
+    });
+    var c = $('input[name=cat][value="'+j.cat+'"]'); if (c) c.checked = true;
+    var l = $('input[name=cls][value="'+j.cls+'"]'); if (l) l.checked = true;
+    rooms = j.rooms || []; custom = j.custom || []; readings = j.readings || []; seq = j.seq || rooms.length;
+    redrawRooms(); drawCustom(); toggleClaim(); calc(); toast('Job loaded');
+  }
+  function saveJob(){
+    var jobs = store.get(K_JOBS) || [];
+    var s = snapshot();
+    var i = jobs.findIndex ? jobs.findIndex(function(x){ return x.id === s.id; }) : -1;
+    if (i >= 0) jobs[i] = s; else jobs.unshift(s);
+    jobs = jobs.slice(0, 40);
+    toast(store.set(K_JOBS, jobs) ? 'Job saved' : 'Could not save here');
+    drawJobs();
+  }
+  function drawJobs(){
+    var jobs = store.get(K_JOBS) || [], b = $('#jobList');
+    if (!jobs.length){ b.innerHTML = '<p class="note" style="margin:0">No saved jobs yet.</p>'; return; }
+    b.innerHTML = '';
+    jobs.forEach(function(j){
+      var row = document.createElement('div');
+      row.className = 'jobrow';
+      var when = new Date(j.saved).toLocaleDateString('en-US',{month:'short', day:'numeric'});
+      row.innerHTML = '<span><b>'+esc(j.id)+'</b> '+esc(j.label)+' <span style="color:var(--soft)">'+when+'</span></span>' +
+        '<span><button class="btn-sm" data-load="1">Open</button> <button class="btn-x" data-del="1">Delete</button></span>';
+      row.querySelector('[data-load]').addEventListener('click', function(){ restore(j); });
+      row.querySelector('[data-del]').addEventListener('click', function(){
+        var list = (store.get(K_JOBS) || []).filter(function(x){ return x.id !== j.id; });
+        store.set(K_JOBS, list); drawJobs();
+      });
+      b.appendChild(row);
+    });
+  }
+  function newJob(){
+    rooms = []; custom = []; readings = []; seq = 0;
+    ['cust','custPhone','addr','cause','carrier','claimno','adjuster'].forEach(function(id){
+      var el = document.getElementById(id); if (el) el.value = '';
+    });
+    stampDates(true);
+    redrawRooms(); drawCustom(); addRoom(); toast('New job started');
+  }
+
+  /* ---------- drying log ---------- */
+  function drawReadings(days){
+    while (readings.length < days) readings.push({date:'', outT:'', outRH:'', unT:'', unRH:'', afT:'', afRH:'', dT:'', dRH:'', mc:'', who:''});
+    if (readings.length > days) readings = readings.slice(0, days);
+
+    var wrap = $('#readings'); wrap.innerHTML = '';
+    var target = num($('#f_targetmc').value);
+
+    readings.forEach(function(rd, i){
+      var el = document.createElement('div');
+      el.className = 'rd';
+      function f(key, lab, ph, mode){
+        return '<div><label>'+lab+'</label><input type="'+(mode||'number')+'" inputmode="'+(mode?'text':'decimal')+
+               '" data-r="'+key+'" value="'+esc(rd[key])+'" placeholder="'+(ph||'')+'"></div>';
+      }
+      el.innerHTML =
+        '<div class="rd-head"><b>Day '+(i+1)+'</b><span style="flex:1"></span>' +
+          '<input type="text" data-r="date" value="'+esc(rd.date)+'" placeholder="date" style="width:130px;padding:4px 6px;font-size:14px">' +
+          '<input type="text" data-r="who" value="'+esc(rd.who)+'" placeholder="tech" style="width:70px;padding:4px 6px;font-size:14px">' +
+        '</div>' +
+        '<div class="rd-grid">' +
+          f('outT','Outside °F','') + f('outRH','Outside RH','') +
+          f('unT','Unaffected °F','') + f('unRH','Unaffected RH','') +
+          f('afT','Affected °F','') + f('afRH','Affected RH','') +
+          f('dT','Dehu outlet °F','') + f('dRH','Dehu outlet RH','') +
+          f('mc','Material MC %','') +
+        '</div>' +
+        '<div class="flag" data-flag></div>';
+
+      el.addEventListener('input', function(ev){
+        var k = ev.target.getAttribute('data-r'); if (!k) return;
+        rd[k] = ev.target.value;
+        paintFlag(el, rd, i, target);
+        drawSpark();
+      });
+      wrap.appendChild(el);
+      paintFlag(el, rd, i, target);
+    });
+    drawSpark();
+  }
+
+  function paintFlag(el, rd, i, target){
+    var af = gpp(fnum(rd.afT), fnum(rd.afRH));
+    var un = gpp(fnum(rd.unT), fnum(rd.unRH));
+    var ou = gpp(fnum(rd.outT), fnum(rd.outRH));
+    var de = gpp(fnum(rd.dT), fnum(rd.dRH));
+    var bits = [], cls = '';
+
+    if (af != null) bits.push('Affected ' + af.toFixed(1) + ' gpp, dew point ' + dewF(fnum(rd.afT), fnum(rd.afRH)).toFixed(0) + '°F');
+    if (un != null) bits.push('unaffected ' + un.toFixed(1));
+    if (ou != null) bits.push('outside ' + ou.toFixed(1));
+    if (de != null) bits.push('dehu out ' + de.toFixed(1));
+
+    var msg = [];
+    if (af != null && de != null){
+      var dep = af - de;
+      msg.push('Grain depression ' + dep.toFixed(1) + '.');
+      if (dep >= 20){ msg.push('Dehu is pulling hard.'); cls = 'ok'; }
+      else if (dep >= 10){ msg.push('Dehu working.'); cls = 'ok'; }
+      else { msg.push('Low output. Check filter and coils, or the air may already be dry.'); cls = 'warn'; }
+    }
+    if (af != null && ou != null && ou < af - 5){
+      msg.push('Outside air is drier than the affected space. Check the equipment before you trust the readings.');
+      cls = 'bad';
+    }
+    if (af != null && un != null && Math.abs(af - un) <= 3) msg.push('Affected air has nearly matched unaffected. Close to done.');
+    if (i > 0){
+      var prev = gpp(fnum(readings[i-1].afT), fnum(readings[i-1].afRH));
+      if (prev != null && af != null && af >= prev - 0.5){
+        msg.push('No drop since yesterday. Reassess airflow, containment, or hidden wet material.');
+        if (cls !== 'bad') cls = 'warn';
+      }
+    }
+    if (isFinite(fnum(rd.mc))){
+      if (num(rd.mc) <= target){ msg.push('Material at or below the ' + target + '% dry standard.'); if (cls !== 'bad') cls = 'ok'; }
+      else msg.push('Material at ' + num(rd.mc) + '%, still above the ' + target + '% target.');
+    }
+
+    var f = el.querySelector('[data-flag]');
+    f.className = 'flag ' + cls;
+    f.textContent = (bits.length ? bits.join(', ') + '. ' : '') + msg.join(' ');
+    if (!bits.length && !msg.length) f.textContent = 'Enter temperature and humidity to get grains per pound.';
+  }
+
+  function drawSpark(){
+    var pts = readings.map(function(r){ return gpp(fnum(r.afT), fnum(r.afRH)); });
+    var have = pts.filter(function(p){ return p != null; });
+    var wrap = $('#sparkWrap');
+    if (have.length < 2){ wrap.innerHTML = ''; return; }
+    var max = Math.max.apply(null, have), min = Math.min.apply(null, have);
+    var span = (max - min) || 1, W = 640, H = 120, pad = 26;
+    var step = (W - pad*2) / Math.max(1, pts.length - 1);
+    var d = '', dots = '';
+    pts.forEach(function(p, i){
+      if (p == null) return;
+      var x = pad + i*step, y = H - pad - ((p - min)/span) * (H - pad*2);
+      d += (d ? ' L' : 'M') + x.toFixed(1) + ' ' + y.toFixed(1);
+      dots += '<circle cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" r="3.5" fill="#1E4C64"></circle>' +
+              '<text x="'+x.toFixed(1)+'" y="'+(y-9).toFixed(1)+'" font-size="11" text-anchor="middle" fill="#5A6472">'+p.toFixed(0)+'</text>';
+    });
+    wrap.innerHTML = '<div class="spark"><div style="font-size:13.5px;color:var(--soft);margin-bottom:5px">Affected air, grains per pound by day</div>' +
+      '<svg viewBox="0 0 '+W+' '+H+'" width="100%" height="120" role="img" aria-label="Affected air grains per pound trending by day">' +
+      '<path d="'+d+'" fill="none" stroke="#2E6E8E" stroke-width="2"></path>' + dots + '</svg></div>';
+  }
+
+  /* ---------- calc + render ---------- */
+  var last = null;
+
+  function calc(){
+    advisory();
+    var t = totals(), p = plan(t);
+    var labs = laborLines(t, p), eqs = equipLines(p), mats = matLines(t, p), cus = customLines();
+
+    var labSub = sum(labs,'cost'), eqSub = sum(eqs,'cost'), matSub = sum(mats,'cost'), cusSub = sum(cus,'cost');
+    var tax = matSub * (num($('#f_tax').value)/100);
+    var rebuild = $('#f_rebuildOn').value === '1' ? num($('#f_rebuild').value) : 0;
+    var base = labSub + eqSub + matSub + cusSub + tax;
+    var markup = base * (num($('#f_markup').value)/100);
+    var total = base + markup + rebuild;
+    var minJob = num($('#f_min').value), bumped = false;
+    if (t.floor > 0 && total < minJob){ total = minJob; bumped = true; }
+    if (t.floor === 0 && rebuild === 0 && cusSub === 0) total = 0;
+
+    last = {t:t, p:p, labs:labs, eqs:eqs, mats:mats, cus:cus, labSub:labSub, eqSub:eqSub,
+            matSub:matSub, cusSub:cusSub, tax:tax, markup:markup, rebuild:rebuild, total:total, bumped:bumped};
+
+    $('#pAM').textContent = p.am;
+    $('#pDehu').textContent = p.dehu;
+    $('#kDehu').textContent = p.unitLabel;
+    $('#pScrub').textContent = p.scrub;
+    $('#pDays').textContent = p.days;
+
+    $('#planNote').textContent = t.floor > 0
+      ? 'Class ' + clsVal() + ': one air mover per ' + AM_PER[clsVal()] + ' sq ft of wet floor (' + p.byFloor +
+        '), checked against one per 16 ft of wet wall (' + p.byWall + '), plus ' + t.offsets + ' for offsets. ' +
+        (p.type === 'des'
+          ? 'Desiccant needs about ' + Math.round(p.need) + ' CFM for ' + Math.round(t.cubic) + ' cu ft.'
+          : 'Dehumidification needs about ' + Math.round(p.need) + ' AHAM pints for ' + Math.round(t.cubic) +
+            ' cu ft, which is ' + p.dehu + ' unit' + (p.dehu === 1 ? '' : 's') + ' at ' + p.cap + ' pints.') +
+        (p.ach ? ' Scrubbers sized for ' + p.ach + ' air changes an hour at ' + p.cfm + ' CFM.' : ' Cat 1, so no scrubber required.')
+      : 'Add an affected area and the plan sizes itself.';
+
+    inventoryCheck(p);
+    drawSheet();
+    drawReadings(p.days);
+    drawLetterhead();
+  }
+
+  function inventoryCheck(p){
+    var have = {am:num($('#o_am').value), dehu:num($('#o_dehu').value), scrub:num($('#o_scrub').value)};
+    var short = [];
+    if (have.am   > 0 && p.am    > have.am)   short.push((p.am - have.am) + ' more air movers');
+    if (have.dehu > 0 && p.dehu  > have.dehu) short.push((p.dehu - have.dehu) + ' more dehumidifiers');
+    if (have.scrub> 0 && p.scrub > have.scrub)short.push((p.scrub - have.scrub) + ' more air scrubbers');
+
+    $('#cAM').classList.toggle('short', have.am > 0 && p.am > have.am);
+    $('#cDehu').classList.toggle('short', have.dehu > 0 && p.dehu > have.dehu);
+    $('#cScrub').classList.toggle('short', have.scrub > 0 && p.scrub > have.scrub);
+
+    $('#invNote').innerHTML = short.length
+      ? '<div class="advisory warn"><h4>You are short on equipment</h4>This plan needs ' + short.join(' and ') +
+        ' than you have on hand. Line up rentals before you promise a start time.</div>'
+      : '';
+  }
+
+  function row(cells){
+    return '<tr>' + cells.map(function(c,i){ return '<td'+(i?' class="n"':'')+'>'+c+'</td>'; }).join('') + '</tr>';
+  }
+  function line(label, val){
+    return '<div class="sumline"><span>'+label+'</span><span>'+money(val)+'</span></div>';
+  }
+
+  function drawLetterhead(){
+    var bits = [$('#b_phone').value, $('#b_email').value, $('#b_site').value].filter(Boolean).join('  ·  ');
+    var lic = $('#b_lic').value ? '<div class="c">License / BTR ' + esc($('#b_lic').value) + '</div>' : '';
+    $('#letterhead').innerHTML = '<div class="n">' + esc($('#b_name').value) + '</div>' +
+      '<div class="c">' + esc(bits) + '</div>' + lic;
+    $('#brandMark').innerHTML = esc($('#b_name').value).replace(/Restorian/, '<span>Restorian</span>');
+  }
+
+  function drawSheet(){
+    var d = last, body = $('#sheetBody'), sub = $('#sheetSub');
+    var parts = [];
+    if ($('#cust').value.trim()) parts.push($('#cust').value.trim());
+    if ($('#addr').value.trim()) parts.push($('#addr').value.trim());
+    parts.push('Cat ' + catVal() + ' / Class ' + clsVal());
+    parts.push('File ' + $('#qnum').value);
+    sub.textContent = parts.join(', ');
+
+    if (d.total === 0){
+      body.innerHTML = '<p class="empty">Nothing scoped yet. Add an affected area and set the category and class.</p>';
+      $('#mobileTotalVal').textContent = '$0';
+      return;
+    }
+
+    var html = '';
+
+    html += '<section><h3>Scope</h3><table><tbody>' +
+      row(['Affected floor', '', Math.round(d.t.floor) + ' sq ft']) +
+      row(['Air volume', '', Math.round(d.t.cubic) + ' cu ft']) +
+      (d.t.cutSF  ? row(['Drywall tear out', '', Math.round(d.t.cutSF) + ' sq ft']) : '') +
+      (d.t.baseLF ? row(['Baseboard removed', '', Math.round(d.t.baseLF) + ' ft']) : '') +
+      row(['Drying plan', '', d.p.am + ' air movers, ' + d.p.dehu + ' ' + d.p.unitLabel +
+           (d.p.scrub ? ', ' + d.p.scrub + ' scrubber' + (d.p.scrub>1?'s':'') : '') + ', ' + d.p.days + ' days']) +
+      '</tbody></table></section>';
+
+    if (d.labs.length){
+      html += '<section><h3>Labor</h3><table><thead><tr><th>Line</th><th class="n">Qty</th><th class="n">Cost</th></tr></thead><tbody>';
+      d.labs.forEach(function(l){ html += row([esc(l.label), l.qty + ' ' + l.per, money(l.cost)]); });
+      html += '</tbody></table></section>';
+    }
+    if (d.eqs.length){
+      html += '<section><h3>Equipment</h3><table><thead><tr><th>Unit</th><th class="n">Units × days</th><th class="n">Cost</th></tr></thead><tbody>';
+      d.eqs.forEach(function(e){ html += row([esc(e.label), e.units + ' × ' + e.days, money(e.cost)]); });
+      html += '</tbody></table></section>';
+    }
+    if (d.mats.length){
+      html += '<section><h3>Materials</h3><table><tbody>';
+      d.mats.forEach(function(m){ html += row([esc(m.label), m.qty + ' ' + m.unit, money(m.cost)]); });
+      html += '</tbody></table></section>';
+    }
+    if (d.cus.length){
+      html += '<section><h3>Additional</h3><table><tbody>';
+      d.cus.forEach(function(c){ html += row([esc(c.label), c.qty, money(c.cost)]); });
+      html += '</tbody></table></section>';
+    }
+
+    html += '<section>' +
+      line('Labor', d.labSub) + line('Equipment', d.eqSub) + line('Materials', d.matSub) +
+      (d.cusSub ? line('Additional', d.cusSub) : '') +
+      (d.tax ? line('Tax', d.tax) : '') +
+      (d.markup ? line('Overhead', d.markup) : '') +
+      (d.rebuild ? line('Rebuild allowance', d.rebuild) : '') +
+      '</section>';
+
+    html += '<div class="total"><span class="lab">' +
+      (d.rebuild ? 'Mitigation and rebuild' : 'Mitigation total') +
+      '</span><span class="val">' + money0(d.total) + '</span></div>';
+
+    var dep = d.total * (num($('#f_dep').value)/100);
+    var payer = $('#payer').value;
+    html += '<div class="terms">' +
+      '<div class="sumline"><span>Due to start</span><span>' + money0(dep) + '</span></div>' +
+      '<div class="sumline"><span>Balance at equipment pickup</span><span>' + money0(d.total - dep) + '</span></div>' +
+      '<p style="margin:9px 0 0">' +
+        (payer === 'Insurance claim'
+          ? 'Estimate for scoping only. Final billing follows the carrier price list and the actual drying days on the readings. '
+          : 'Price holds for the scope above. ') +
+        'Drying days are a plan, not a promise. If the meters read wet on day three, equipment stays and the daily rate continues. ' +
+        (d.bumped ? 'Minimum service charge applied. ' : '') +
+        (catVal() >= 3 ? 'Category 3 loss. Porous materials in the affected area are removed and disposed of, not dried in place. ' : '') +
+        (d.rebuild ? 'Rebuild allowance is an estimate for putting the room back and gets its own line-item scope. ' : 'Put back and finish work are quoted separately.') +
+      '</p></div>';
+
+    var auth = $('#authText').value;
+    if (auth.trim()){
+      html += '<div class="sign"><h3 style="font-size:17px;color:var(--soft);margin-bottom:6px">Authorization to proceed</h3>' +
+        auth.split(/\n\s*\n/).map(function(p){ return '<p style="margin:0 0 7px">'+esc(p)+'</p>'; }).join('') +
+        '<div class="sigrow">' +
+          '<div><div class="sigbox"></div><div class="sigline">Customer signature</div></div>' +
+          '<div><div class="sigbox"></div><div class="sigline">Date</div></div>' +
+        '</div>' +
+        '<div class="sigrow">' +
+          '<div><div class="sigbox"></div><div class="sigline">Printed name</div></div>' +
+          '<div><div class="sigbox"></div><div class="sigline">Phone</div></div>' +
+        '</div></div>';
+    }
+
+    body.innerHTML = html;
+    $('#mobileTotalVal').textContent = money0(d.total);
+  }
+
+  /* ---------- text export ---------- */
+  function scopeText(){
+    var d = last;
+    if (!d || d.total === 0) return 'Nothing scoped yet.';
+    var L = [];
+    L.push(($('#b_name').value || 'Bailey the Restorian').toUpperCase() + ' — WATER MITIGATION ' + $('#qnum').value);
+    L.push([$('#b_phone').value, $('#b_email').value].filter(Boolean).join('  '));
+    L.push($('#qdate').value + '  |  Loss date: ' + $('#dol').value);
+    if ($('#cust').value.trim()) L.push('For: ' + $('#cust').value.trim());
+    if ($('#addr').value.trim()) L.push('At: ' + $('#addr').value.trim());
+    if ($('#cause').value.trim()) L.push('Cause: ' + $('#cause').value.trim());
+    L.push('Category ' + catVal() + ', Class ' + clsVal());
+    L.push('');
+    L.push('AFFECTED AREAS');
+    rooms.forEach(function(r){
+      var m = roomMath(r);
+      L.push('  ' + r.name + ' ' + r.L + 'x' + r.W + 'x' + r.H + ', ' + Math.round(m.wetFloor) + ' sf wet, ' +
+             r.floor + (r.cut ? ', ' + (r.cut === 99 ? 'full wall' : r.cut + ' ft') + ' cut' : ''));
+    });
+    L.push('');
+    L.push('DRYING PLAN: ' + d.p.am + ' air movers, ' + d.p.dehu + ' ' + d.p.unitLabel +
+           (d.p.scrub ? ', ' + d.p.scrub + ' air scrubbers' : '') + ', ' + d.p.days + ' days');
+    L.push('');
+    L.push('Labor ' + money(d.labSub) + ' | Equipment ' + money(d.eqSub) + ' | Materials ' + money(d.matSub));
+    L.push('');
+    L.push('TOTAL: ' + money0(d.total));
+    L.push('Due to start: ' + money0(d.total * (num($('#f_dep').value)/100)));
+    return L.join('\n');
+  }
+
+  function toast(msg){
+    var el = document.createElement('div');
+    el.className = 'toast'; el.textContent = msg;
+    document.body.appendChild(el);
+    setTimeout(function(){ el.remove(); }, 2200);
+  }
+
+  function copyScope(){
+    var text = scopeText();
+    if (navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(function(){ toast('Scope copied'); }, fallback);
+    } else fallback();
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.top = '-1000px';
+      document.body.appendChild(ta); ta.select();
+      var ok = false;
+      try { ok = document.execCommand('copy'); } catch(e){ ok = false; }
+      ta.remove();
+      toast(ok ? 'Scope copied' : 'Copy blocked here, print instead');
+    }
+  }
+
+  /* ---------- tabs ---------- */
+  function showTab(which){
+    [['tabScope','panScope'],['tabLog','panLog'],['tabSetup','panSetup']].forEach(function(p){
+      var on = p[0] === which;
+      $('#'+p[0]).setAttribute('aria-selected', on ? 'true' : 'false');
+      $('#'+p[1]).hidden = !on;
+    });
+  }
+
+  function toggleClaim(){
+    $('#claimFields').style.display = $('#payer').value === 'Insurance claim' ? 'grid' : 'none';
+  }
+
+  function stampDates(fresh){
+    var now = new Date();
+    var dstr = now.toLocaleDateString('en-US',{year:'numeric', month:'short', day:'numeric'});
+    $('#qdate').value = dstr;
+    if (fresh || !$('#dol').value) $('#dol').value = dstr;
+    $('#qnum').value = 'WD-' + String(now.getFullYear()).slice(2) +
+      String(now.getMonth()+1).padStart(2,'0') + String(now.getDate()).padStart(2,'0') +
+      '-' + String(Math.floor(Math.random()*90)+10);
+  }
+
+  /* ---------- boot ---------- */
+  $('#authText').value = DEF_AUTH;
+  if (!store.ok) $('#storeWarn').hidden = false;
+  loadRates();
+  stampDates(true);
+  drawRates(); drawCustom(); drawJobs();
+
+  $('#tabScope').addEventListener('click', function(){ showTab('tabScope'); });
+  $('#tabLog').addEventListener('click', function(){ showTab('tabLog'); });
+  $('#tabSetup').addEventListener('click', function(){ showTab('tabSetup'); });
+
+  $('#addRoom').addEventListener('click', addRoom);
+  $('#clearRooms').addEventListener('click', function(){ rooms = []; seq = 0; $('#rooms').innerHTML = ''; calc(); });
+  $('#addCustom').addEventListener('click', function(){ custom.push({desc:'', qty:1, rate:0}); drawCustom(); });
+  $('#printBtn').addEventListener('click', function(){ window.print(); });
+  $('#copyBtn').addEventListener('click', copyScope);
+  $('#saveRates').addEventListener('click', saveRates);
+  $('#resetRates').addEventListener('click', resetRates);
+  $('#saveJob').addEventListener('click', saveJob);
+  $('#newJob').addEventListener('click', newJob);
+  $('#payer').addEventListener('change', function(){ toggleClaim(); calc(); });
+
+  $$('input[name=cat],input[name=cls]').forEach(function(el){ el.addEventListener('change', calc); });
+
+  ['f_days','f_dehutype','f_dehucap','f_scrubcfm','f_amAdd','f_inject','f_contain','f_loads','f_techs',
+   'f_afterhours','f_tax','f_markup','f_min','f_dep','f_rebuild','f_rebuildOn','f_targetmc','f_material',
+   'o_am','o_dehu','o_scrub','b_name','b_phone','b_email','b_site','b_lic','authText',
+   'cust','custPhone','addr','cause','qnum','qdate','dol','carrier','claimno','adjuster'].forEach(function(id){
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('input', calc);
+    if (el.tagName === 'SELECT') el.addEventListener('change', calc);
+  });
+
+  toggleClaim();
+  addRoom();
+})();
+</script>
+</body>
+</html>
