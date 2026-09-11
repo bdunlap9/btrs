@@ -321,12 +321,14 @@
         <div class="body">
           <div class="stats" id="checkStats"></div>
           <div class="grid g4">
-            <div><label for="f_costhr">Your labor cost per hour</label><input type="number" id="f_costhr" value="32" min="0" step="1"></div>
+            <div><label for="f_costhr">Labor cost per person per hour</label><input type="number" id="f_costhr" value="32" min="0" step="1"></div>
             <div><label for="f_crew">Crew size</label><input type="number" id="f_crew" value="1" min="1" step="1"></div>
             <div><label for="f_hrday">Working hours a day</label><input type="number" id="f_hrday" value="8" min="1" step="0.5"></div>
             <div><label for="f_targmarg">Target margin %</label><input type="number" id="f_targmarg" value="35" min="0" step="1"></div>
+            <div><label for="f_ovday">Overhead $ a working day</label><input type="number" id="f_ovday" value="85" min="0" step="5"></div>
           </div>
-          <p class="note">Labor cost per hour is what the work actually costs you, loaded: your pay, a helper, taxes, fuel, insurance. Not what you bill. The gap between the two is where the business lives.</p>
+          <p class="note">Labor cost is per person per hour, loaded: pay, payroll taxes, fuel, insurance. One person, one number. Crew size splits the calendar, not the man-hours, so a two-man crew finishes in half the days at the same labor cost.</p>
+          <p class="note">Overhead a day is everything that bills whether you work or not: truck payment, general liability, phone, software, storage. Add the monthly total and divide by the days you actually work in a month. It is charged to the job by the day and it sits inside your cost, so the walk-away floor protects it.</p>
           <div id="checkNotes"></div>
         </div>
       </div>
@@ -538,6 +540,36 @@
     ['dm_pop','demo','Scrape popcorn ceiling','sq ft','ceil',0,1.30,45,'b'],
     ['dm_dump','demo','Dumpster','each','one',0,0,0,'b'],
     ['dm_haul','demo','Load and haul, pickup load','each',null,0,145,0.6,''],
+    ['dm_toi','demo','Remove a toilet','each',null,0,45,2,''],
+    ['dm_van','demo','Remove vanity and top','each',null,0,58,1.5,''],
+    ['dm_sur','demo','Remove fiberglass tub surround','each',null,0,145,0.7,''],
+    ['dm_ctop','demo','Remove countertop','ft',null,0,9,14,''],
+    ['dm_bspl','demo','Remove backsplash tile','sq ft',null,0,3.2,12,''],
+    ['dm_app','demo','Disconnect and pull an appliance','each',null,0,45,2,''],
+    ['fl_afm','floor','Anti-fracture membrane','sq ft',null,0,1.1,60,'b'],
+    ['cb_isl','cab','Island base cabinet','each',null,0,185,0.7,'b'],
+    ['cb_ref','cab','Reface doors and drawer fronts','each',null,0,48,3,'b'],
+    ['cb_ven','cab','Reface cabinet boxes with veneer','ft',null,0,32,2,'b'],
+    ['cb_hng','cab','Soft-close hinge','each',null,0,7,10,'b'],
+    ['cb_sld','cab','Soft-close drawer slide','each',null,0,14,6,'b'],
+    ['cb_ucl','cab','Under-cabinet lighting','ft',null,0,9,8,'b'],
+    ['cb_vtop','cab','Vanity top, set and seal','each',null,0,85,1.5,'b'],
+    ['cb_bb','cab','Laminate backsplash, 4 in.','ft',null,0,9,10,'b'],
+    ['cb_ksnk','cab','Kitchen sink, set and secure','each',null,0,125,1.5,'b'],
+    ['cb_hood','cab','Range hood, mount and vent','each',null,0,165,0.8,'b'],
+    ['cb_mw','cab','Over-range microwave','each',null,0,135,0.8,'b'],
+    ['cb_dwi','cab','Dishwasher, set and secure','each',null,0,145,1,'b'],
+    ['cb_frg','cab','Refrigerator water line','each',null,0,85,1.5,'b'],
+    ['ba_sur','bath','Tub or shower surround kit','each',null,0,285,0.4,'b'],
+    ['ba_pre','bath','Preslope and mortar bed','each',null,0,145,0.5,'b'],
+    ['ba_drn','bath','Shower drain assembly','each',null,0,135,1,'b'],
+    ['ba_trim','bath','Shower valve trim kit','each',null,0,85,1.5,'b'],
+    ['ba_spt','bath','Tub spout and diverter','each',null,0,45,2.5,'b'],
+    ['ba_hd','bath','Shower head and arm','each',null,0,45,2,'b'],
+    ['ba_hh','bath','Handheld shower on a slide bar','each',null,0,55,2,'b'],
+    ['ba_grb','bath','Grab bar, blocked and anchored','each',null,0,48,2,'b'],
+    ['ba_dct','bath','Bath vent duct and exterior cap','each',null,0,95,1,'b'],
+    ['fn_tmp','final','Temporary kitchen or bath setup','each',null,0,95,1,'b'],
 
     ['fr_stud','frame','Replace wall studs','each',null,0,14,3,'b'],
     ['fr_plate','frame','Pressure treated bottom plate','ft',null,0,4.50,12,'b'],
@@ -627,12 +659,38 @@
     ['cb_tall','cab','Tall or pantry cabinet','each',null,0,145,0.8,'b'],
     ['cb_van','cab','Vanity cabinet','each',null,0,125,0.9,'b'],
     ['cb_lam','cab','Laminate or wood countertop','ft',null,0,38,2.5,'b'],
-    ['cb_qtz','cab','Quartz or solid surface top, fabricated','ft',null,78,0,0,'a'],
+    ['cb_qtz','cab','Quartz top, fabricated and set','sq ft',null,68,0,0,'sa'],
     ['cb_snk','cab','Sink cutout and mount','each',null,0,125,0.8,''],
     ['cb_bk','cab','Backsplash tile','sq ft',null,0,11.00,10,'b'],
     ['cb_hw','cab','Cabinet hardware','each',null,0,6,12,'b'],
     ['cb_cr','cab','Cabinet crown','ft',null,0,6.50,12,'b'],
     ['cb_fil','cab','Filler strips and scribe','each',null,0,22,3,'b'],
+    ['cb_bxu','cab','Cabinet box upgrade','ft',null,0,0,0,'b'],
+    ['cb_dst','cab','Door style upgrade','each',null,0,0,0,'b'],
+    ['cb_ls','cab','Lazy susan or blind corner unit','each',null,0,145,0.8,'b'],
+    ['cb_db','cab','Drawer bank base cabinet','each',null,0,125,1,'b'],
+    ['cb_trs','cab','Trash or recycle pull-out','each',null,0,65,1.5,'b'],
+    ['cb_rot','cab','Roll-out tray','each',null,0,38,2.5,'b'],
+    ['cb_gls','cab','Glass door insert','each',null,0,55,2,'b'],
+    ['cb_opn','cab','Open shelving','ft',null,0,28,3,'b'],
+    ['cb_lr','cab','Light rail or valance','ft',null,0,6.5,12,'b'],
+    ['cb_tk','cab','Toe kick cover','ft',null,0,4.5,15,'b'],
+    ['cb_pnl','cab','Finished end panel','each',null,0,45,2.5,'b'],
+    ['cb_sof','cab','Fill above cabinets to the ceiling','ft',null,0,22,2.5,'b'],
+    ['cb_btop','cab','Butcher block top','sq ft',null,0,14,6,'b'],
+    ['cb_cmb','cab','Cultured marble top','sq ft',null,0,12,8,'b'],
+    ['cb_tlc','cab','Tile countertop','sq ft',null,0,16,5,'b'],
+    ['cb_brk','cab','Countertop support bracket or corbel','each',null,0,38,3,'b'],
+    ['cb_gran','cab','Granite top, fabricated and set','sq ft',null,62,0,0,'sa'],
+    ['cb_ssf','cab','Solid surface top, fabricated and set','sq ft',null,58,0,0,'sa'],
+    ['cb_prc','cab','Porcelain slab top, fabricated and set','sq ft',null,88,0,0,'sa'],
+    ['cb_cnc','cab','Concrete top, cast and set','sq ft',null,78,0,0,'sa'],
+    ['cb_tpl','cab','Template and measure trip','each',null,125,0,0,'sa'],
+    ['cb_edg','cab','Edge profile upgrade','ft',null,14,0,0,'sa'],
+    ['cb_sem','cab','Seam in stone','each',null,145,0,0,'sa'],
+    ['cb_cut','cab','Cooktop or drop-in cutout','each',null,125,0,0,'sa'],
+    ['cb_fh','cab','Faucet or soap dispenser hole','each',null,45,0,0,'sa'],
+    ['cb_wf','cab','Waterfall end panel','each',null,585,0,0,'sa'],
 
     ['ba_tub','bath','Tub, set and secure','each',null,0,245,0.5,'b'],
     ['ba_pan','bath','Shower pan or base','each',null,0,285,0.45,'b'],
@@ -716,6 +774,32 @@
     ['bags',['dm_dw','dm_ceil','dm_pop'],'demo','Heavy contractor bags','box',400,24.98,'nf'],
     ['dump',['dm_dump'],'demo','Dumpster or bagster','each',1,[['Bagster, 3 cu yd',35.00],['10 yard dumpster',395.00],['20 yard dumpster',525.00]],'n'],
     ['popcov',['dm_pop'],'demo','Plastic and scraper blades','job',0,32.00,'nf'],
+    ['bafm',['fl_afm'],'floor','Anti-fracture membrane','roll',100,[['Liquid, 100 sq ft',98.00],['Sheet, 100 sq ft',165.00]],''],
+    ['cbi',['cb_isl'],'cab','Island base cabinet','each',1,[['Stock',420.00],['Shaker',690.00],['Semi-custom',1180.00]],'n'],
+    ['cbrf',['cb_ref'],'cab','Reface door or drawer front','each',1,[['Laminate or RTF',48.00],['Painted MDF',82.00],['Solid wood',145.00]],'n'],
+    ['cbvn',['cb_ven'],'cab','Cabinet box veneer, per ft','ft',1,26.00,''],
+    ['cbhg',['cb_hng'],'cab','Soft-close hinge','each',1,6.50,'n'],
+    ['cbsl',['cb_sld'],'cab','Soft-close drawer slide, pair','each',1,14.00,'n'],
+    ['cbuc',['cb_ucl'],'cab','Under-cabinet light, per ft','ft',1,[['Plug-in strip',7.50],['Linkable pucks',13.00],['Hardwired bar',22.00]],''],
+    ['cbvt',['cb_vtop'],'cab','Vanity top','each',1,[['Cultured marble 25 in.',125.00],['Cultured marble 37 in.',185.00],['Quartz 37 in.',345.00]],'n'],
+    ['cbbb',['cb_bb'],'cab','Laminate backsplash, per ft','ft',1,9.00,''],
+    ['ksnk',['cb_ksnk'],'cab','Kitchen sink','each',1,[['Drop-in stainless',115.00],['Undermount stainless',285.00],['Farmhouse',520.00]],'n'],
+    ['khd',['cb_hood'],'cab','Range hood','each',1,[['Ducted 30 in.',145.00],['Stainless convertible',265.00],['Chimney style',520.00]],'n'],
+    ['khdd',['cb_hood'],'cab','Hood duct, cap and clamps','set',1,68.00,'n'],
+    ['kmw',['cb_mw'],'cab','Over-range microwave','each',1,[['Basic',185.00],['Stainless sensor',295.00],['Convection',480.00]],'n'],
+    ['kdwk',['cb_dwi'],'cab','Dishwasher install kit','each',1,45.00,'n'],
+    ['kfrg',['cb_frg'],'cab','Refrigerator water line kit','each',1,38.00,'n'],
+    ['bsur',['ba_sur'],'bath','Tub or shower surround kit','each',1,[['3-piece direct to stud',285.00],['5-piece with shelves',420.00],['Solid surface',690.00]],'n'],
+    ['bmort',['ba_pre'],'bath','Deck mud and preslope material','each',1,85.00,'n'],
+    ['bdrn',['ba_drn'],'bath','Shower drain assembly','each',1,[['Center drain',42.00],['Tileable square',135.00],['Linear 36 in.',225.00]],'n'],
+    ['btrm',['ba_trim'],'bath','Shower valve trim kit','each',1,[['Chrome',95.00],['Brushed nickel',165.00],['Matte black or gold',320.00]],'n'],
+    ['bspt',['ba_spt'],'bath','Tub spout and diverter','each',1,34.00,'n'],
+    ['bhd',['ba_hd'],'bath','Shower head and arm','each',1,[['Basic',34.00],['Rain head',95.00],['Rain head with arm kit',195.00]],'n'],
+    ['bhh',['ba_hh'],'bath','Handheld shower and slide bar','each',1,62.00,'n'],
+    ['bgrb',['ba_grb'],'bath','Grab bar, ADA rated','each',1,32.00,'n'],
+    ['bdct',['ba_dct'],'bath','Bath vent duct and exterior cap','set',1,48.00,'n'],
+    ['bcorn',['ba_wp'],'bath','Waterproof corners, band and sealant','set',120,42.00,'nf'],
+    ['ftmp',['fn_tmp'],'final','Temp sink, hose and folding table','each',1,95.00,'n'],
 
     /* framing */
     ['stud',['fr_stud'],'frame','Stud','each',1,[['2x4x92-5/8 stud',4.68],['2x4x8',5.28],['2x6x92-5/8',9.48]],'n'],
@@ -819,6 +903,22 @@
     ['cbc',['cb_cr'],'cab','Cabinet crown','ft',1,4.20,''],
     ['cbf',['cb_fil'],'cab','Filler strip and scribe','each',1,18.00,'n'],
     ['cbscrw',['cb_base','cb_wall','cb_tall','cb_van'],'cab','Cabinet screws and brackets','box',20,14.98,'nf'],
+    ['cbbx',['cb_bxu'],'cab','Cabinet box upgrade, per ft','ft',1,[['Particleboard, no upgrade',0.00],['Plywood box',38.00],['All-plywood, dovetail drawers',62.00]],''],
+    ['cbds',['cb_dst'],'cab','Door style upgrade','each',1,[['Slab, no upgrade',0.00],['Shaker',22.00],['Raised panel',34.00],['Painted five-piece',48.00],['Thermofoil',18.00]],'n'],
+    ['cbls',['cb_ls'],'cab','Lazy susan or corner unit','each',1,[['Wire lazy susan',145.00],['Wood lazy susan',225.00],['Blind-corner pull-out',385.00]],'n'],
+    ['cbdb',['cb_db'],'cab','Drawer bank base cabinet','each',1,[['Stock 3-drawer',245.00],['Shaker 3-drawer',325.00],['Semi-custom 4-drawer',465.00]],'n'],
+    ['cbtrs',['cb_trs'],'cab','Trash or recycle pull-out','each',1,[['Single bin',68.00],['Double bin soft-close',125.00]],'n'],
+    ['cbrot',['cb_rot'],'cab','Roll-out tray','each',1,[['Wire',32.00],['Wood dovetail',58.00]],'n'],
+    ['cbgls',['cb_gls'],'cab','Glass door insert','each',1,[['Clear',38.00],['Seeded or reeded',62.00]],'n'],
+    ['cbopn',['cb_opn'],'cab','Open shelf and brackets, per ft','ft',1,[['Pine and steel brackets',12.00],['Stained hardwood floating',26.00]],''],
+    ['cblr',['cb_lr'],'cab','Light rail or valance, per ft','ft',1,[['Light rail',4.20],['Valance',5.80]],''],
+    ['cbtk',['cb_tk'],'cab','Toe kick cover, per ft','ft',1,3.20,''],
+    ['cbpnl',['cb_pnl'],'cab','Finished end panel','each',1,[['Matching skin',38.00],['Full finished panel',78.00]],'n'],
+    ['cbsof',['cb_sof'],'cab','Fill and trim above cabinets, per ft','ft',1,8.50,''],
+    ['cbbt',['cb_btop'],'cab','Butcher block, per sq ft','sq ft',1,[['Birch',22.00],['Acacia',28.00],['Walnut',52.00]],''],
+    ['cbcm',['cb_cmb'],'cab','Cultured marble, per sq ft','sq ft',1,18.00,''],
+    ['cbtl',['cb_tlc'],'cab','Countertop tile, per sq ft','sq ft',1,[['Ceramic',6.00],['Porcelain',9.00],['Granite tile',13.00]],''],
+    ['cbbk2',['cb_brk'],'cab','Support bracket or corbel','each',1,[['Steel L bracket',12.00],['Hidden flat bracket',22.00],['Wood corbel',38.00]],'n'],
 
     /* bath */
     ['btub',['ba_tub'],'bath','Tub','each',1,[['Steel',355.00],['Acrylic',465.00],['Soaker or drop-in',745.00]],'n'],
@@ -881,11 +981,15 @@
     {n:'One-room water loss rebuild', rooms:[['Living room','Living',16,14,8,2,2]],
      on:['dm_prot','dm_bar','in_r13','dw_wall','dw_fin','dw_bead','dw_tex','pt_pr','pt_wall','pt_ceil','pt_sup','tr_base','pt_trim','pt_clk','fl_lvp','fl_qtr','fl_trn','fn_cln','fn_trp','fn_fast']},
     {n:'Full bath remodel', rooms:[['Bath','Bath',5,8,8,1,1]],
-     on:['dm_prot','dm_bar','dm_tile','dm_tub','dm_cab','dw_cb','dw_mr','dw_fin','ba_wp','fl_wt','fl_tile','fl_trim','ba_pan','ba_dr','ba_acc','cb_van','pt_pr','pt_ceil','pt_wall','pt_sup','tr_base','pl_toi','pl_van','pl_vlv','el_gfc','el_fan','rn_saw','fn_prm','fn_cln','fn_trp','fn_ppe','fn_fast']},
+     on:['dm_prot','dm_bar','dm_tile','dm_tub','dm_toi','dm_van','dw_cb','dw_mr','dw_fin','ba_wp','ba_pre','ba_drn','ba_nch','fl_afm','fl_wt','fl_tile','fl_trim','ba_pan','ba_dr','ba_trim','ba_hd','ba_acc','ba_grb','ba_dct','cb_van','cb_vtop','pt_pr','pt_ceil','pt_wall','pt_sup','tr_base','pl_toi','pl_van','pl_vlv','el_gfc','el_fan','rn_saw','fn_prm','fn_tmp','fn_cln','fn_trp','fn_ppe','fn_fast']},
     {n:'Whole house repaint', rooms:[['Living','Living',18,16,9,3,3],['Kitchen','Kitchen',12,14,9,2,1],['Bedroom 1','Bedrooms',13,12,9,1,2],['Bedroom 2','Bedrooms',12,11,9,1,1],['Hall','Hall',4,18,9,4,0]],
      on:['dm_prot','dw_ps','pt_pr','pt_wall','pt_ceil','pt_trim','pt_clk','pt_sup','fn_cln','fn_trp']},
     {n:'Kitchen refresh', rooms:[['Kitchen','Kitchen',12,14,9,2,1]],
-     on:['dm_prot','dm_cab','cb_base','cb_wall','cb_lam','cb_snk','cb_bk','cb_hw','cb_fil','pt_pr','pt_wall','pt_ceil','pt_sup','fl_lvp','tr_base','fl_qtr','pl_snk','pl_dsp','el_dev','el_gfc','fn_cln','fn_trp','fn_fast']},
+     on:['dm_prot','dm_cab','cb_base','cb_wall','cb_lam','cb_snk','cb_bk','cb_hw','cb_hng','cb_fil','pt_pr','pt_wall','pt_ceil','pt_sup','fl_lvp','tr_base','fl_qtr','pl_snk','pl_dsp','el_dev','el_gfc','fn_cln','fn_trp','fn_fast']},
+    {n:'Kitchen remodel, full', rooms:[['Kitchen','Kitchen',12,14,9,2,1]],
+     on:['dm_prot','dm_bar','dm_cab','dm_ctop','dm_bspl','dm_app','dm_fl','cb_base','cb_wall','cb_tall','cb_isl','cb_lam','cb_snk','cb_ksnk','cb_bk','cb_hw','cb_hng','cb_sld','cb_cr','cb_fil','cb_ucl','cb_hood','cb_mw','cb_dwi','cb_frg','dw_ps','pt_pr','pt_wall','pt_ceil','pt_sup','fl_lvp','fl_qtr','tr_base','pt_trim','pt_clk','pl_snk','pl_dsp','pl_stp','el_dev','el_gfc','el_can','fn_prm','fn_tmp','fn_cln','fn_trp','fn_ppe','fn_fast']},
+    {n:'Cabinet reface', rooms:[['Kitchen','Kitchen',12,14,9,2,1]],
+     on:['dm_prot','cb_ref','cb_ven','cb_hw','cb_hng','cb_sld','cb_cr','cb_fil','fn_cln','fn_trp','fn_fast']},
     {n:'Popcorn removal and retexture', rooms:[['Living','Living',18,16,9,3,3],['Bedroom 1','Bedrooms',13,12,9,1,2]],
      on:['dm_prot','dm_bar','dm_pop','dw_fin','dw_tex','pt_pr','pt_ceil','pt_sup','fn_cln','fn_trp','rn_scaf']}
   ];
@@ -927,6 +1031,49 @@
       w.push('No floor and content protection. Cheap line, saves an expensive argument.');
     if (on('dm_pop') && !on('dm_bar'))
       w.push('Scraping popcorn without containment. Pre-1980 ceilings may also need testing before you touch them.');
+    if (any(['fl_wt','ba_sur']) && !any(['ba_pan','ba_pre','ba_tub']))
+      w.push('Shower walls going in with no pan, preslope or tub under them.');
+    if (any(['ba_pan','ba_pre']) && !on('ba_drn'))
+      w.push('Shower base with no drain assembly line.');
+    if (on('ba_pre') && !on('ba_wp'))
+      w.push('Mud bed with no waterproofing over it.');
+    if (any(['pl_vlv','pl_set']) && !on('ba_trim'))
+      w.push('Shower valve roughed in with no trim kit. The plumber sets the valve, you set the handle.');
+    if (any(['ba_sur','ba_pan','fl_wt','ba_tub']) && !on('el_fan'))
+      w.push('Bath work with no exhaust fan. Every wet room in Florida needs one and the inspector will ask.');
+    if (on('ba_grb') && !on('fr_blk'))
+      w.push('Grab bar with no blocking behind it. Anchored to drywall it pulls out with someone on it.');
+    if (any(['cb_base','cb_wall','cb_tall','cb_isl','cb_ref']) && !on('cb_hw'))
+      w.push('Cabinets with no hardware line.');
+    var STONE = ['cb_qtz','cb_gran','cb_ssf','cb_prc','cb_cnc'];
+    var TOPS  = STONE.concat(['cb_lam','cb_btop','cb_cmb','cb_tlc']);
+    if (any(TOPS) && !on('cb_snk'))
+      w.push('Countertop with no sink cutout.');
+    if (any(STONE) && !on('cb_tpl'))
+      w.push('Stone top with no template trip. The fabricator charges for it whether you quoted it or not.');
+    if (any(STONE) && !on('cb_fh'))
+      w.push('Stone top with no faucet holes. Every hole is a separate charge at the shop.');
+    if (any(STONE) && !on('cb_sem'))
+      w.push('Stone top with no seam line. Anything over about 10 ft, or any L-shape, seams.');
+    if (any(['cb_base','cb_isl','cb_db']) && !any(TOPS))
+      w.push('Base cabinets with nothing going on top of them.');
+    if (any(TOPS) && !any(['cb_base','cb_isl','cb_db','cb_van']))
+      w.push('Countertop with no cabinets under it.');
+    if (on('cb_opn') && !on('cb_brk'))
+      w.push('Open shelving with no brackets.');
+    if (any(['cb_base','cb_wall']) && !on('cb_tk'))
+      w.push('New cabinets with no toe kick cover.');
+    if (Object.keys(onhand).some(function(k){ return num(onhand[k]) > 0; }))
+      w.push('You have material marked as on hand, so it is coming off both the buy list and the price. That material still cost you money once. Only use that column for leftovers you already ate the cost of.');
+    var badCustom = custom.filter(function(c){ return c.desc && c.qty > 0 && num(c.cost) > 0 && num(c.rate) === 0; });
+    if (badCustom.length)
+      w.push(badCustom.length + ' custom line' + (badCustom.length===1?'':'s') + ' cost you money but charge the customer nothing.');
+    if (on('cb_ksnk') && !any(['pl_snk','pl_stp','pl_dsp']))
+      w.push('Setting a kitchen sink with nobody hooking up the supply and drain.');
+    if (any(['cb_base','cb_wall','dm_cab']) && !on('fn_tmp'))
+      w.push('Kitchen torn out with no temporary setup line. They still have to eat for five weeks.');
+    if (on('fl_tile') && !any(['fl_afm','dw_cb','fl_lvl']))
+      w.push('Tile over slab with no crack isolation. One hairline in the slab telegraphs straight through.');
     if (d.subSub > 0 && num($('#f_submarkup').value) === 0)
       w.push('You are coordinating and warranting subs for free. Sub markup is at zero.');
     var blank = CAT.filter(function(c){ return items[c.k].on && qtyOf(c) <= 0; });
@@ -1035,7 +1182,7 @@
     var byBuy = {};
     buys.forEach(function(b){ byBuy[b.t] = (byBuy[b.t]||0) + b.cost; });
 
-    var cust = custom.filter(function(c){ return c.qty>0 && c.rate!==0 && c.desc; });
+    var cust = custom.filter(function(c){ return c.qty>0 && c.desc && (c.rate!==0 || num(c.cost)!==0 || num(c.hrs)!==0); });
     var cusCost = cust.reduce(function(s,c){ return s + num(c.cost)*c.qty; },0);
     var matSub = buys.reduce(function(s,b){ return s+b.cost; },0) + lines.reduce(function(s,l){ return s+l.mat; },0);
     var labSub = lines.reduce(function(s,l){ return s+l.lab; },0);
@@ -1057,7 +1204,13 @@
     if (rnd > 0 && total > 0) total = Math.ceil(total/rnd)*rnd;
 
     var costHr = A('f_costhr');
-    var cost = matSub + tax + subSub + cusCost + hours*costHr;
+    var crew = Math.max(1, A('f_crew'));
+    var hrday = Math.max(1, A('f_hrday'));
+    var days = hours/(crew*hrday);
+    var ovDay = A('f_ovday');
+    var ovCost = days * ovDay;
+    /* overhead sits inside cost on purpose: the floor below has to cover it too */
+    var cost = matSub + tax + subSub + cusCost + hours*costHr + ovCost;
     /* the floor: never sell below what it costs plus the margin you refuse to go under */
     var fm = Math.min(0.9, A('f_floormargin')/100);
     var floorPrice = fm < 1 ? cost/(1-fm) : cost;
@@ -1067,9 +1220,6 @@
     var unvCost = buys.reduce(function(s,b){ return s + (b.ver ? 0 : b.cost); },0);
     var unvShare = matSub > 0 ? unvCost/matSub : 0;
     var billedHr = hours > 0 ? labSub/hours : 0;
-    var crew = Math.max(1, A('f_crew'));
-    var hrday = Math.max(1, A('f_hrday'));
-    var days = hours/(crew*hrday);
     var floorSF = totalsFor(0).floor;
     var profit = total - cost;
     var margin = total > 0 ? profit/total : 0;
@@ -1088,6 +1238,7 @@
             subSub:subSub, cusSub:cusSub, tax:tax, mUp:mUp, sUp:sUp, op:op, cont:cont,
             total:total, bumped:bumped, waste:waste, hours:hours, days:days, floorSF:floorSF,
             cost:cost, profit:profit, margin:margin, billedHr:billedHr, costHr:costHr,
+            ovDay:ovDay, ovCost:ovCost, labCost:hours*costHr,
             floorPrice:floorPrice, floored:floored, unvShare:unvShare, cusCost:cusCost};
 
     paintAmounts(); drawSheet(); drawBuy(); drawCheck(); drawLetterhead(); drawWarnings();
@@ -1372,7 +1523,7 @@
   }
 
   var SET_FIELDS = ['f_waste','f_tax','f_markup','f_submarkup','f_op','f_cont','f_min','f_round',
-                    'f_dep','f_mid','f_midwhen','f_costhr','f_crew','f_hrday','f_targmarg',
+                    'f_dep','f_mid','f_midwhen','f_costhr','f_crew','f_hrday','f_targmarg','f_ovday',
                     'a_dooropen','a_winopen','a_doorwidth','a_casedoor','a_casewin','f_pad','f_floormargin',
                     'b_name','b_phone','b_email','b_site','b_lic','authText'];
 
@@ -1567,8 +1718,15 @@
       if (d.matSub > 0 && d.total > 0)
         notes.push('Materials are '+Math.round(d.matSub/d.total*100)+'% of the price and labor is '+
                    Math.round(d.labSub/d.total*100)+'%. On rebuild work labor usually runs higher than material.');
+      if (d.ovCost > 0)
+        notes.push('Overhead eats '+money0(d.ovCost)+' of this job just for the days it occupies. That is charged before you count a dollar of profit, which is why a slow job costs you money even at a good price.');
+      if (d.hours > 0 && d.total > 0)
+        notes.push('Every man-hour on this job has to carry '+money0(d.total/d.hours)+' of price to hold this number. If the work runs long, that is what you lose an hour.');
     }
     var g = [];
+    g.push('<div class="sumline"><span>Materials, tax and subs at cost</span><span>'+money(d.matSub+d.tax+d.subSub+d.cusCost)+'</span></div>');
+    g.push('<div class="sumline"><span>Labor at cost, '+d.hours.toFixed(1)+' man-hours</span><span>'+money(d.labCost)+'</span></div>');
+    g.push('<div class="sumline"><span>Overhead, '+d.days.toFixed(1)+' days at '+money0(d.ovDay)+'</span><span>'+money(d.ovCost)+'</span></div>');
     g.push('<div class="sumline b"><span>Estimated cost to do the work</span><span>'+money(d.cost)+'</span></div>');
     g.push('<div class="sumline"><span>Walk-away price, cost plus your '+Math.round(A('f_floormargin'))+'% floor</span><span>'+money(d.floorPrice)+'</span></div>');
     g.push('<div class="sumline b"><span>Price on the estimate</span><span>'+money(d.total)+'</span></div>');
